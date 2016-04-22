@@ -18,7 +18,7 @@ namespace DataBase
 		{
 		}
 
-		public static string DefaultText = "Blank";
+		public static string DefaultText = "-";
 		public static int DefaultId = 0;
 		public static DateTime DefaultDate = new DateTime(1970, 1, 1);
 	}
