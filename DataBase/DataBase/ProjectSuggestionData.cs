@@ -10,7 +10,7 @@
 using System;
 using System.Data;
 
-namespace DataBase
+namespace Taskr_UI_0_1
 {
 	// This part contains all the methods of the class
 	public partial class ProjectSuggestionData : DataBaseDataType
@@ -24,6 +24,7 @@ namespace DataBase
 		{
 			// Nothing to do here
 		}
+
 		public ProjectSuggestionData (int creatorId)
 		{
 
@@ -38,7 +39,15 @@ namespace DataBase
 			Notes = DBDefaults.DefaultText;
 		} // End of Constructor
 
-		public string ToQueryString ()
+	    public ProjectSuggestionData(string title, string shortDescription, string detailedDescription,string imageURL)
+	    {
+	        _title = title;
+	        _shortDescription = shortDescription;
+	        _detailedDescription = detailedDescription;
+	        _imageURL = imageURL;
+	    }
+
+	    public string ToQueryString ()
 		{
 			return "Not Implemented";
 		} // End of ToQueryString ()
@@ -111,6 +120,14 @@ namespace DataBase
 			set {_notes = value;}
 			get {return _notes;}
 		}
+
+	    private string _imageURL;
+
+	    public string imageURL
+	    {
+	        set {_imageURL = value; }
+            get { return _imageURL; }
+	    }
 	}
 }
 

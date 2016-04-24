@@ -10,7 +10,7 @@
 using System;
 using System.Data;
 
-namespace DataBase
+namespace Taskr_UI_0_1
 {
 	// This part contains all the methods of the class
 	public partial class TaskData : DataBaseDataType
@@ -139,6 +139,12 @@ namespace DataBase
 			set {_status = value;}
 			get {return _status;}
 		}
-	}
+        private string _imageURL;
+        public string imageURL
+        {
+            set { _imageURL = value; }
+            get { return _imageURL; }
+        }
+    }
 }
 
