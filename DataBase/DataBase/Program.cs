@@ -8,7 +8,7 @@ namespace DataBase
 	class MainClass
 	{
 
-		public DataBaseHandler db = new DataBaseHandler();
+		public DatabaseHandler db = new DatabaseHandler();
 
 		public static void Main (string[] args)
 		{

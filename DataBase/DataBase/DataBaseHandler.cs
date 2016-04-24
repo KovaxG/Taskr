@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Changed it back to the old style, there is no need to embed the user into the databasehandler, makes no sense, it may be convenient but not really.
+ */ 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,39 +13,47 @@ using System.Security.AccessControl;
 using System.Windows;
 using System.Xml;
 
-namespace Taskr_UI_0_1
+namespace DataBase
 {
     public partial class DatabaseHandler
     {
         /*	@param userName - from login
 		 *  @param password - from login
 		 *  @return UserData - the data of the user with succesful login or null
+		 * 
+		 * Changed back to old style. Returns UserData.
 		 */
-        public bool VerifyLogin(String userName, String password)
+        public UserData VerifyLogin(string userName, string password)
         {
-            OpenConnection();
-            string query = "SELECT * FROM users WHERE DisplayName LIKE '" + userName
-                            + "' AND PasswordHash LIKE '" + password + "';";
+			try {
+            	OpenConnection();
+            	string query = "SELECT * FROM users WHERE DisplayName LIKE '" + userName
+                	            + "' AND PasswordHash LIKE '" + password + "';";
 
-            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
-            DataSet ds = new DataSet();
-            dataAdapter.Fill(ds, "users");
-            CloseConnection();
-
-            if (ds.Tables["users"].Rows.Count == 0)
-            {
-                return false;
-            }
-
-            user = new UserData();
-            // foreach is not really necessary, because the querry can only return 1 row
-            // but I decided to keep it anyway, might make it a bit readable.
-            foreach (DataRow row in ds.Tables["users"].Rows)
-            {
-                user.FillFromDataRow(row);
-            }
-            
-            return true;
+            	MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+            	DataSet ds = new DataSet();
+            	dataAdapter.Fill(ds, "users");
+            	CloseConnection();
+					
+            	if (ds.Tables["users"].Rows.Count == 0)
+            	{
+            	    return null;
+            	}
+					
+            	UserData user = new UserData();
+            	// foreach is not really necessary, because the querry can only return 1 row
+            	// but I decided to keep it anyway, might make it a bit readable.
+            	foreach (DataRow row in ds.Tables["users"].Rows)
+            	{
+            	    user.FillFromDataRow(row);
+            	}
+            	
+				return user;
+			}
+			catch (Exception e) 
+			{
+				return null;
+			}
         } // End of VerifyLogin()
 
 
@@ -81,7 +93,10 @@ namespace Taskr_UI_0_1
                 return null;
             }
         } // End of GetActiveProjectsList()
-        //H
+
+        /*
+         * @return List<ProjectData> - returns all the availiable projects
+         */ 
         public List<ProjectSuggestionData> GetProjectSuggestionsList()
         {
             try
@@ -115,7 +130,9 @@ namespace Taskr_UI_0_1
                 Console.WriteLine(e.ToString());
                 return null;
             }
-        }
+		}// End of GetProjectSuggestionsList()
+
+
         //TODO Maybie I should check if there already exists a project with the same name?
         /*
 		 * @param newProject - inserts into the database all the properties from newProject
@@ -177,7 +194,7 @@ namespace Taskr_UI_0_1
 		 * @param project - the project that is being requested
 		 * @return bool - true if succes, false if failure
 		 */
-        public bool ProjectJoinRequest( ProjectData project)
+		public bool ProjectJoinRequest(UserData user, ProjectData project)
         {
             try
             {
@@ -194,7 +211,7 @@ namespace Taskr_UI_0_1
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                MessageBox.Show(e.Message);
+                //MessageBox.Show(e.Message);
                 return false;
             }
         } // End of ProjectJoinRequests()
@@ -260,12 +277,7 @@ namespace Taskr_UI_0_1
                 return false;
             }
         } // End of UpdateProject()
-
-        //H
-        public bool UpdateUser()
-        {
-            return UpdateUser(user);
-        }
+			
         /* Can Update only:
 		 * DisplayName, AvatarLink, Email, PasswordHash, PhoneNumber, WorkStatus, PersonalNotes, ActiveProject, ActiveTask
 		 * @param user - update user from table
@@ -440,7 +452,7 @@ namespace Taskr_UI_0_1
 		 * @param projectSuggestion - the one that will be adopted? adoptend? ...
 		 * @return ProjecData - after creating the project and database and whatevs
 		 */
-        public ProjectData AdoptProjectSuggestion(ProjectSuggestionData projectSuggestion)
+		public ProjectData AdoptProjectSuggestion(ProjectSuggestionData projectSuggestion, UserData user)
         {
             try
             {
@@ -538,16 +550,13 @@ namespace Taskr_UI_0_1
             }
         } // End of RemoveTask
 
-        /*  WARNING LAMBDAS AHEAD!! HIDE YOUR CHILDREN!
+        /* 
 		 * @param user - 
 		 */
         public bool AcceptUserProjectRequest(UserData user, ProjectData project)
         {
             try
             {
-                // Check if user requested joining the project
-                // I used a lambda statement because I wanted to use the same variable names
-                // think of them as functions inside of functions
                 {
                     OpenConnection();
                     string query = "SELECT * FROM projectrequests WHERE user_id = "
@@ -621,6 +630,17 @@ namespace Taskr_UI_0_1
             }
         } // End of GrantTask ()
 
+		// TODO getMode
+		public string getMode(UserData user)
+		{
+			if (user.ActiveProject == 0)
+				return "freelancer";
+			else
+			{
+				return "teamleader";
+			}
+		}
+
     } // End of Partial Class
 
     public partial class DatabaseHandler
@@ -631,7 +651,9 @@ namespace Taskr_UI_0_1
         private string uid;
         private string password;
 
-        //H 
+        /*
+         * Szerintem ez igy egyszeruen nem jo 
+         *
         private UserData user;
 
         public UserData User
@@ -639,6 +661,7 @@ namespace Taskr_UI_0_1
             get{return user;}
             set{user = value;}
         }
+        */
 
         // Create connectionstring and connection
         public DatabaseHandler()
@@ -695,16 +718,5 @@ namespace Taskr_UI_0_1
                 return false;
             }
         } // End of CloseConnection
-
-        //H
-        public string getMode()
-        {
-            if (user.ActiveProject == 0)
-                return "freelancer";
-            else
-            {
-                return "teamleader";
-            }
-        }
     } // End of Partial Class
 }

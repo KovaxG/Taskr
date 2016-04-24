@@ -10,7 +10,7 @@
 using System;
 using System.Data;
 
-namespace Taskr_UI_0_1
+namespace DataBase
 {
 	// This part contains all the methods of the class
 	public partial class ProjectSuggestionData : DataBaseDataType

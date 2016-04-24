@@ -10,7 +10,7 @@
 using System;
 using System.Data;
 
-namespace Taskr_UI_0_1
+namespace DataBase
 {
 	// This part contains all the methods of the class
 	public partial class ProjectData : DataBaseDataType
@@ -48,6 +48,8 @@ namespace Taskr_UI_0_1
 			//TODO implement this
 		} // End of Constructor
 
+		/*
+		 * You will insert nulls into the database, really unnecessary, just assign the fields.
 	    public ProjectData(string title, string shortDescription, string detailedDescription, string imageUrl)
 	    {
 	        _title = title;
@@ -55,6 +57,7 @@ namespace Taskr_UI_0_1
 	        _detailedDescription = detailedDescription;
 	        _imageURL = imageUrl;
 	    }
+	    */
 
 	    public string ToQueryString () 
 		{
@@ -200,12 +203,13 @@ namespace Taskr_UI_0_1
 			set {_consumedFunds = value;}
 			get {return _consumedFunds;}
 		}
+			
 
-        //H
+		// Have to modify the database to get this, for now have a [link goes here]
 	    private string _imageURL;
         public string imageURL
         {
-            set { _imageURL = value; }
+            set { _imageURL = "[link goes here]"; }
             get { return _imageURL; }
         }
 
