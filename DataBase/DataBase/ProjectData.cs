@@ -10,7 +10,7 @@
 using System;
 using System.Data;
 
-namespace DataBase
+namespace Taskr_UI_0_1
 {
 	// This part contains all the methods of the class
 	public partial class ProjectData : DataBaseDataType
@@ -48,7 +48,15 @@ namespace DataBase
 			//TODO implement this
 		} // End of Constructor
 
-		public string ToQueryString () 
+	    public ProjectData(string title, string shortDescription, string detailedDescription, string imageUrl)
+	    {
+	        _title = title;
+	        _shortDescription = shortDescription;
+	        _detailedDescription = detailedDescription;
+	        _imageURL = imageUrl;
+	    }
+
+	    public string ToQueryString () 
 		{
 			string returnString = "(";
 
@@ -192,6 +200,16 @@ namespace DataBase
 			set {_consumedFunds = value;}
 			get {return _consumedFunds;}
 		}
+
+        //H
+	    private string _imageURL;
+        public string imageURL
+        {
+            set { _imageURL = value; }
+            get { return _imageURL; }
+        }
+
+
 	}
 }
 

@@ -14,7 +14,7 @@
 using System;
 using System.Data;
 
-namespace DataBase
+namespace Taskr_UI_0_1
 {
 	// This part contains all the methods of the class
 	public partial class UserData : DataBaseDataType
@@ -198,7 +198,25 @@ namespace DataBase
 			set {_observations = value;}
 			get {return _phoneNumber;}
 		}
-	}
+        //H
+
+        public string Notes
+        {
+            get
+            {
+                return _notes;
+            }
+
+            set
+            {
+                _notes = value;
+            }
+        }
+
+        private string _notes;
+    }
+
+
 
 }
 
