@@ -1,5 +1,10 @@
 ﻿/*
- * Changed it back to the old style, there is no need to embed the user into the databasehandler, makes no sense, it may be convenient but not really.
+ * Name: DataBaseHandler
+ * By: Kovacs Gyorgy
+ * Date: 2016.04.10 ->
+ * 
+ * Now with embedded user... (-_-)
+ * 
  */ 
 
 using System;
@@ -19,16 +24,16 @@ namespace DataBase
     {
         /*	@param userName - from login
 		 *  @param password - from login
-		 *  @return UserData - the data of the user with succesful login or null
+		 *  @return bool - the data of the user with succesful login or null
 		 * 
-		 * Changed back to old style. Returns UserData.
 		 */
-        public UserData VerifyLogin(string userName, string password)
+		private UserData VerifyLogin(string userName, string password)
         {
 			try {
             	OpenConnection();
-            	string query = "SELECT * FROM users WHERE DisplayName LIKE '" + userName
-                	            + "' AND PasswordHash LIKE '" + password + "';";
+            	string query = "SELECT * FROM users WHERE DisplayName LIKE '@user_name' AND PasswordHash LIKE '@password';";
+				query.Replace ("@user_name", userName);
+				query.Replace ("@password", password);
 
             	MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
             	DataSet ds = new DataSet();
@@ -56,6 +61,22 @@ namespace DataBase
 			}
         } // End of VerifyLogin()
 
+		/* 
+		 * Call VerifyUser on the DataBase User
+		 */ 
+		public bool Login (string userName, string password) {
+			try {
+				User = this.VerifyLogin (userName, password);
+				if (User == null) return false;
+				else return true;
+			}
+			catch (Exception e) 
+			{
+				Console.WriteLine (e.ToString ());
+				return false;
+			}
+		}
+
 
         /*	@return List<ProjectData> - returns all the availiable projects
 		 */
@@ -66,7 +87,8 @@ namespace DataBase
                 List<ProjectData> returnList = new List<ProjectData>();
 
                 OpenConnection();
-                string query = "SELECT * FROM projects WHERE TerminatedBy = " + DBDefaults.DefaultId + ";";
+				string query = "SELECT * FROM projects WHERE TerminatedBy = '@emptyId';";
+				query.Replace ("@emptyId", DBDefaults.DefaultId);
                 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -93,6 +115,44 @@ namespace DataBase
                 return null;
             }
         } // End of GetActiveProjectsList()
+
+		/*	@return List<TaskData> - returns all the availiable projects
+		 */
+		public List<TaskData> GetTasksForProject(ProjectData project)
+		{
+			try
+			{
+				List<TaskData> returnList = new List<TaskData>();
+
+				OpenConnection();
+				string query = "SELECT * FROM tasks WHERE ParentProject = '@project_id';";
+				query.Replace ("@project_id", project.ID);
+
+				MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+				DataSet ds = new DataSet();
+				dataAdapter.Fill(ds, "tasks");
+				CloseConnection();
+
+				if (ds.Tables["tasks"].Rows.Count == 0)
+				{
+					return null;
+				}
+
+				foreach (DataRow row in ds.Tables["tasks"].Rows)
+				{
+					TaskData task = new TaskData();
+					task.FillFromDataRow(row);
+					returnList.Add(task);
+				}
+
+				return returnList;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.ToString());
+				return null;
+			}
+		} // End of GetTasksForProject()
 
         /*
          * @return List<ProjectData> - returns all the availiable projects
@@ -190,17 +250,18 @@ namespace DataBase
         } // End of InsertNewTask()
 
         /*
-		 * @param user - the user that maked the requests
 		 * @param project - the project that is being requested
 		 * @return bool - true if succes, false if failure
 		 */
-		public bool ProjectJoinRequest(UserData user, ProjectData project)
+		public bool ProjectJoinRequest(ProjectData project)
         {
             try
             {
                 OpenConnection();
-                string query = "INSERT INTO projectrequests (user_id, project_id) "
-                    + "VALUES  ('" + user.ID.ToString() + "', '" + project.ID.ToString() + "');";
+                string query = "INSERT INTO projectrequests (user_id, project_id) VALUES ('@user_id', '@project_id');";
+				query.Replace ("@user_id", User.ID);
+				query.Replace ("@project_id", project.ID);
+
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 command.ExecuteNonQuery();
@@ -217,17 +278,18 @@ namespace DataBase
         } // End of ProjectJoinRequests()
 
         /*
-		 * @param user - the user that maked the requests
 		 * @param project - the project that is being requested
 		 * @return bool - true if succes, false if failure
 		 */
-        public bool TaskRequest(UserData user, TaskData task)
+        public bool TaskRequest(TaskData task)
         {
             try
             {
                 OpenConnection();
-                string query = "INSERT INTO taskrequests (user_id, task_id) "
-                    + "VALUES  ('" + user.ID.ToString() + "', '" + task.ID.ToString() + "');";
+                string query = "INSERT INTO taskrequests (user_id, task_id) VALUES  ('@user_id', '@task_id');";
+				query.Replace ("@user_id", User.ID);
+				query.Replace ("@project_id", task.ID);
+
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 command.ExecuteNonQuery();
@@ -283,7 +345,7 @@ namespace DataBase
 		 * @param user - update user from table
 		 * @return bool - true if succes, false if failure
 		 */
-        public bool UpdateUser(UserData user)
+        private bool UpdateUser(UserData user)
         {
             try
             {
@@ -315,7 +377,25 @@ namespace DataBase
                 Console.WriteLine(e.Message);
                 return false;
             }
-        } // End of UpdateUser
+		} // End of UpdateUser ()
+
+		/* Can Update only:
+		 * DisplayName, AvatarLink, Email, PasswordHash, PhoneNumber, WorkStatus, PersonalNotes, ActiveProject, ActiveTask
+		 * @return bool - true if succes, false if failure
+		 */
+		public bool UpdateThisUser()
+		{
+			try
+			{
+				this.UpdateUser (User);
+				return true;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+				return false;
+			}
+		} // End of UpdateThisUser ()
 
         /*
 		 * @param project - get all the users requesting for project
@@ -326,8 +406,8 @@ namespace DataBase
             try
             {
                 OpenConnection();
-                string query = "SELECT * FROM users, projectrequests "
-                               + "WHERE users.Id = projectrequests.user_id AND projectrequests.project_Id = " + project.ID + ";";
+                string query = "SELECT * FROM users, projectrequests WHERE users.Id = projectrequests.user_id AND projectrequests.project_Id = '@project_id';";
+				query.Replace ("@project_id", project.ID);
 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -366,7 +446,8 @@ namespace DataBase
             try
             {
                 OpenConnection();
-                string query = "SELECT * FROM users WHERE Id = " + user.ID + ";";
+				string query = "SELECT * FROM users WHERE Id = '@user_id';";
+				query.Replace ("@user_id", user.ID);
 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -392,6 +473,24 @@ namespace DataBase
             }
         } // End of RefreshUser()
 
+		/*
+		 * @return bool - succes
+		 * Also! the user data is changed
+		 */
+		public bool RefreshThisUser()
+		{
+			try
+			{
+				this.RefreshUser (User);
+				return true;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.ToString());
+				return false;
+			}
+		} // End of RefresThishUser()
+
         /*
 		 * @param project - the project that will be refreshed
 		 * @return bool - succes
@@ -402,7 +501,8 @@ namespace DataBase
             try
             {
                 OpenConnection();
-                string query = "SELECT * FROM projects WHERE Id = " + project.ID + ";";
+                string query = "SELECT * FROM projects WHERE Id = '@project_id';";
+				query.Replace ("@project_id", project.ID);
 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -433,12 +533,12 @@ namespace DataBase
 		 * You could aslo do this manually, but eh. Database can handle it
 		 * Nice and short
 		 */
-        public bool DropTask(UserData user)
+        public bool DropTask()
         {
             try
             {
-                user.ActiveTask = DBDefaults.DefaultId;
-                return this.UpdateUser(user); // TODO check if this thing works
+                User.ActiveTask = DBDefaults.DefaultId;
+                return this.UpdateUser(User); // TODO check if this thing works
             }
             catch (Exception e)
             {
@@ -452,24 +552,24 @@ namespace DataBase
 		 * @param projectSuggestion - the one that will be adopted? adoptend? ...
 		 * @return ProjecData - after creating the project and database and whatevs
 		 */
-		public ProjectData AdoptProjectSuggestion(ProjectSuggestionData projectSuggestion, UserData user)
+		private ProjectData AdoptProjectSuggestion(ProjectSuggestionData projectSuggestion)
         {
             try
             {
                 // Check if user has active task
-                this.RefreshUser(user);
-                if (user.ActiveProject != DBDefaults.DefaultId)
+                this.RefreshUser(User);
+                if (User.ActiveProject != DBDefaults.DefaultId)
                 {
                     return null;
                 }
 
                 // Fetch the data from the projectSuggestion and put it into the new project
-                ProjectData newProject = new ProjectData(user.ID);
+                ProjectData newProject = new ProjectData(User.ID);
                 newProject.Title = projectSuggestion.Title;
                 newProject.ShortDescription = projectSuggestion.ShortDescription;
                 newProject.DetailedDescription = projectSuggestion.DetailedDescription;
                 newProject.CreatedBy = projectSuggestion.CreatedBy;
-                newProject.ProjectLead = user.ID;
+                newProject.ProjectLead = User.ID;
                 newProject.DateCreated = DateTime.Now;
                 newProject.Notes = projectSuggestion.Notes;
                 this.InsertNewProject(newProject);
@@ -486,8 +586,8 @@ namespace DataBase
                 }
 
                 // Add active task to user
-                user.ActiveProject = newProject.ID;
-                this.UpdateUser(user);
+                User.ActiveProject = newProject.ID;
+                this.UpdateUser(User);
 
                 // Delete SuggestedProject
                 this.RemoveProjectSuggestion(projectSuggestion);
@@ -651,17 +751,14 @@ namespace DataBase
         private string uid;
         private string password;
 
-        /*
-         * Szerintem ez igy egyszeruen nem jo 
-         *
-        private UserData user;
 
+		// Let it be known that Gyuri objected to this on 2016.04.25!
+        private UserData _user;
         public UserData User
         {
-            get{return user;}
-            set{user = value;}
+            get {return _user;}
+            set {_user = value;}
         }
-        */
 
         // Create connectionstring and connection
         public DatabaseHandler()
