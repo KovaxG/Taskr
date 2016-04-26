@@ -59,7 +59,7 @@ namespace DataBase
 			returnString += "'" + InvestmentRequired.ToString() + "', ";		// 6
 			returnString += "'" + EstimatedReturn.ToString() + "', ";		    // 7
 			returnString += "'" + Priority.ToString() + "', ";					// 8
-			returnString += "'" + Notes.ToString() + "', ";						// 9
+			returnString += "'" + Notes.ToString() + "'";						// 9
 
 			return returnString += ")";
 		} // End of ToQueryString ()
