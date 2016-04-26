@@ -14,9 +14,7 @@ namespace DataBase
 {
 	public class DBDefaults
 	{
-		public DBDefaults ()
-		{
-		}
+		public DBDefaults () {}
 
 		public static string DefaultText = "-";
 		public static int DefaultId = 0;

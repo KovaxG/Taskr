@@ -88,7 +88,7 @@ namespace DataBase
 
                 OpenConnection();
 				string query = "SELECT * FROM projects WHERE TerminatedBy = '@emptyId';";
-				query.Replace ("@emptyId", DBDefaults.DefaultId);
+				query.Replace ("@emptyId", DBDefaults.DefaultId.ToString ());
                 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -126,7 +126,7 @@ namespace DataBase
 
 				OpenConnection();
 				string query = "SELECT * FROM tasks WHERE ParentProject = '@project_id';";
-				query.Replace ("@project_id", project.ID);
+				query.Replace ("@project_id", project.ID.ToString ());
 
 				MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
 				DataSet ds = new DataSet();
@@ -259,8 +259,8 @@ namespace DataBase
             {
                 OpenConnection();
                 string query = "INSERT INTO projectrequests (user_id, project_id) VALUES ('@user_id', '@project_id');";
-				query.Replace ("@user_id", User.ID);
-				query.Replace ("@project_id", project.ID);
+				query.Replace ("@user_id", User.ID.ToString ());
+				query.Replace ("@project_id", project.ID.ToString ());
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -287,8 +287,8 @@ namespace DataBase
             {
                 OpenConnection();
                 string query = "INSERT INTO taskrequests (user_id, task_id) VALUES  ('@user_id', '@task_id');";
-				query.Replace ("@user_id", User.ID);
-				query.Replace ("@project_id", task.ID);
+				query.Replace ("@user_id", User.ID.ToString ());
+				query.Replace ("@project_id", task.ID.ToString ());
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -407,7 +407,7 @@ namespace DataBase
             {
                 OpenConnection();
                 string query = "SELECT * FROM users, projectrequests WHERE users.Id = projectrequests.user_id AND projectrequests.project_Id = '@project_id';";
-				query.Replace ("@project_id", project.ID);
+				query.Replace ("@project_id", project.ID.ToString ());
 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -447,7 +447,7 @@ namespace DataBase
             {
                 OpenConnection();
 				string query = "SELECT * FROM users WHERE Id = '@user_id';";
-				query.Replace ("@user_id", user.ID);
+				query.Replace ("@user_id", user.ID.ToString ());
 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -502,7 +502,7 @@ namespace DataBase
             {
                 OpenConnection();
                 string query = "SELECT * FROM projects WHERE Id = '@project_id';";
-				query.Replace ("@project_id", project.ID);
+				query.Replace ("@project_id", project.ID.ToString ());
 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();

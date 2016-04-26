@@ -49,13 +49,34 @@ namespace DataBase
 
 	    public string ToQueryString ()
 		{
-			return "Not Implemented";
+			string returnString = "(";
+
+			returnString += "'" + Title + "', "; 								// 1
+			returnString += "'" + ShortDescription + "', ";						// 2
+			returnString += "'" + DetailedDescription + "', ";					// 3
+			returnString += "'" + CreatedBy + "', ";							// 4
+			returnString += "'" + DateCreated.ToShortDateString() + "', ";		// 5
+			returnString += "'" + InvestmentRequired.ToString() + "', ";		// 6
+			returnString += "'" + EstimatedReturn.ToString() + "', ";		    // 7
+			returnString += "'" + Priority.ToString() + "', ";					// 8
+			returnString += "'" + Notes.ToString() + "', ";						// 9
+
+			return returnString += ")";
 		} // End of ToQueryString ()
 
 		public void FillFromDataRow (DataRow row)
 		{
-			// TODO implement this method
-		}
+			_id = int.Parse(row.ItemArray.GetValue (0).ToString ());
+			Title = row.ItemArray.GetValue (1).ToString ();
+			ShortDescription = row.ItemArray.GetValue (2).ToString ();
+			DetailedDescription = row.ItemArray.GetValue (3).ToString ();
+			CreatedBy = int.Parse(row.ItemArray.GetValue (4).ToString ());
+			DateCreated = DateTime.Parse(row.ItemArray.GetValue (5).ToString ());
+			InvestmentRequired = row.ItemArray.GetValue (6).ToString ();
+			EstimatedReturn = row.ItemArray.GetValue (7).ToString ();
+			Priority = row.ItemArray.GetValue (8).ToString ();
+			Notes = row.ItemArray.GetValue (9).ToString ();
+		} // FillFromDataRow ()
 	}
 
 	// This class contains all the attributes of the class, and 

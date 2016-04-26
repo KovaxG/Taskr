@@ -23,6 +23,7 @@ namespace DataBase
 		}
 
 		public void run () {
+			/*
 			Console.WriteLine ("This is a test of Taskr.\n\n");
 			Console.WriteLine ("Login\n\n");
 			Console.Write ("UserName: ");
@@ -38,7 +39,7 @@ namespace DataBase
 
 			Console.WriteLine ("\n\nSuccessful login.");
 			printUserDetails (user);
-
+			*/
 		}
 			
 
