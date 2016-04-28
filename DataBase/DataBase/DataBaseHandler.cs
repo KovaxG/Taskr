@@ -32,8 +32,8 @@ namespace DataBase
 			try {
             	OpenConnection();
             	string query = "SELECT * FROM users WHERE DisplayName LIKE '@user_name' AND PasswordHash LIKE '@password';";
-				query.Replace ("@user_name", userName);
-				query.Replace ("@password", password);
+				query = query.Replace ("@user_name", userName);
+				query = query.Replace ("@password", password);
 
             	MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
             	DataSet ds = new DataSet();
@@ -87,8 +87,8 @@ namespace DataBase
                 List<ProjectData> returnList = new List<ProjectData>();
 
                 OpenConnection();
-				string query = "SELECT * FROM projects WHERE TerminatedBy = '@emptyId';";
-				query.Replace ("@emptyId", DBDefaults.DefaultId.ToString ());
+				string query = "SELECT * FROM projects WHERE TerminatedBy = @emptyId;";
+				query = query.Replace ("@emptyId", DBDefaults.DefaultId.ToString ());
                 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -125,8 +125,9 @@ namespace DataBase
 				List<TaskData> returnList = new List<TaskData>();
 
 				OpenConnection();
-				string query = "SELECT * FROM tasks WHERE ParentProject = '@project_id';";
-				query.Replace ("@project_id", project.ID.ToString ());
+				
+				string query = "SELECT * FROM tasks WHERE ParentProject = @project_id;";
+				query = query.Replace ("@project_id", project.ID.ToString ());
 
 				MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
 				DataSet ds = new DataSet();
@@ -135,6 +136,7 @@ namespace DataBase
 
 				if (ds.Tables["tasks"].Rows.Count == 0)
 				{
+					Console.WriteLine("ds.Count == 0");
 					return null;
 				}
 
@@ -149,6 +151,7 @@ namespace DataBase
 			}
 			catch (Exception e)
 			{
+				Console.WriteLine ("Caught!");
 				Console.WriteLine(e.ToString());
 				return null;
 			}
@@ -258,9 +261,9 @@ namespace DataBase
             try
             {
                 OpenConnection();
-                string query = "INSERT INTO projectrequests (user_id, project_id) VALUES ('@user_id', '@project_id');";
-				query.Replace ("@user_id", User.ID.ToString ());
-				query.Replace ("@project_id", project.ID.ToString ());
+                string query = "INSERT INTO projectrequests (user_id, project_id) VALUES (@user_id, @project_id);";
+				query = query.Replace ("@user_id", User.ID.ToString ());
+				query = query.Replace ("@project_id", project.ID.ToString ());
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -286,9 +289,9 @@ namespace DataBase
             try
             {
                 OpenConnection();
-                string query = "INSERT INTO taskrequests (user_id, task_id) VALUES  ('@user_id', '@task_id');";
-				query.Replace ("@user_id", User.ID.ToString ());
-				query.Replace ("@project_id", task.ID.ToString ());
+                string query = "INSERT INTO taskrequests (user_id, task_id) VALUES  (@user_id, @task_id);";
+				query = query.Replace ("@user_id", User.ID.ToString ());
+				query = query.Replace ("@project_id", task.ID.ToString ());
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -406,8 +409,8 @@ namespace DataBase
             try
             {
                 OpenConnection();
-                string query = "SELECT * FROM users, projectrequests WHERE users.Id = projectrequests.user_id AND projectrequests.project_Id = '@project_id';";
-				query.Replace ("@project_id", project.ID.ToString ());
+                string query = "SELECT * FROM users, projectrequests WHERE users.Id = projectrequests.user_id AND projectrequests.project_Id = @project_id;";
+				query = query.Replace ("@project_id", project.ID.ToString ());
 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -446,8 +449,8 @@ namespace DataBase
             try
             {
                 OpenConnection();
-				string query = "SELECT * FROM users WHERE Id = '@user_id';";
-				query.Replace ("@user_id", user.ID.ToString ());
+				string query = "SELECT * FROM users WHERE Id = @user_id;";
+				query = query.Replace ("@user_id", user.ID.ToString ());
 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -501,8 +504,8 @@ namespace DataBase
             try
             {
                 OpenConnection();
-                string query = "SELECT * FROM projects WHERE Id = '@project_id';";
-				query.Replace ("@project_id", project.ID.ToString ());
+                string query = "SELECT * FROM projects WHERE Id = @project_id;";
+				query = query.Replace ("@project_id", project.ID.ToString ());
 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
@@ -766,7 +769,7 @@ namespace DataBase
             server = "localhost";
             database = "test";
             uid = "root";
-            password = "";
+            password = "root";
 
             string connectionString =
                 "SERVER=" + server + ";"
@@ -776,6 +779,13 @@ namespace DataBase
 
             connection = new MySqlConnection(connectionString);
         } // End of Constructor
+
+		public bool Test ()
+		{
+			bool succes = OpenConnection ();
+			CloseConnection ();
+			return succes;
+		}
 
         // TODO should change console messages to MessageBox
         private bool OpenConnection()

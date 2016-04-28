@@ -23,23 +23,25 @@ namespace DataBase
 		}
 
 		public void run () {
-			/*
-			Console.WriteLine ("This is a test of Taskr.\n\n");
-			Console.WriteLine ("Login\n\n");
-			Console.Write ("UserName: ");
-			string username = "mircea";//Console.ReadLine ();
-			Console.Write ("Password: ");
-			string password = "passwordmircea1";//Console.ReadLine ();
 
-			UserData user = db.VerifyLogin (username, password);
-			if (user == null) {
-				Console.WriteLine ("Did not find user, exiting...");
-				return;
+			if (!db.Test ()) return;
+
+			try {
+				Console.WriteLine ("This is a test of Taskr.\n\n");
+				Console.WriteLine ("Login\n\n");
+				Console.Write ("UserName: ");
+				string username = "mircea";//Console.ReadLine ();
+				Console.Write ("Password: ");
+				string password = "passwordmircea1";//
+				db.Login (username, password);
+				Console.WriteLine ("\n\nSuccessful login.");
+				printUserDetails (db.User);
+			}
+			catch(Exception e) 
+			{
+				Console.WriteLine (e.ToString ());
 			}
 
-			Console.WriteLine ("\n\nSuccessful login.");
-			printUserDetails (user);
-			*/
 		}
 			
 
