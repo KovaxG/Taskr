@@ -532,7 +532,6 @@ namespace DataBase
         } // End of RefreshProject()
 
         /*
-		 * @param user - user that is to be modified
 		 * You could aslo do this manually, but eh. Database can handle it
 		 * Nice and short
 		 */
@@ -550,6 +549,25 @@ namespace DataBase
             }
 
         } // End of DropTask
+
+		/*
+		 * You could aslo do this manually, but eh. Database can handle it
+		 * Nice and short
+		 */
+		public bool DropProject()
+		{
+			try
+			{
+				User.ActiveProject = DBDefaults.DefaultId;
+				return this.UpdateUser(User); // TODO check if this thing works
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.ToString());
+				return false;
+			}
+
+		} // End of DropProject
 
         /*
 		 * @param projectSuggestion - the one that will be adopted? adoptend? ...

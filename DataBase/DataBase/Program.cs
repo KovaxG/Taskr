@@ -36,6 +36,19 @@ namespace DataBase
 				db.Login (username, password);
 				Console.WriteLine ("\n\nSuccessful login.");
 				printUserDetails (db.User);
+
+				List<ProjectData> projectList = db.GetActiveProjectsList ();
+				List<ProjectSuggestionData> projectSuggestionList = db.GetProjectSuggestionsList ();
+
+				Console.WriteLine ("\n========================================");
+				Console.WriteLine ("Printing Projects List: \n");
+				foreach (ProjectData p in projectList) {
+					Console.WriteLine (p.Title);
+				}
+				foreach (ProjectSuggestionData ps in projectSuggestionList) {
+					Console.WriteLine (ps.Title);
+				}
+				Console.WriteLine ("\n========================================");
 			}
 			catch(Exception e) 
 			{
@@ -48,7 +61,7 @@ namespace DataBase
 		// User details can be used to fill in any data you want from the form
 		public void printUserDetails (UserData user) {
 			Console.WriteLine ("\n========================================");
-			Console.WriteLine ("\nPrinting user details...");
+			Console.WriteLine ("Printing user details...\n");
 			Console.WriteLine ("FirstName: " + user.FirstName);
 			Console.WriteLine ("LastName: " + user.LastName);
 			Console.WriteLine ("DisplayName: " + user.DisplayName);
