@@ -7,8 +7,9 @@ Descarcati, si instalati git de pe acest link:
 https://git-scm.com/downloads
 
 dupa aia:
+astepti putin
+si mai astepti :  puteti sa faceti un fisier nou, cu ce nume vreti si sa itrati in el, click dreapta, git bash:
 
-acum puteti sa faceti un fisier nou, cu ce nume vreti si sa itrati in el, click dreapta, git bash:
 
 git init
 git config --global user.name "Numele vostru pe github"
