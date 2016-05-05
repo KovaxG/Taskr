@@ -25,4 +25,5 @@ git add --all
 git commit -m "Puneti un mesaj aici, sa fie putin descriptiv"
 git push http://github.com/KovaxG/Taskr.git master
 
-that's it.
+that's all folks, hahahahahahahahahahahahah;
+This is just a test relax.
