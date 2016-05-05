@@ -1,0 +1,17 @@
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\bin\Debug\resources\X.png
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.exe.config
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.exe
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.pdb
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\bin\Debug\dje\Taskr_UI_0_1.resources.dll
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.EditUserDetails.resources
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.LoginApp.resources
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.Properties.Resources.resources
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.TaskView.resources
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.UserApp.resources
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.UserAppS.resources
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.TaskView.dje.resources
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_5.csproj.GenerateResource.Cache
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\dje\Taskr_UI_0_1.resources.dll
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.exe
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.pdb
+C:\C#\Projects\Taskr_UI_0_4_m\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_5.csprojResolveAssemblyReference.cache
