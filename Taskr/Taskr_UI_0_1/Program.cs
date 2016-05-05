@@ -24,15 +24,19 @@ namespace Taskr_UI_0_1
             DatabaseHandler dh = new DatabaseHandler();
             UserAppS ua;
             LoginApp la = new LoginApp(dh);
-            //dh.VerifyLogin("Dan", "passworddan9");
-            //ua = new UserAppS(dh);
-            //ua.ShowDialog();
-            
-            if (la.ShowDialog() == DialogResult.OK)
+            dh.Login("Traian", "passwordtraian8");
+            ua = new UserAppS(dh);
+            ua.ShowDialog();
+
+            /*try
             {
-                ua = new UserAppS(dh);
-                ua.ShowDialog();
+                if (la.ShowDialog() == DialogResult.OK)
+                {
+                    ua = new UserAppS(dh);
+                    ua.ShowDialog();
+                }
             }
+            catch (Exception e) {}*/
         }
     }
 }

@@ -321,7 +321,8 @@ namespace DataBase
                 OpenConnection();
                 string query = "UPDATE projects SET Title = @Title, ShortDescription = @ShortDescription, "
                     + "DetailedDescription = @DetailedDescription, Notes = @Notes, AvailableFunds = @AvailableFunds, "
-                    + "CurrentYield = @CurrentYield, "
+                    + "CurrentYield = @CurrentYield, DateTerminated = @DateTerminated, TerminationReason = @TerminationReason, "
+                    + "TerminatedBy = @TerminatedBy "
                     + " WHERE Id = @project_id;";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -331,6 +332,9 @@ namespace DataBase
                 command.Parameters.AddWithValue("@Notes", project.Notes);
                 command.Parameters.AddWithValue("@AvailableFunds", project.AvailibleFunds);
                 command.Parameters.AddWithValue("@CurrentYield", project.CurrentYield);
+                command.Parameters.AddWithValue("@DateTerminated", project.DateTerminated.ToShortDateString());
+                command.Parameters.AddWithValue("@TerminatedBy", project.TerminatedBy);
+                command.Parameters.AddWithValue("@TerminationReason", project.TerminationReason);
                 command.Parameters.AddWithValue("@user_id", project.ID);
 
                 command.ExecuteNonQuery();
@@ -340,7 +344,7 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                MessageBox.Show(e.Message);
                 return false;
             }
         } // End of UpdateProject()
@@ -556,12 +560,12 @@ namespace DataBase
 		 * You could aslo do this manually, but eh. Database can handle it
 		 * Nice and short
 		 */
-		public bool DropProject()
+		public bool LeaveProject()
 		{
 			try
 			{
 				User.ActiveProject = DBDefaults.DefaultId;
-				return this.UpdateUser(User); // TODO check if this thing works
+				return this.UpdateUser(User);
 			}
 			catch (Exception e)
 			{
@@ -569,13 +573,37 @@ namespace DataBase
 				return false;
 			}
 
-		} // End of DropProject
+		} // End of LeaveProject
+
+        /*
+		 * You could aslo do this manually, but eh. Database can handle it
+		 * Nice and short
+		 */
+        public bool AbolishProject(string reason)
+        {
+            try
+            {
+                ProjectData myProject = this.GetCurrentProject();
+                myProject.DateTerminated = DateTime.Now;
+                myProject.TerminatedBy = User.ID;
+                myProject.TerminationReason = reason;
+                this.LeaveProject();
+                this.UpdateProject(myProject);
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                return false;
+            }
+
+        } // End of AbolishProject
 
         /*
 		 * @param projectSuggestion - the one that will be adopted? adoptend? ...
 		 * @return ProjecData - after creating the project and database and whatevs
 		 */
-		public ProjectData AdoptProjectSuggestion(ProjectSuggestionData projectSuggestion)
+        public ProjectData AdoptProjectSuggestion(ProjectSuggestionData projectSuggestion)
         {
             try
             {
@@ -756,7 +784,7 @@ namespace DataBase
         // TODO getMode
         public string getModeForUser(UserData user)
         {
-            if (user.ActiveProject == 0)
+            /*if (user.ActiveProject == 0)
                 return "freelancer";
             else
             {
@@ -764,6 +792,20 @@ namespace DataBase
                 ProjectData projectOfWichTheUserIsTeamLeader = (ProjectData)projects.Where(p => p.ID == user.ActiveProject);
                 if (projectOfWichTheUserIsTeamLeader == null) return "teammember";
                 else return "teamleader";
+            }*/
+            if (user.ActiveProject == 0)
+            {
+                return "freelancer";
+            }
+            else
+            {
+                List<ProjectData> pdl = GetActiveProjectsList();
+                foreach (ProjectData pd in pdl)
+                {
+                    if (pd.ProjectLead == user.ID)
+                        return "teamleader";
+                }
+                return "teammember";
             }
         }// End of GetMode
 
@@ -858,7 +900,14 @@ namespace DataBase
         public ProjectData GetCurrentProject()
         {
             List<ProjectData> projectsList = this.GetActiveProjectsList();
-            return (ProjectData)projectsList.Where(p => p.ID == User.ActiveProject);
+            //return (ProjectData)projectsList.Where(p => p.ID == User.ActiveProject);
+            ProjectData tempProject = null;
+            foreach (ProjectData project in projectsList)
+            {
+                if (project.ID == User.ActiveProject) tempProject = project;
+            }
+
+            return tempProject;
         } // End of GetCurrentProject
 
         public string GetMode()

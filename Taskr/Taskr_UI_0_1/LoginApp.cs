@@ -14,6 +14,7 @@ namespace Taskr_UI_0_1
     public partial class LoginApp : Form
     {
         DatabaseHandler d;
+
         //UserAppS u;
         public LoginApp(DatabaseHandler d)
         {
@@ -21,6 +22,12 @@ namespace Taskr_UI_0_1
             InitializeComponent();
             this.textUserName.Focus();
             d = new DatabaseHandler();
+            if (!d.Test())
+            {
+                MessageBox.Show("Could not connect to database!");
+                this.Close();
+                this.Dispose();
+            }
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)

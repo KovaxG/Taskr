@@ -43,10 +43,25 @@ namespace DataBase
 			CollectedFunds = DBDefaults.DefaultText;
 			ConsumedFunds = DBDefaults.DefaultText;
 		} 
-		public ProjectData (ProjectData project) 
+		public ProjectData (ProjectData project)
 		{
-			//TODO implement this
-		} // End of Constructor
+		    _id = project.ID;
+		    Title = project.Title;
+            ShortDescription = project.ShortDescription;
+            DetailedDescription = project.DetailedDescription;
+            CreatedBy = CreatedBy;
+            ProjectLead = ProjectLead;
+            DateCreated = project.DateCreated;
+            LogURL = project.LogURL;
+            Notes = project.Notes;
+            AvailibleFunds = project.AvailibleFunds;
+            CurrentYield = project.CurrentYield;
+            DateTerminated = project.DateTerminated;
+            TerminationReason = project.TerminationReason;
+            TerminatedBy = project.TerminatedBy;
+            CollectedFunds = project.CollectedFunds;
+            ConsumedFunds = project.ConsumedFunds;
+        } // End of Constructor
 
 		/*
 		 * You will insert nulls into the database, really unnecessary, just assign the fields.

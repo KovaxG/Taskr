@@ -147,9 +147,8 @@ namespace Taskr_UI_0_1
 
         private void buttonAbandonProject_Click(object sender, EventArgs e)
         {
-            int formerProject = d.User.ActiveProject;
-            d.User.ActiveProject = 0;
-            if (d.UpdateThisUser())
+         
+            if (d.AbolishProject("Just Couase"))
             {
                 MessageBox.Show("Project Successfully abolished");
                 
@@ -158,12 +157,6 @@ namespace Taskr_UI_0_1
                 this.Close();
                 this.Dispose();
                 u.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("An unspecified error occured");
-                d.User.ActiveProject = formerProject;
-
             }
         }
     }
