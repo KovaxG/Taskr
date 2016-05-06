@@ -6,24 +6,45 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using DataBase;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Taskr_UI_0_1
 {
     public partial class TaskView : Form
     {
+     
         DatabaseHandler d;
         UserAppS us;
         ProjectData pd;
+        private List<TaskData> tdl;
         public TaskView(ProjectData pd,  DatabaseHandler d, UserAppS us)
         {
-            this.us = us;
-            this.d = d;
-            this.pd = pd;
-            InitializeComponent();
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            iterateTask(pd);
+           
+           tdl = d.GetTasksForProject(pd);
+
+            if (tdl == null)
+                throw new Exception("The are no available tasks for this project");
+           this.us = us;
+           this.d = d;
+           this.pd = pd;
+           InitializeComponent();
+            
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            if (tdl != null)
+            {
+                base.OnShown(e);
+                foreach (TaskData td in tdl)
+                {
+                    PanelItemTasks item = new PanelItemTasks(td);
+                    this.flowLayoutPanel1.Controls.Add(item);
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -32,19 +53,6 @@ namespace Taskr_UI_0_1
             this.Dispose();
         }
 
-        private void iterateTask(ProjectData pd)
-        {
-
-           /* d.resetTaskIterator();
-                    TaskData td;// = new ProjectData();
-                    td = new TaskData();
-                    td = d.getNextTaskData();
-                    while (td != null)
-                    {
-                        this.flowLayoutPanel1.Controls.Add(new PanelItemTasks(td).getPanel());
-                        td = d.getNextTaskData();
-                    }*/
-        }
 
         private void buttonJoin_Click(object sender, EventArgs e)
         {

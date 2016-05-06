@@ -8,20 +8,12 @@ using DataBase;
 
 namespace Taskr_UI_0_1
 {
-    class PanelItemTasks //: Panel
+    class PanelItemTasks : Panel
     {
-        private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxTitle;
-        //private System.Windows.Forms.Button buttonViewTasks;
-        //private System.Windows.Forms.Button buttonJoinProjects;
         private System.Windows.Forms.PictureBox pictureTask;
 
-        public System.Windows.Forms.Panel getPanel()
-        {
-            return this.panel;
-        }
-        
         public PanelItemTasks( TaskData td)
         {
             //
@@ -31,29 +23,22 @@ namespace Taskr_UI_0_1
             //
             //initialize component classes
             //
-            this.panel = new System.Windows.Forms.Panel();
             this.pictureTask = new System.Windows.Forms.PictureBox();
-            //this.buttonJoinProjects = new System.Windows.Forms.Button();
-            //this.buttonViewTasks = new System.Windows.Forms.Button();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.panel.SuspendLayout();
-            //
-            //add panel to tab
-            //
+            this.SuspendLayout();
+
             // 
             // panel
             // 
-            this.panel.BackColor = System.Drawing.Color.DarkGray;
-            this.panel.Controls.Add(this.textBoxDescription);
-            this.panel.Controls.Add(this.textBoxTitle);
-            //this.panel.Controls.Add(this.buttonViewTasks);
-            //this.panel.Controls.Add(this.buttonJoinProjects);
-            this.panel.Controls.Add(this.pictureTask);
-            this.panel.Location = new System.Drawing.Point(3, 3);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(620, 157);
-            this.panel.TabIndex = 1;
+            this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.textBoxDescription);
+            this.Controls.Add(this.textBoxTitle);
+            this.Controls.Add(this.pictureTask);
+            this.Location = new System.Drawing.Point(3, 3);
+            this.Name = "panel";
+            this.Size = new System.Drawing.Size(620, 157);
+            this.TabIndex = 1;
             // 
             // pictureTask
             // 
@@ -72,27 +57,7 @@ namespace Taskr_UI_0_1
             {
                 this.pictureTask.Image = this.pictureTask.ErrorImage;
             }
-            // 
-            // buttonJoinProjects
-            // 
-            //this.buttonJoinProjects.Location = new System.Drawing.Point(613, 107);
-            //this.buttonJoinProjects.Name = "buttonJoinProjects";
-            //this.buttonJoinProjects.Size = new System.Drawing.Size(95, 35);
-            //this.buttonJoinProjects.TabIndex = 1;
-            //this.buttonJoinProjects.Text = "Join Project";
-            //this.buttonJoinProjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            //this.buttonJoinProjects.UseVisualStyleBackColor = true;
-            //// 
-            //// buttonViewTasks
-            //// 
-            //this.buttonViewTasks.Location = new System.Drawing.Point(613, 55);
-            //this.buttonViewTasks.Name = "buttonViewTasks";
-            //this.buttonViewTasks.Size = new System.Drawing.Size(95, 35);
-            //this.buttonViewTasks.TabIndex = 2;
-            //this.buttonViewTasks.Text = "View Tasks";
-            //this.buttonViewTasks.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); 
-            //this.buttonViewTasks.UseVisualStyleBackColor = true;
-            //this.buttonViewTasks.Click += new System.EventHandler(this.buttonViewTasks_Click);
+
             // 
             // textBoxTitle
             // 
@@ -116,8 +81,8 @@ namespace Taskr_UI_0_1
             this.textBoxDescription.Size = new System.Drawing.Size(457, 87);
             this.textBoxDescription.TabIndex = 5;
 
-            this.panel.ResumeLayout();
-            this.panel.PerformLayout();
+            this.ResumeLayout();
+            this.PerformLayout();
         }
 
 

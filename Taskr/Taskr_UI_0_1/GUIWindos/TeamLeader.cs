@@ -38,7 +38,7 @@ namespace Taskr_UI_0_1
                 foreach (TaskData td in tdl)
                 {
                     pit = new PanelItemTasks(td);
-                    this.flowLayoutPanelProjectSuggestions.Controls.Add(pit.getPanel());
+                    this.flowLayoutPanelProjectSuggestions.Controls.Add(pit);
                 }
             }
         }

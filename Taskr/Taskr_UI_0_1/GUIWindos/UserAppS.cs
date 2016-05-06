@@ -73,7 +73,7 @@ namespace Taskr_UI_0_1
                         foreach (ProjectData pd in pdl)
                         {
                             ppi = new PanelItemActiveProjects(pd, d, this);
-                            this.flowLayoutPanelActiveProjects.Controls.Add(ppi.getPanel());
+                            this.flowLayoutPanelActiveProjects.Controls.Add(ppi);
                         }
                     }
                     /*else
@@ -87,7 +87,7 @@ namespace Taskr_UI_0_1
                         foreach (ProjectSuggestionData psd in psdl)
                         {
                             pips = new PanelItemProjectSuggestions(psd, d, this);
-                            this.flowLayoutPanelProjectSuggestions.Controls.Add(pips.getPanel());
+                            this.flowLayoutPanelProjectSuggestions.Controls.Add(pips);
                         }
                     }
                     /*else

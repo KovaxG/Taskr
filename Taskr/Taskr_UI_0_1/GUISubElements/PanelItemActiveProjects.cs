@@ -8,9 +8,8 @@ using DataBase;
 
 namespace Taskr_UI_0_1
 {
-    class PanelItemActiveProjects
+    class PanelItemActiveProjects : System.Windows.Forms.Panel
     {
-        private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.Button buttonViewTasks;
@@ -22,13 +21,9 @@ namespace Taskr_UI_0_1
 
         Taskr_UI_0_1.UserAppS us;
 
-        public System.Windows.Forms.Panel getPanel()
-        {
-            return this.panel;
-        }
-
         public PanelItemActiveProjects( ProjectData pd, DatabaseHandler d,UserAppS us)
         {
+            
             this.us = us;   
             this.pd = pd;
             this.d = d;
@@ -39,27 +34,26 @@ namespace Taskr_UI_0_1
             //
             //initialize component classes
             //
-            this.panel = new System.Windows.Forms.Panel();
             this.pictureProject = new System.Windows.Forms.PictureBox();
             this.buttonJoinProjects = new System.Windows.Forms.Button();
             this.buttonViewTasks = new System.Windows.Forms.Button();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.panel.SuspendLayout();
+            this.SuspendLayout();
 
             // 
             // panel
             // 
-            this.panel.BackColor = System.Drawing.Color.DarkGray;
-            this.panel.Controls.Add(this.textBoxDescription);
-            this.panel.Controls.Add(this.textBoxTitle);
-            this.panel.Controls.Add(this.buttonViewTasks);
-            this.panel.Controls.Add(this.buttonJoinProjects);
-            this.panel.Controls.Add(this.pictureProject);
-            this.panel.Location = new System.Drawing.Point(3, 3);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(722, 157);
-            this.panel.TabIndex = 1;
+            this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.textBoxDescription);
+            this.Controls.Add(this.textBoxTitle);
+            this.Controls.Add(this.buttonViewTasks);
+            this.Controls.Add(this.buttonJoinProjects);
+            this.Controls.Add(this.pictureProject);
+            this.Location = new System.Drawing.Point(3, 3);
+            this.Name = "panel";
+            this.Size = new System.Drawing.Size(722, 157);
+            this.TabIndex = 1;
             // 
             // pictureProject
             // 
@@ -123,15 +117,22 @@ namespace Taskr_UI_0_1
             this.textBoxDescription.Size = new System.Drawing.Size(457, 87);
             this.textBoxDescription.TabIndex = 5;
 
-            this.panel.ResumeLayout();
-            this.panel.PerformLayout();
+            this.ResumeLayout();
+            this.PerformLayout();
         }
 
         private void buttonViewTaks_Click(object sender, EventArgs e)
         {
-            TaskView TasksForm = new TaskView(pd, d,us);
-           
-            TasksForm.Show();
+            try
+            {
+                TaskView taskView = new TaskView(pd, d, us);
+                taskView.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Could not load tasks");
+            }
+
         }
         private void buttonJoinProjects_Click(object sender, EventArgs e)
         {
@@ -148,11 +149,10 @@ namespace Taskr_UI_0_1
                     break;
             }
         }
-        /*override public string ToString()
+        public override string ToString()
         {
-            return pd.getID().ToString()+ pd.title;
-            
-        }*/
+            return textBoxTitle.Text;
+        }
     }
 }
 

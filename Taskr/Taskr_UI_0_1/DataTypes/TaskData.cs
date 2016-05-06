@@ -61,8 +61,19 @@ namespace DataBase
 
 		public void FillFromDataRow (DataRow row)
 		{
-			
-		} // FillFromDataRow ()
+            _id = int.Parse(row.ItemArray.GetValue(0).ToString());
+            ParentId= int.Parse(row.ItemArray.GetValue(1).ToString());
+            Title = row.ItemArray.GetValue(2).ToString();
+            ShortDescription = row.ItemArray.GetValue(3).ToString();
+            DetailedDescription = row.ItemArray.GetValue(4).ToString();
+            ParentProject = int.Parse(row.ItemArray.GetValue(5).ToString());
+            DateCreated = DateTime.Parse(row.ItemArray.GetValue(6).ToString());
+            CreatedBy = int.Parse(row.ItemArray.GetValue(7).ToString());
+            DateCompleted = DateTime.Parse(row.ItemArray.GetValue(8).ToString());
+            CompletedBy= int.Parse(row.ItemArray.GetValue(9).ToString());
+            DeadLine = DateCreated = DateTime.Parse(row.ItemArray.GetValue(10).ToString());
+            Status = row.ItemArray.GetValue(11).ToString();
+        } // FillFromDataRow ()
 	}
 
 	// This class contains all the attributes of the class, and 

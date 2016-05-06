@@ -9,9 +9,8 @@ using DataBase;
 
 namespace Taskr_UI_0_1
 {
-    class PanelItemProjectSuggestions
+    class PanelItemProjectSuggestions : System.Windows.Forms.Panel
     {
-        private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.Button buttonAdoptProject;
@@ -21,10 +20,6 @@ namespace Taskr_UI_0_1
         private ProjectSuggestionData psd;
         private UserAppS us;
         
-        public System.Windows.Forms.Panel getPanel()
-        {
-            return this.panel;
-        }
 
         public PanelItemProjectSuggestions(ProjectSuggestionData psd,DatabaseHandler d, UserAppS us)
         {
@@ -38,25 +33,24 @@ namespace Taskr_UI_0_1
             //
             //initialize component classes
             //
-            this.panel = new System.Windows.Forms.Panel();
             this.pictureProject = new System.Windows.Forms.PictureBox();
             this.buttonAdoptProject = new System.Windows.Forms.Button();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.panel.SuspendLayout();
+            this.SuspendLayout();
 
             // 
             // panel
             // 
-            this.panel.BackColor = System.Drawing.Color.DarkGray;
-            this.panel.Controls.Add(this.textBoxDescription);
-            this.panel.Controls.Add(this.textBoxTitle);
-            this.panel.Controls.Add(this.buttonAdoptProject);
-            this.panel.Controls.Add(this.pictureProject);
-            this.panel.Location = new System.Drawing.Point(3, 3);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(722, 157);
-            this.panel.TabIndex = 1;
+            this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.textBoxDescription);
+            this.Controls.Add(this.textBoxTitle);
+            this.Controls.Add(this.buttonAdoptProject);
+            this.Controls.Add(this.pictureProject);
+            this.Location = new System.Drawing.Point(3, 3);
+            this.Name = "panel";
+            this.Size = new System.Drawing.Size(722, 157);
+            this.TabIndex = 1;
             // 
             // pictureProject
             // 
@@ -111,8 +105,8 @@ namespace Taskr_UI_0_1
             this.textBoxDescription.Size = new System.Drawing.Size(457, 87);
             this.textBoxDescription.TabIndex = 5;
 
-            this.panel.ResumeLayout();
-            this.panel.PerformLayout();
+            this.ResumeLayout();
+            this.PerformLayout();
         }
 
         private void buttonAdoptProject_Click(object sender, EventArgs e)
@@ -135,10 +129,10 @@ namespace Taskr_UI_0_1
                     break;
             }*/
         }
-        /*override public string ToString()
+        override public string ToString()
         {
-            return psd.getID().ToString() + psd.title;
-        }*/
+            return textBoxTitle.Text;
+        }
     }
 }
 
