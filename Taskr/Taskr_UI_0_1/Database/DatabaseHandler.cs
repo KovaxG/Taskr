@@ -6,7 +6,6 @@
  * Now with embedded user... (-_-)
  * 
  */
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +17,22 @@ using System.Net;
 using System.Security.AccessControl;
 using System.Windows;
 using System.Xml;
-using Taskr_UI_0_1;
+using DataBase;
 
 namespace DataBase
 {
     public partial class DatabaseHandler
     {
+		// TESTED 2016.05.06
         /*	@param userName - from login
 		 *  @param password - from login
-		 *  @return bool - the data of the user with succesful login or null
-		 * 
+		 *  @return UserData - the data of the user with succesful login or DefaultUser
 		 */
-		private UserData VerifyLogin(string userName, string password)
+		public UserData VerifyLogin(string userName, string password)
         {
+			if (userName == null) return new UserData();
+			if (password == null) return new UserData();
+
 			try {
             	OpenConnection();
             	string query = "SELECT * FROM users WHERE DisplayName LIKE '@user_name' AND PasswordHash LIKE '@password';";
@@ -42,12 +44,9 @@ namespace DataBase
             	dataAdapter.Fill(ds, "users");
             	CloseConnection();
 					
-            	if (ds.Tables["users"].Rows.Count == 0)
-            	{
-            	    return null;
-            	}
+				if (ds.Tables["users"].Rows.Count == 0) return new UserData();
 					
-            	UserData user = new UserData();
+				UserData user = new UserData();
             	// foreach is not really necessary, because the querry can only return 1 row
             	// but I decided to keep it anyway, might make it a bit readable.
             	foreach (DataRow row in ds.Tables["users"].Rows)
@@ -59,35 +58,21 @@ namespace DataBase
 			}
 			catch (Exception e) 
 			{
-				return null;
+				string errorMessage = "Exception in DataBaseHandler -> VerifyLogin |\n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return new UserData();
 			}
-        } // End of VerifyLogin()
+        } // End of VerifyLogin
 
-		/* 
-		 * Call VerifyUser on the DataBase User
-		 */ 
-		public bool Login (string userName, string password) {
-			try {
-				User = this.VerifyLogin (userName, password);
-				if (User == null) return false;
-				else return true;
-			}
-			catch (Exception e) 
-			{
-				Console.WriteLine (e.ToString ());
-				return false;
-			}
-		}
-
-
-        /*	@return List<ProjectData> - returns all the availiable projects
+		// TESTED 2016.05.06 
+        /*	@return List<ProjectData> - returns all the availiable projects, emptylist if no projects
 		 */
         public List<ProjectData> GetActiveProjectsList()
         {
+			List<ProjectData> returnList = new List<ProjectData>();
+
             try
             {
-                List<ProjectData> returnList = new List<ProjectData>();
-
                 OpenConnection();
 				string query = "SELECT * FROM projects WHERE TerminatedBy = @emptyId;";
 				query = query.Replace ("@emptyId", DBDefaults.DefaultId.ToString ());
@@ -97,14 +82,11 @@ namespace DataBase
                 dataAdapter.Fill(ds, "projects");
                 CloseConnection();
 
-                if (ds.Tables["projects"].Rows.Count == 0)
-                {
-                    return null;
-                }
+                if (ds.Tables["projects"].Rows.Count == 0) return returnList;
 
                 foreach (DataRow row in ds.Tables["projects"].Rows)
                 {
-                    ProjectData project = new ProjectData();
+					ProjectData project = new ProjectData();
                     project.FillFromDataRow(row);
                     returnList.Add(project);
                 }
@@ -113,21 +95,24 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return null;
+				string errorMessage = "Exception in DataBaseHandler -> GetActiveProjectsList \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return returnList;
             }
-        } // End of GetActiveProjectsList()
+        } // End of GetActiveProjectsList
 
+		// TESTED 2016.05.06
 		/*	@return List<TaskData> - returns all the availiable projects
 		 */
 		public List<TaskData> GetTasksForProject(ProjectData project)
-		{
+		{	
+			List<TaskData> returnList = new List<TaskData>();
+
+			if (project == null) return returnList;
+
 			try
 			{
-				List<TaskData> returnList = new List<TaskData>();
-
 				OpenConnection();
-				
 				string query = "SELECT * FROM tasks WHERE ParentProject = @project_id;";
 				query = query.Replace ("@project_id", project.ID.ToString ());
 
@@ -136,11 +121,7 @@ namespace DataBase
 				dataAdapter.Fill(ds, "tasks");
 				CloseConnection();
 
-				if (ds.Tables["tasks"].Rows.Count == 0)
-				{
-					Console.WriteLine("ds.Count == 0");
-					return null;
-				}
+				if (ds.Tables["tasks"].Rows.Count == 0) return returnList;
 
 				foreach (DataRow row in ds.Tables["tasks"].Rows)
 				{
@@ -153,33 +134,30 @@ namespace DataBase
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine ("Caught!");
-				Console.WriteLine(e.ToString());
-				return null;
+				string errorMessage = "Exception in DataBaseHandler -> GetTasksForProject \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return returnList;
 			}
-		} // End of GetTasksForProject()
+		} // End of GetTasksForProject
 
+		// TESTED 2016.05.06
         /*
          * @return List<ProjectData> - returns all the availiable projects
          */ 
         public List<ProjectSuggestionData> GetProjectSuggestionsList()
         {
+			List<ProjectSuggestionData> returnList = new List<ProjectSuggestionData>();
             try
             {
-                List<ProjectSuggestionData> returnList = new List<ProjectSuggestionData>();
-
                 OpenConnection();
-                string query = "SELECT * FROM projectsuggestions";//" WHERE TerminatedBy = " + DBDefaults.DefaultId + ";";
+                string query = "SELECT * FROM projectsuggestions";
 
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
                 dataAdapter.Fill(ds, "projectsuggestions");
                 CloseConnection();
 
-                if (ds.Tables["projectsuggestions"].Rows.Count == 0)
-                {
-                    return null;
-                }
+                if (ds.Tables["projectsuggestions"].Rows.Count == 0) return returnList;
 
                 foreach (DataRow row in ds.Tables["projectsuggestions"].Rows)
                 {
@@ -192,53 +170,75 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return null;
+				string errorMessage = "Exception in DataBaseHandler -> GetProjectSuggestionsList \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return returnList;
             }
-		}// End of GetProjectSuggestionsList()
+		}// End of GetProjectSuggestionsList
 
 
-        //TODO Maybie I should check if there already exists a project with the same name?
+       	// TESTED 2016.05.06
         /*
 		 * @param newProject - inserts into the database all the properties from newProject
 		 * @return bool - true if succes, false if failure
 		 */
         public bool InsertNewProject(ProjectData newProject)
         {
+			if (newProject == null) return false;
+
             try
             {
-                OpenConnection();
-                string query = "INSERT INTO projects (Title, ShortDescription, DetailedDescription, "
-                    + "CreatedBy, ProjectLead, DateCreated, ModificationLogLink, Notes, AvailableFunds, "
-                    + "CurrentYield, DateTerminated, TerminationReason, TerminatedBy, CollectedFunds, "
-                    + "ConsumedFunds) VALUES " + newProject.ToQueryString() + ";";
-                MySqlCommand command = new MySqlCommand(query, connection);
+                
+				{ // Check if there is another project with the same title
+					OpenConnection();
+					string query = "SELECT * FROM projects WHERE Title = '@project_title';";
+					query = query.Replace ("@project_title", newProject.Title);
 
-                command.ExecuteNonQuery();
-                command.Dispose();
-                CloseConnection();
-                return true;
+					MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+					DataSet ds = new DataSet();
+					dataAdapter.Fill(ds, "projects");
+					CloseConnection();
+						
+					if (ds.Tables["projects"].Rows.Count != 0) return false;
+
+				} // End of check
+				{ // Insert project
+					OpenConnection();
+                	string query = "INSERT INTO projects (Title, ShortDescription, DetailedDescription, "
+                	    + "CreatedBy, ProjectLead, DateCreated, ModificationLogLink, Notes, AvailableFunds, "
+                	    + "CurrentYield, DateTerminated, TerminationReason, TerminatedBy, CollectedFunds, "
+                	    + "ConsumedFunds, ImageURL) VALUES " + newProject.ToQueryString() + ";";
+                	MySqlCommand command = new MySqlCommand(query, connection);
+
+	                command.ExecuteNonQuery();
+    	            command.Dispose();
+        	        CloseConnection();
+            	    return true;
+				} // End of insert
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return false;
+				string errorMessage = "Exception in DataBaseHandler -> InsertNewProject \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
             }
-        } // End of InsertNewProject()
+        } // End of InsertNewProject
 
-        //TODO Maybie I should check if there already exists a project with the same name?
+		// TESTED 2016.05.06
         /*
 		 * @param newTask - inserts into the database all the properties from newTask
 		 * @return bool - true if succes, false if failure
 		 */
         public bool InsertNewTask(TaskData newTask)
         {
+			if (newTask == null) return false;
+
             try
             {
                 OpenConnection();
                 string query = "INSERT INTO tasks (ParentId, Title, ShortDescription, "
                     + "DetailedDescription, ParentProject, DateCreated, CreatedBy, "
-                    + "DateCompleted, CompletedBy, DeadLine, Status) "
+                    + "DateCompleted, CompletedBy, DeadLine, Status, Notes, ImageURL) "
                     + "VALUES " + newTask.ToQueryString() + ";";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -249,66 +249,105 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return false;
+				string errorMessage = "Exception in DataBaseHandler -> InsertNewTask \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
             }
         } // End of InsertNewTask()
 
+		// TESTED 2016.05.06
         /*
 		 * @param project - the project that is being requested
 		 * @return bool - true if succes, false if failure
 		 */
 		public bool ProjectJoinRequest(ProjectData project)
         {
+			if (project == null) return false;
+
             try
             {
-                OpenConnection();
-                string query = "INSERT INTO projectrequests (user_id, project_id) VALUES (@user_id, @project_id);";
-				query = query.Replace ("@user_id", User.ID.ToString ());
-				query = query.Replace ("@project_id", project.ID.ToString ());
+				{ // Check if there is already a request
+					OpenConnection();
+					string query = "SELECT * FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
+					query = query.Replace ("@user_id", User.ID.ToString ());
+					query = query.Replace ("@project_id", project.ID.ToString ());
 
-                MySqlCommand command = new MySqlCommand(query, connection);
+					MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+					DataSet ds = new DataSet();
+					dataAdapter.Fill(ds, "projectrequests");
+					CloseConnection();
 
-                command.ExecuteNonQuery();
-                command.Dispose();
-                CloseConnection();
-                return true;
+					if (ds.Tables["projectrequests"].Rows.Count != 0) return false;
+				}
+				{
+                	OpenConnection();
+                	string query = "INSERT INTO projectrequests (user_id, project_id) VALUES (@user_id, @project_id);";
+					query = query.Replace ("@user_id", User.ID.ToString ());
+					query = query.Replace ("@project_id", project.ID.ToString ());
+						
+                	MySqlCommand command = new MySqlCommand(query, connection);
+						
+                	command.ExecuteNonQuery();
+                	command.Dispose();
+                	CloseConnection();
+                	return true;
+				}
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                //MessageBox.Show(e.Message);
-                return false;
+				string errorMessage = "Exception in DataBaseHandler -> ProjectJoinRequest \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
             }
-        } // End of ProjectJoinRequests()
+        } // End of ProjectJoinRequests
 
-        /*
-		 * @param project - the project that is being requested
+		// TESTED 2016.05.06
+		/*
+		 * @param project - the task that is being requested
 		 * @return bool - true if succes, false if failure
 		 */
-        public bool TaskRequest(TaskData task)
-        {
-            try
-            {
-                OpenConnection();
-                string query = "INSERT INTO taskrequests (user_id, task_id) VALUES  (@user_id, @task_id);";
-				query = query.Replace ("@user_id", User.ID.ToString ());
-				query = query.Replace ("@project_id", task.ID.ToString ());
+		public bool TaskRequest(TaskData task)
+		{
+			if (task == null) return false;
 
-                MySqlCommand command = new MySqlCommand(query, connection);
+			try
+			{
+				{ // Check if there is already a request
+					OpenConnection();
+					string query = "SELECT * FROM taskrequests WHERE user_id = @user_id AND task_id = @task_id;";
+					query = query.Replace ("@user_id", User.ID.ToString ());
+					query = query.Replace ("@task_id", task.ID.ToString ());
 
-                command.ExecuteNonQuery();
-                command.Dispose();
-                CloseConnection();
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
-        } // End of TaskRequest()
+					MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+					DataSet ds = new DataSet();
+					dataAdapter.Fill(ds, "taskrequests");
+					CloseConnection();
 
+					if (ds.Tables["taskrequests"].Rows.Count != 0) return false;
+				}
+				{
+					OpenConnection();
+					string query = "INSERT INTO taskrequests (user_id, task_id) VALUES (@user_id, @task_id);";
+					query = query.Replace ("@user_id", User.ID.ToString ());
+					query = query.Replace ("@task_id", task.ID.ToString ());
+
+					MySqlCommand command = new MySqlCommand(query, connection);
+
+					command.ExecuteNonQuery();
+					command.Dispose();
+					CloseConnection();
+					return true;
+				}
+			}
+			catch (Exception e)
+			{
+				string errorMessage = "Exception in DataBaseHandler -> TaskRequest \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
+			}
+		} // End of ProjectJoinRequests
+
+		//TESTED 2016.05.06
         /* Can Update only:
 		 * Title, ShortDescription, DetailedDescription, Notes, AvailableFunds
 		 * @param project - update project from table
@@ -316,26 +355,34 @@ namespace DataBase
 		 */
         public bool UpdateProject(ProjectData project)
         {
+			if (project == null) return false;
+
             try
             {
                 OpenConnection();
                 string query = "UPDATE projects SET Title = @Title, ShortDescription = @ShortDescription, "
                     + "DetailedDescription = @DetailedDescription, Notes = @Notes, AvailableFunds = @AvailableFunds, "
                     + "CurrentYield = @CurrentYield, DateTerminated = @DateTerminated, TerminationReason = @TerminationReason, "
-                    + "TerminatedBy = @TerminatedBy "
-                    + " WHERE Id = @project_id;";
+					+ "TerminatedBy = @TerminatedBy, ProjectLead = @ProjectLead, ModificationLogLink = @ModificationLogLink, "
+					+ "CollectedFunds = @CollectedFunds, ConsumedFunds = @ConsumedFunds, ImageURL = @ImageURL"
+					+ " WHERE Id = @project_id;";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("@Title", project.Title);
                 command.Parameters.AddWithValue("@ShortDescription", project.ShortDescription);
                 command.Parameters.AddWithValue("@DetailedDescription", project.DetailedDescription);
+				command.Parameters.AddWithValue("@ProjectLead", project.ProjectLead);
+				command.Parameters.AddWithValue("@ModificationLogLink", project.LogURL);
+				command.Parameters.AddWithValue("@CollectedFunds", project.CollectedFunds);
+				command.Parameters.AddWithValue("@ConsumedFunds", project.ConsumedFunds);
+				command.Parameters.AddWithValue("@ImageURL", project.ImageURL);
                 command.Parameters.AddWithValue("@Notes", project.Notes);
                 command.Parameters.AddWithValue("@AvailableFunds", project.AvailibleFunds);
                 command.Parameters.AddWithValue("@CurrentYield", project.CurrentYield);
                 command.Parameters.AddWithValue("@DateTerminated", project.DateTerminated.ToShortDateString());
                 command.Parameters.AddWithValue("@TerminatedBy", project.TerminatedBy);
                 command.Parameters.AddWithValue("@TerminationReason", project.TerminationReason);
-                command.Parameters.AddWithValue("@user_id", project.ID);
+                command.Parameters.AddWithValue("@project_id", project.ID);
 
                 command.ExecuteNonQuery();
                 command.Dispose();
@@ -344,11 +391,13 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
-                return false;
+				string errorMessage = "Exception in DataBaseHandler -> UpdateProject \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
             }
-        } // End of UpdateProject()
+        } // End of UpdateProject
 			
+		//TESTED 2016.05.06
         /* Can Update only:
 		 * DisplayName, AvatarLink, Email, PasswordHash, PhoneNumber, WorkStatus, PersonalNotes, ActiveProject, ActiveTask
 		 * @param user - update user from table
@@ -356,6 +405,8 @@ namespace DataBase
 		 */
         private bool UpdateUser(UserData user)
         {
+			if (user == null) return false;
+
             try
             {
                 OpenConnection();
@@ -383,35 +434,23 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return false;
-            }
-		} // End of UpdateUser ()
-
-		/* Can Update only:
-		 * DisplayName, AvatarLink, Email, PasswordHash, PhoneNumber, WorkStatus, PersonalNotes, ActiveProject, ActiveTask
-		 * @return bool - true if succes, false if failure
-		 */
-		public bool UpdateThisUser()
-		{
-			try
-			{
-				this.UpdateUser (User);
-				return true;
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e.Message);
+				string errorMessage = "Exception in DataBaseHandler -> UpdateUser \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
 				return false;
-			}
-		} // End of UpdateThisUser ()
+            }
+		} // End of UpdateUser 
 
+		// TESTED 2016.05.06
         /*
 		 * @param project - get all the users requesting for project
 		 * @return List<UserData> - all the users
 		 */
         public List<UserData> GetAllUsersRequestingForProject(ProjectData project)
         {
+			List<UserData> userList = new List<UserData>();
+
+			if (project == null) return userList;
+
             try
             {
                 OpenConnection();
@@ -423,12 +462,8 @@ namespace DataBase
                 dataAdapter.Fill(ds, "users");
                 CloseConnection();
 
-                if (ds.Tables["users"].Rows.Count == 0)
-                {
-                    return null;
-                }
+                if (ds.Tables["users"].Rows.Count == 0) return userList;
 
-                List<UserData> userList = new List<UserData>();
                 foreach (DataRow row in ds.Tables["users"].Rows)
                 {
                     UserData user = new UserData();
@@ -440,11 +475,13 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return null;
+				string errorMessage = "Exception in DataBaseHandler -> GetAllUsersRequestingForProject \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return userList;
             }
-        } // End of GetAllUserRequestingForProject()
+        } // End of GetAllUserRequestingForProject
 
+		// TESTED 2016.05.06
         /*
 		 * @param user - the user that will be refreshed
 		 * @return bool - succes
@@ -452,6 +489,8 @@ namespace DataBase
 		 */
         public bool RefreshUser(UserData user)
         {
+			if (user == null) return false;
+
             try
             {
                 OpenConnection();
@@ -463,10 +502,7 @@ namespace DataBase
                 dataAdapter.Fill(ds, "users");
                 CloseConnection();
 
-                if (ds.Tables["users"].Rows.Count == 0)
-                {
-                    return false;
-                }
+                if (ds.Tables["users"].Rows.Count == 0) return false;
 
                 foreach (DataRow row in ds.Tables["users"].Rows)
                 {
@@ -477,29 +513,13 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return false;
-            }
-        } // End of RefreshUser()
-
-		/*
-		 * @return bool - succes
-		 * Also! the user data is changed
-		 */
-		public bool RefreshThisUser()
-		{
-			try
-			{
-				this.RefreshUser (User);
-				return true;
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e.ToString());
+				string errorMessage = "Exception in DataBaseHandler -> RefreshUser \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
 				return false;
-			}
-		} // End of RefresThishUser()
-
+            }
+        } // End of RefreshUser
+			
+		// TESTED 2016.05.06
         /*
 		 * @param project - the project that will be refreshed
 		 * @return bool - succes
@@ -507,6 +527,8 @@ namespace DataBase
 		 */
         public bool RefreshProject(ProjectData project)
         {
+			if (project == null) return false;
+
             try
             {
                 OpenConnection();
@@ -518,10 +540,7 @@ namespace DataBase
                 dataAdapter.Fill(ds, "projects");
                 CloseConnection();
 
-                if (ds.Tables["projects"].Rows.Count == 0)
-                {
-                    return false;
-                }
+                if (ds.Tables["projects"].Rows.Count == 0) return false;
 
                 foreach (DataRow row in ds.Tables["projects"].Rows)
                 {
@@ -532,48 +551,12 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return false;
+				string errorMessage = "Exception in DataBaseHandler -> RefreshProject \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
             }
         } // End of RefreshProject()
-
-        /*
-		 * You could aslo do this manually, but eh. Database can handle it
-		 * Nice and short
-		 */
-        public bool DropTask()
-        {
-            try
-            {
-                User.ActiveTask = DBDefaults.DefaultId;
-                return this.UpdateUser(User); // TODO check if this thing works
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                return false;
-            }
-
-        } // End of DropTask
-
-		/*
-		 * You could aslo do this manually, but eh. Database can handle it
-		 * Nice and short
-		 */
-		public bool LeaveProject()
-		{
-			try
-			{
-				User.ActiveProject = DBDefaults.DefaultId;
-				return this.UpdateUser(User);
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e.ToString());
-				return false;
-			}
-
-		} // End of LeaveProject
+			
 
         /*
 		 * You could aslo do this manually, but eh. Database can handle it
@@ -593,7 +576,8 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                //MessageBox.Show(e.ToString());
+				Console.WriteLine(e.ToString());
                 return false;
             }
 
@@ -784,15 +768,6 @@ namespace DataBase
         // TODO getMode
         public string getModeForUser(UserData user)
         {
-            /*if (user.ActiveProject == 0)
-                return "freelancer";
-            else
-            {
-                List<ProjectData> projects = this.GetActiveProjectsList();
-                ProjectData projectOfWichTheUserIsTeamLeader = (ProjectData)projects.Where(p => p.ID == user.ActiveProject);
-                if (projectOfWichTheUserIsTeamLeader == null) return "teammember";
-                else return "teamleader";
-            }*/
             if (user.ActiveProject == 0)
             {
                 return "freelancer";
@@ -811,7 +786,7 @@ namespace DataBase
 
     } // End of Partial Class
 
-    public partial class DatabaseHandler
+    public partial class DatabaseHandler // Connection and other stuff related to basic operations
     {
         private MySqlConnection connection;
         private string server;
@@ -819,10 +794,9 @@ namespace DataBase
         private string uid;
         private string password;
 
-
-
-
-        // Create connectionstring and connection
+		// TESTED 2016.05.06
+        /* Create connectionstring and connection
+         */ 
         public DatabaseHandler()
         {
             server = "localhost";
@@ -839,14 +813,29 @@ namespace DataBase
             connection = new MySqlConnection(connectionString);
         } // End of Constructor
 
+		// TESTED 2016.05.06
+		/* This is the display function, when testing one can use the console, or if the
+		 * program is live, one can change it to MessageBox for the gui. This will affect all
+		 * errormessages.
+		 */ 
+		private void DisplayMessage (string message) 
+		{
+			//MessageBox.Show(message); // Uncomment this
+			Console.WriteLine(message); // Comment this
+		} // End of DisplayMessage
+
+		// TESTED 2016.05.06
+		/* This function returns true if the databasehandler can make a connection to the 
+		 * database, and return false if not.
+		 */ 
 		public bool Test ()
 		{
 			bool succes = OpenConnection ();
 			CloseConnection ();
 			return succes;
-		}
+		} // End of Test
 
-        // TODO should change console messages to MessageBox
+		// TESTED 2016.05.06
         private bool OpenConnection()
         {
             try
@@ -856,21 +845,25 @@ namespace DataBase
             }
             catch (MySqlException ex)
             {
-                switch (ex.Number)
-                {
-                    case 0:
-                        Console.WriteLine("Cannot connect to server.  Contact administrator");
-                        break;
-
-                    case 1045:
-                        Console.WriteLine("Invalid username/password, please try again");
-                        break;
+				string errorMessage;
+                switch (ex.Number) {
+                case 0:
+					errorMessage = "Cannot connect to server.  Contact administrator!";
+                	break;
+				case 1045:
+					errorMessage = "Invalid username/password, please try again!";
+                    break;
+				default:
+					errorMessage = "Could not open connection for some reason. No ideea why.";
+					break;
                 }
+
+				DisplayMessage (errorMessage);
                 return false;
             }
         } // End of OpenConnection()
 
-        // TODO should change console messages to MessageBox
+		// TESTED 2016.05.06
         private bool CloseConnection()
         {
             try
@@ -880,21 +873,31 @@ namespace DataBase
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+				DisplayMessage ("Could not close connection: " + ex.ToString ());
                 return false;
             }
         } // End of CloseConnection
     } // End of Partial Class
 
+	// This contains all methods and fields related to the nested user.
     public partial class DatabaseHandler
     {
         // Let it be known that Gyuri objected to this on 2016.04.25!
         private UserData _user;
         public UserData User
         {
-            get { return _user; }
-            set { _user = value; }
+			get {return _user;}
+            set {_user = value;}
         }
+
+		// TESTED 2016.05.06
+		/* 
+		 * Call VerifyUser on the DataBase User
+		 */ 
+		public bool Login (string userName, string password) {
+			User = VerifyLogin (userName, password);
+			return User.IsDefault()? false : true;
+		} // End of Login
 
         // Used a lambda and I liked it.
         public ProjectData GetCurrentProject()
@@ -913,6 +916,58 @@ namespace DataBase
         public string GetMode()
         {
             return getModeForUser(User);
-        }
+        } // End of GetMode
+
+		// TESTED 2016.05.06
+		/* Can Update only:
+		 * DisplayName, AvatarLink, Email, PasswordHash, PhoneNumber, WorkStatus, PersonalNotes, ActiveProject, ActiveTask
+		 * @return bool - true if succes, false if failure
+		 */
+		public bool UpdateThisUser()
+		{
+			return UpdateUser (User);
+		} // End of UpdateThisUser ()
+
+		// TESTED 2016.05.06
+		/*
+		 * @return bool - succes
+		 * Also! the user data is changed
+		 */
+		public bool RefreshThisUser()
+		{
+			return RefreshUser (User);
+		} // End of RefresThishUser()
+
+		// TESTED 2016.05.06
+		/*
+		 * Drops a task.
+		 * 
+		 */
+		public bool DropTask()
+		{
+			if (User.ActiveTask == DBDefaults.DefaultId)
+				return false;
+			else {
+				User.ActiveTask = DBDefaults.DefaultId;
+				return UpdateUser (User);
+			}
+		} // End of DropTask
+
+		// TESTED 2016.05.06
+		/*
+		 * Leave a project
+		 */
+		public bool LeaveProject()
+		{
+			if (User.ActiveProject == DBDefaults.DefaultId) return false;
+
+			//Check if teamleader
+			ProjectData project = GetActiveProjectsList ().Find (p => p.ProjectLead == User.ID);
+			if (project != null) return false; // Cannot leave if teamleader
+
+			// If not leave project
+			User.ActiveProject = DBDefaults.DefaultId;
+			return this.UpdateUser(User);
+		} // End of LeaveProject
     } // End of EmbeddedUser stuff
 }

@@ -50,7 +50,7 @@ namespace Taskr_UI_0_1
             this.TextBoxProjectLongDescription.Text = projectData.DetailedDescription;
             try
             {
-                this.ImageProjectLogo.Load(projectData.imageURL);
+                this.ImageProjectLogo.Load(projectData.ImageURL);
             }
             catch
             {
@@ -83,7 +83,7 @@ namespace Taskr_UI_0_1
                 ImageProjectLogo.Load(openFileDialog1.FileName);
             }
 
-            if (!ImageProjectLogo.ImageLocation.Equals(projectData.imageURL))
+            if (!ImageProjectLogo.ImageLocation.Equals(projectData.ImageURL))
             {
                 ProjectLogo.BackColor = Color.Yellow;
             }
@@ -128,11 +128,11 @@ namespace Taskr_UI_0_1
         private void ButtonUpdateProjectDetails_Click(object sender, EventArgs e)
         {
 
-            String t1=projectData.Title, t2=projectData.ShortDescription, t3=projectData.DetailedDescription, t4=projectData.imageURL;
+            String t1=projectData.Title, t2=projectData.ShortDescription, t3=projectData.DetailedDescription, t4=projectData.ImageURL;
             projectData.Title = this.TextBoxProjectTitle.Text;
             projectData.ShortDescription = this.TextBoxProjectShortDescritpion.Text;
             projectData.DetailedDescription=this.TextBoxProjectLongDescription.Text;
-            projectData.imageURL = this.ImageProjectLogo.ImageLocation;
+            projectData.ImageURL = this.ImageProjectLogo.ImageLocation;
             ///No way to copy- need to check if inserted first than change the projectData variable
             if (!d.UpdateProject(projectData))
             {
@@ -141,7 +141,7 @@ namespace Taskr_UI_0_1
                 projectData.Title = t1;
                 projectData.ShortDescription =t2;
                 projectData.DetailedDescription =t3;
-                projectData.imageURL =t4;
+                projectData.ImageURL =t4;
             }
         }
 

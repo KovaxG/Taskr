@@ -64,7 +64,7 @@ namespace Taskr_UI_0_1
             this.pictureProject.TabStop = false;
             try
             {
-                this.pictureProject.Load(psd.imageURL);
+                this.pictureProject.Load(psd.ImageURL);
             }
             catch
             {

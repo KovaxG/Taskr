@@ -6,6 +6,8 @@
  * This class will allow, or rather make easier communication with the
  * databaseHandler and the forms. One doesn't have to remember to call
  * the handler 20 times per add or read.
+ * 
+ * 2016.05.06 - Final Modifications made.
  */
 using System;
 using System.Data;
@@ -20,7 +22,7 @@ namespace DataBase
 		 * If you have a better idea of doing it pls talk to Gyuri.
 		 *  @param creatorId - Takes the id of the secretary that creates it.
 		 */
-		public ProjectData () : this(0)
+		public ProjectData () : this(DBDefaults.DefaultId)
 		{
 			// Nothing to do here
 		}
@@ -42,6 +44,7 @@ namespace DataBase
 			TerminatedBy = DBDefaults.DefaultId;
 			CollectedFunds = DBDefaults.DefaultText;
 			ConsumedFunds = DBDefaults.DefaultText;
+			ImageURL = DBDefaults.DefaultText;
 		} 
 		public ProjectData (ProjectData project)
 		{
@@ -61,18 +64,8 @@ namespace DataBase
             TerminatedBy = project.TerminatedBy;
             CollectedFunds = project.CollectedFunds;
             ConsumedFunds = project.ConsumedFunds;
+			ImageURL = project.ImageURL;
         } // End of Constructor
-
-		/*
-		 * You will insert nulls into the database, really unnecessary, just assign the fields.
-	    public ProjectData(string title, string shortDescription, string detailedDescription, string imageUrl)
-	    {
-	        _title = title;
-	        _shortDescription = shortDescription;
-	        _detailedDescription = detailedDescription;
-	        _imageURL = imageUrl;
-	    }
-	    */
 
 	    public string ToQueryString () 
 		{
@@ -92,33 +85,49 @@ namespace DataBase
 			returnString += "'" + TerminationReason + "', ";					//12
 			returnString += "'" + TerminatedBy + "', ";							//13
 			returnString += "'" + CollectedFunds + "', ";						//14
-			returnString += "'" + ConsumedFunds + "'";							//15
+			returnString += "'" + ConsumedFunds + "', ";						//15
+			returnString += "'" + ImageURL + "'";                               //16
 
 			return returnString += ")";
-		} // End of ToQueryString()
+		} // End of ToQueryString
 
 		public void FillFromDataRow (DataRow row)
 		{
-			_id = int.Parse(row.ItemArray.GetValue (0).ToString ());
-			Title = row.ItemArray.GetValue (1).ToString ();
-			ShortDescription = row.ItemArray.GetValue (2).ToString ();
-			DetailedDescription = row.ItemArray.GetValue (3).ToString ();
-			CreatedBy = int.Parse(row.ItemArray.GetValue (4).ToString ());
-			ProjectLead = int.Parse(row.ItemArray.GetValue (5).ToString ());
-			DateCreated = DateTime.Parse(row.ItemArray.GetValue (6).ToString ());
-			LogURL = row.ItemArray.GetValue (7).ToString ();
-			Notes = row.ItemArray.GetValue (8).ToString ();
-			AvailibleFunds = row.ItemArray.GetValue (9).ToString ();
-			CurrentYield = row.ItemArray.GetValue (10).ToString ();
-			DateTerminated = DateTime.Parse(row.ItemArray.GetValue (11).ToString ());
-			TerminationReason = row.ItemArray.GetValue (12).ToString ();
-			TerminatedBy = int.Parse(row.ItemArray.GetValue (13).ToString ());
-			CollectedFunds = row.ItemArray.GetValue (14).ToString ();
-			ConsumedFunds = row.ItemArray.GetValue (15).ToString ();
-		} // End of FillFromDataRow()
+			_id                 =      int.Parse(row.ItemArray.GetValue (0).ToString ());
+			Title               =                row.ItemArray.GetValue (1).ToString ();
+			ShortDescription    =                row.ItemArray.GetValue (2).ToString ();
+			DetailedDescription =                row.ItemArray.GetValue (3).ToString ();
+			CreatedBy           =      int.Parse(row.ItemArray.GetValue (4).ToString ());
+			ProjectLead         =      int.Parse(row.ItemArray.GetValue (5).ToString ());
+			DateCreated         = DateTime.Parse(row.ItemArray.GetValue (6).ToString ());
+			LogURL              =                row.ItemArray.GetValue (7).ToString ();
+			Notes               =                row.ItemArray.GetValue (8).ToString ();
+			AvailibleFunds      =                row.ItemArray.GetValue (9).ToString ();
+			CurrentYield        =                row.ItemArray.GetValue (10).ToString ();
+			DateTerminated      = DateTime.Parse(row.ItemArray.GetValue (11).ToString ());
+			TerminationReason   =                row.ItemArray.GetValue (12).ToString ();
+			TerminatedBy        =      int.Parse(row.ItemArray.GetValue (13).ToString ());
+			CollectedFunds      =                row.ItemArray.GetValue (14).ToString ();
+			ConsumedFunds       =                row.ItemArray.GetValue (15).ToString ();
+			ImageURL            =                row.ItemArray.GetValue (16).ToString ();
+		} // End of FillFromDataRow
+
+		// Check if it is default, kind of like null
+		public bool IsDefault() 
+		{
+			return Equals(Default);
+		} // End of IsDefault
+
+		// Compares two Projects
+		public bool Equals(ProjectData project) 
+		{
+			if (project == null) return false;
+			if (this._id != project.ID) return false;
+			return true;
+		} // End of Equals
+
 	} // End of Partial Class
-
-
+		
 
 	// This class contains all the attributes of the class, and 
 	// setter and getter methods.
@@ -219,16 +228,14 @@ namespace DataBase
 			get {return _consumedFunds;}
 		}
 			
-
-		// Have to modify the database to get this, for now have a [link goes here]
-	    private string _imageURL;
-        public string imageURL
+	    private string _ImageURL; // ImageURL
+        public string ImageURL
         {
-            set { _imageURL = "[link goes here]"; }
-            get { return _imageURL; }
+            set {_ImageURL = value;}
+            get {return _ImageURL;}
         }
 
-
+		public static ProjectData Default = new ProjectData();
 	}
 }
 

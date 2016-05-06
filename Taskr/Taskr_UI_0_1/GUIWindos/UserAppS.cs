@@ -175,9 +175,9 @@ namespace Taskr_UI_0_1
             string name = ProjectTitleBox.Text;
             string sdesc = ProjectShortDetailsBox.Text;
             string ldesc = ProjectLongDetailsBox.Text;
-            string imageURL = ProjectLogoImage.Image.ToString();
+            string ImageURL = ProjectLogoImage.Image.ToString();
             /*int ID = d.getID();
-            ProjectData np = new ProjectData(++ID, name, sdesc, ldesc, imageURL);
+            ProjectData np = new ProjectData(++ID, name, sdesc, ldesc, ImageURL);
             d.insertProject(np);*/
             ProjectData newProject = new ProjectData();
             newProject.Title = name;

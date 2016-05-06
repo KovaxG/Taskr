@@ -51,7 +51,7 @@ namespace Taskr_UI_0_1
             this.pictureTask.TabIndex = 0;
             this.pictureTask.TabStop = false;
             try {
-                this.pictureTask.Load(td.imageURL);
+                this.pictureTask.Load(td.ImageURL);
             }
             catch
             {

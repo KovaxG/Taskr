@@ -6,6 +6,8 @@
  * This class will allow, or rather make easier communication with the
  * databaseHandler and the forms. One doesn't have to remember to call
  * the handler 20 times per add or read.
+ * 
+ * 2016.05.06 - Final Modifications.
  */
 using System;
 using System.Data;
@@ -20,7 +22,7 @@ namespace DataBase
 		 * If you have a better idea of doing it pls talk to Gyuri.
 		 *  @param creatorId - Takes the id of the secretary that creates it.
 		 */
-		public TaskData () : this(0)
+		public TaskData () : this(DBDefaults.DefaultId)
 		{
 			// Nothing to do here
 		}
@@ -38,6 +40,7 @@ namespace DataBase
 			CompletedBy = DBDefaults.DefaultId;
 			DeadLine = DBDefaults.DefaultDate;
 			Status = DBDefaults.DefaultText;
+			Notes = DBDefaults.DefaultText;
 		}
 
 		public string ToQueryString () 
@@ -54,26 +57,44 @@ namespace DataBase
 			returnString += "'" + DateCompleted.ToShortDateString() + "', ";	// 8
 			returnString += "'" + CompletedBy.ToString() + "', ";				// 9
 			returnString += "'" + DeadLine.ToShortDateString() + "', ";			//10
-			returnString += "'" + Status + "'";									//11
+			returnString += "'" + Status.ToString() + "', ";					//11
+			returnString += "'" + Notes + "', ";								//12
+			returnString += "'" + ImageURL + "'";								//13
 
 			return returnString += ")";
 		} // End of ToQueryString()
 
 		public void FillFromDataRow (DataRow row)
 		{
-            _id = int.Parse(row.ItemArray.GetValue(0).ToString());
-            ParentId= int.Parse(row.ItemArray.GetValue(1).ToString());
-            Title = row.ItemArray.GetValue(2).ToString();
-            ShortDescription = row.ItemArray.GetValue(3).ToString();
-            DetailedDescription = row.ItemArray.GetValue(4).ToString();
-            ParentProject = int.Parse(row.ItemArray.GetValue(5).ToString());
-            DateCreated = DateTime.Parse(row.ItemArray.GetValue(6).ToString());
-            CreatedBy = int.Parse(row.ItemArray.GetValue(7).ToString());
-            DateCompleted = DateTime.Parse(row.ItemArray.GetValue(8).ToString());
-            CompletedBy= int.Parse(row.ItemArray.GetValue(9).ToString());
-            DeadLine = DateCreated = DateTime.Parse(row.ItemArray.GetValue(10).ToString());
-            Status = row.ItemArray.GetValue(11).ToString();
-        } // FillFromDataRow ()
+			_id                 =      int.Parse(row.ItemArray.GetValue (0).ToString ());
+			ParentId            =      int.Parse(row.ItemArray.GetValue (1).ToString ());
+			Title               =                row.ItemArray.GetValue (2).ToString ();
+			ShortDescription    =                row.ItemArray.GetValue (3).ToString ();
+			DetailedDescription =                row.ItemArray.GetValue (4).ToString ();
+			ParentProject       =      int.Parse(row.ItemArray.GetValue (5).ToString ());
+			DateCreated         = DateTime.Parse(row.ItemArray.GetValue (6).ToString ());
+			CreatedBy           =      int.Parse(row.ItemArray.GetValue (7).ToString ());
+			DateCompleted       = DateTime.Parse(row.ItemArray.GetValue (8).ToString ());
+			CompletedBy         =      int.Parse(row.ItemArray.GetValue (9).ToString ());
+			DeadLine            = DateTime.Parse(row.ItemArray.GetValue (10).ToString ());
+			Status              =                row.ItemArray.GetValue (11).ToString ();
+			Notes               =                row.ItemArray.GetValue (12).ToString ();
+			ImageURL            =                row.ItemArray.GetValue (13).ToString ();
+		} // FillFromDataRow ()
+
+		// Check if it is default, kind of like null
+		public bool IsDefault() 
+		{
+			return Equals(Default);
+		} // End of IsDefault
+
+		// Compares two Tasks
+		public bool Equals(TaskData task) 
+		{
+			if (task == null) return false;
+			if (this._id != task.ID) return false;
+			return true;
+		} // End of Equals
 	}
 
 	// This class contains all the attributes of the class, and 
@@ -150,12 +171,19 @@ namespace DataBase
 			set {_status = value;}
 			get {return _status;}
 		}
-        private string _imageURL;
-        public string imageURL
-        {
-            set { _imageURL = value; }
-            get { return _imageURL; }
+        private string _ImageURL;
+        public string ImageURL { // ImageURL
+            set {_ImageURL = value;}
+            get {return _ImageURL;}
         }
+
+		private string _notes; // Notes
+		public string Notes {
+			set {_notes = value;}
+			get {return _notes;}
+		}
+
+		public static TaskData Default = new TaskData();
     }
 }
 

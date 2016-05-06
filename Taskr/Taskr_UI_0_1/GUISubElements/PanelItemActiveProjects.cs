@@ -66,7 +66,7 @@ namespace Taskr_UI_0_1
             this.pictureProject.TabIndex = 0;
             this.pictureProject.TabStop = false;
             try {
-                this.pictureProject.Load(pd.imageURL);
+                this.pictureProject.Load(pd.ImageURL);
             }
             catch
             {

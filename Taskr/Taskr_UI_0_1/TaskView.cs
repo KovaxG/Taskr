@@ -25,7 +25,7 @@ namespace Taskr_UI_0_1
            
            tdl = d.GetTasksForProject(pd);
 
-            if (tdl == null)
+            if (!tdl.Any())
                 throw new Exception("The are no available tasks for this project");
            this.us = us;
            this.d = d;
