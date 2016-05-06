@@ -6,6 +6,9 @@
  * This class will allow, or rather make easier communication with the
  * databaseHandler and the forms. One doesn't have to remember to call
  * the handler 20 times per add or read.
+ * 
+ * 2016.05.06 - Final Modifications.
+ * 
  */
 using System;
 using System.Data;
@@ -20,7 +23,7 @@ namespace DataBase
 		 * If you have a better idea of doing it pls talk to Gyuri.
 		 *  @param creatorId - Takes the id of the secretary that creates it.
 		 */
-		public ProjectSuggestionData () : this(0)
+		public ProjectSuggestionData () : this(DBDefaults.DefaultId)
 		{
 			// Nothing to do here
 		}
@@ -37,15 +40,8 @@ namespace DataBase
 			EstimatedReturn = DBDefaults.DefaultText;
 			Priority = DBDefaults.DefaultText;
 			Notes = DBDefaults.DefaultText;
+			ImageURL = DBDefaults.DefaultText;
 		} // End of Constructor
-
-	    public ProjectSuggestionData(string title, string shortDescription, string detailedDescription,string imageURL)
-	    {
-	        _title = title;
-	        _shortDescription = shortDescription;
-	        _detailedDescription = detailedDescription;
-	        _imageURL = imageURL;
-	    }
 
 	    public string ToQueryString ()
 		{
@@ -59,24 +55,40 @@ namespace DataBase
 			returnString += "'" + InvestmentRequired.ToString() + "', ";		// 6
 			returnString += "'" + EstimatedReturn.ToString() + "', ";		    // 7
 			returnString += "'" + Priority.ToString() + "', ";					// 8
-			returnString += "'" + Notes.ToString() + "'";						// 9
+			returnString += "'" + Notes.ToString() + "', ";						// 9
+			returnString += "'" + ImageURL.ToString() + ", ";                   //10
 
 			return returnString += ")";
 		} // End of ToQueryString ()
 
 		public void FillFromDataRow (DataRow row)
 		{
-			_id = int.Parse(row.ItemArray.GetValue (0).ToString ());
-			Title = row.ItemArray.GetValue (1).ToString ();
-			ShortDescription = row.ItemArray.GetValue (2).ToString ();
-			DetailedDescription = row.ItemArray.GetValue (3).ToString ();
-			CreatedBy = int.Parse(row.ItemArray.GetValue (4).ToString ());
-			DateCreated = DateTime.Parse(row.ItemArray.GetValue (5).ToString ());
-			InvestmentRequired = row.ItemArray.GetValue (6).ToString ();
-			EstimatedReturn = row.ItemArray.GetValue (7).ToString ();
-			Priority = row.ItemArray.GetValue (8).ToString ();
-			Notes = row.ItemArray.GetValue (9).ToString ();
+			_id                 =      int.Parse(row.ItemArray.GetValue (0).ToString ());
+			Title               =                row.ItemArray.GetValue (1).ToString ();
+			ShortDescription    =                row.ItemArray.GetValue (2).ToString ();
+			DetailedDescription =                row.ItemArray.GetValue (3).ToString ();
+			CreatedBy           =      int.Parse(row.ItemArray.GetValue (4).ToString ());
+			DateCreated         = DateTime.Parse(row.ItemArray.GetValue (5).ToString ());
+			InvestmentRequired  =                row.ItemArray.GetValue (6).ToString ();
+			EstimatedReturn     =                row.ItemArray.GetValue (7).ToString ();
+			Priority            =                row.ItemArray.GetValue (8).ToString ();
+			Notes               =                row.ItemArray.GetValue (9).ToString ();
+			ImageURL            =                row.ItemArray.GetValue (10).ToString ();
 		} // FillFromDataRow ()
+
+		// Check if it is default, kind of like null
+		public bool IsDefault() 
+		{
+			return Equals(Default);
+		} // End of IsDefault
+
+		// Compares two ProjectSuggestions
+		public bool Equals(ProjectSuggestionData projectSuggestion) 
+		{
+			if (projectSuggestion == null) return false;
+			if (this._id != projectSuggestion.ID) return false;
+			return true;
+		} // End of Equals
 	}
 
 	// This class contains all the attributes of the class, and 
@@ -142,13 +154,13 @@ namespace DataBase
 			get {return _notes;}
 		}
 
-	    private string _imageURL;
-
-	    public string imageURL
-	    {
+	    private string _imageURL; // ImageURL
+	    public string ImageURL {
 	        set {_imageURL = value; }
             get { return _imageURL; }
 	    }
+
+		public static ProjectSuggestionData Default = new ProjectSuggestionData ();
 	}
 }
 
