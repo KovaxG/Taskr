@@ -155,6 +155,7 @@ namespace Taskr_UI_0_1
             this.Dispose();
         }
 
+        /*--removed in favor of image URL. This will be reused if server side app is created
         private void ChangeProjectImage_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -166,28 +167,10 @@ namespace Taskr_UI_0_1
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                ProjectLogoImage.Load(openFileDialog1.FileName);
+                ImageProjectLogo.Load(openFileDialog1.FileName);
             }
-        }
-
-        private void newProject_Click(object sender, EventArgs e)
-        {
-            string name = ProjectTitleBox.Text;
-            string sdesc = ProjectShortDetailsBox.Text;
-            string ldesc = ProjectLongDetailsBox.Text;
-            string ImageURL = ProjectLogoImage.Image.ToString();
-            /*int ID = d.getID();
-            ProjectData np = new ProjectData(++ID, name, sdesc, ldesc, ImageURL);
-            d.insertProject(np);*/
-            ProjectData newProject = new ProjectData();
-            newProject.Title = name;
-            newProject.ShortDescription = sdesc;
-            newProject.DetailedDescription = ldesc;
-            MessageBox.Show("Currently there is no ImageURL");
-            d.InsertNewProject(newProject);
-
-            reInitializeContents();
-        }
+        }*/
+        
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -198,6 +181,39 @@ namespace Taskr_UI_0_1
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void ButtonCreateProject_Click(object sender, EventArgs e)
+        {
+            if (this.TextBoxProjectTitle.Text.Equals(""))
+            {
+                MessageBox.Show("Title field is compulsory!", "Empty Field");
+                return;
+            }
+            if (this.TextBoxProjectShortDetails.Text.Length < 20)
+            {
+                MessageBox.Show("The short description needs to be at least 20 characters long!", 
+                    "Description too short");
+                return;
+            }
+            ProjectData projectData=new ProjectData();
+            projectData.Title = this.TextBoxProjectTitle.Text;
+            projectData.ShortDescription = this.TextBoxProjectShortDetails.Text;
+            projectData.DetailedDescription = this.TextBoxProjectLongDetails.Text;
+            projectData.LogURL = this.textBoxModificationLog.Text;
+            projectData.ImageURL = this.textBoxImageURL.Text;
+            projectData.AvailibleFunds = this.labelAvailableFunds.Text;
+            projectData.CurrentYield = this.textBoxCurrentYield.Text;
+
+            if (d.InsertNewProject(projectData))
+            {
+                MessageBox.Show("New Project Successfully Created.\nYou are now its team leader", "Success!");
+                reInitializeContents();
+            }
+            else
+            {
+                MessageBox.Show("Could not create Project");
+            }
         }
     }
 }

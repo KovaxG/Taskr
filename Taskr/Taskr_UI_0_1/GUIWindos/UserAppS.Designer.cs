@@ -40,24 +40,31 @@
             this.tabPageProjectSuggestions = new System.Windows.Forms.TabPage();
             this.flowLayoutPanelProjectSuggestions = new System.Windows.Forms.FlowLayoutPanel();
             this.tabCreateNewProject = new System.Windows.Forms.TabPage();
-            this.ChangeProjectImage = new System.Windows.Forms.Button();
+            this.panelCreateNewProject = new System.Windows.Forms.Panel();
+            this.textBoxImageURL = new System.Windows.Forms.TextBox();
+            this.labelEmpty = new System.Windows.Forms.Label();
+            this.textBoxAvailableFunds = new System.Windows.Forms.TextBox();
+            this.textBoxCurrentYield = new System.Windows.Forms.TextBox();
+            this.textBoxModificationLog = new System.Windows.Forms.TextBox();
+            this.labelAvailableFunds = new System.Windows.Forms.Label();
+            this.labelModificationLog = new System.Windows.Forms.Label();
+            this.labelCurrentYield = new System.Windows.Forms.Label();
+            this.TextBoxProjectLongDetails = new System.Windows.Forms.RichTextBox();
+            this.TextBoxProjectShortDetails = new System.Windows.Forms.RichTextBox();
+            this.LabelProjectImage = new System.Windows.Forms.Label();
+            this.LabelProjectDetailedDescription = new System.Windows.Forms.Label();
+            this.LabelProjectShortDescription = new System.Windows.Forms.Label();
+            this.LabelProjectName = new System.Windows.Forms.Label();
+            this.TextBoxProjectTitle = new System.Windows.Forms.TextBox();
+            this.ButtonCreateProject = new System.Windows.Forms.Button();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.ProjectLogoImage = new System.Windows.Forms.PictureBox();
-            this.ProjectLongDetailsBox = new System.Windows.Forms.RichTextBox();
-            this.ProjectShortDetailsBox = new System.Windows.Forms.RichTextBox();
-            this.ProjectLogo = new System.Windows.Forms.Label();
-            this.ProjectDIn = new System.Windows.Forms.Label();
-            this.ProjectSInfo = new System.Windows.Forms.Label();
-            this.ProjectName = new System.Windows.Forms.Label();
-            this.ProjectTitleBox = new System.Windows.Forms.TextBox();
-            this.newProject = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).BeginInit();
             this.panelSide.SuspendLayout();
             this.tabControlProjects.SuspendLayout();
             this.tabActiveProjects.SuspendLayout();
             this.tabPageProjectSuggestions.SuspendLayout();
             this.tabCreateNewProject.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ProjectLogoImage)).BeginInit();
+            this.panelCreateNewProject.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureAvatar
@@ -175,17 +182,8 @@
             // 
             // tabCreateNewProject
             // 
-            this.tabCreateNewProject.Controls.Add(this.ChangeProjectImage);
+            this.tabCreateNewProject.Controls.Add(this.panelCreateNewProject);
             this.tabCreateNewProject.Controls.Add(this.checkedListBox1);
-            this.tabCreateNewProject.Controls.Add(this.ProjectLogoImage);
-            this.tabCreateNewProject.Controls.Add(this.ProjectLongDetailsBox);
-            this.tabCreateNewProject.Controls.Add(this.ProjectShortDetailsBox);
-            this.tabCreateNewProject.Controls.Add(this.ProjectLogo);
-            this.tabCreateNewProject.Controls.Add(this.ProjectDIn);
-            this.tabCreateNewProject.Controls.Add(this.ProjectSInfo);
-            this.tabCreateNewProject.Controls.Add(this.ProjectName);
-            this.tabCreateNewProject.Controls.Add(this.ProjectTitleBox);
-            this.tabCreateNewProject.Controls.Add(this.newProject);
             this.tabCreateNewProject.Location = new System.Drawing.Point(4, 31);
             this.tabCreateNewProject.Name = "tabCreateNewProject";
             this.tabCreateNewProject.Padding = new System.Windows.Forms.Padding(3);
@@ -194,16 +192,168 @@
             this.tabCreateNewProject.Text = "Create New Poject";
             this.tabCreateNewProject.UseVisualStyleBackColor = true;
             // 
-            // ChangeProjectImage
+            // panelCreateNewProject
             // 
-            this.ChangeProjectImage.Location = new System.Drawing.Point(590, 382);
-            this.ChangeProjectImage.Name = "ChangeProjectImage";
-            this.ChangeProjectImage.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ChangeProjectImage.Size = new System.Drawing.Size(123, 42);
-            this.ChangeProjectImage.TabIndex = 10;
-            this.ChangeProjectImage.Text = "Change Image";
-            this.ChangeProjectImage.UseVisualStyleBackColor = true;
-            this.ChangeProjectImage.Click += new System.EventHandler(this.ChangeProjectImage_Click);
+            this.panelCreateNewProject.AutoScroll = true;
+            this.panelCreateNewProject.BackColor = System.Drawing.Color.Gainsboro;
+            this.panelCreateNewProject.Controls.Add(this.textBoxImageURL);
+            this.panelCreateNewProject.Controls.Add(this.labelEmpty);
+            this.panelCreateNewProject.Controls.Add(this.textBoxAvailableFunds);
+            this.panelCreateNewProject.Controls.Add(this.textBoxCurrentYield);
+            this.panelCreateNewProject.Controls.Add(this.textBoxModificationLog);
+            this.panelCreateNewProject.Controls.Add(this.labelAvailableFunds);
+            this.panelCreateNewProject.Controls.Add(this.labelModificationLog);
+            this.panelCreateNewProject.Controls.Add(this.labelCurrentYield);
+            this.panelCreateNewProject.Controls.Add(this.TextBoxProjectLongDetails);
+            this.panelCreateNewProject.Controls.Add(this.TextBoxProjectShortDetails);
+            this.panelCreateNewProject.Controls.Add(this.LabelProjectImage);
+            this.panelCreateNewProject.Controls.Add(this.LabelProjectDetailedDescription);
+            this.panelCreateNewProject.Controls.Add(this.LabelProjectShortDescription);
+            this.panelCreateNewProject.Controls.Add(this.LabelProjectName);
+            this.panelCreateNewProject.Controls.Add(this.TextBoxProjectTitle);
+            this.panelCreateNewProject.Controls.Add(this.ButtonCreateProject);
+            this.panelCreateNewProject.Location = new System.Drawing.Point(4, 4);
+            this.panelCreateNewProject.Name = "panelCreateNewProject";
+            this.panelCreateNewProject.Size = new System.Drawing.Size(745, 564);
+            this.panelCreateNewProject.TabIndex = 10;
+            // 
+            // textBoxImageURL
+            // 
+            this.textBoxImageURL.Location = new System.Drawing.Point(202, 341);
+            this.textBoxImageURL.Name = "textBoxImageURL";
+            this.textBoxImageURL.Size = new System.Drawing.Size(507, 28);
+            this.textBoxImageURL.TabIndex = 24;
+            // 
+            // labelEmpty
+            // 
+            this.labelEmpty.AutoSize = true;
+            this.labelEmpty.Location = new System.Drawing.Point(400, 650);
+            this.labelEmpty.Name = "labelEmpty";
+            this.labelEmpty.Size = new System.Drawing.Size(0, 24);
+            this.labelEmpty.TabIndex = 27;
+            // 
+            // textBoxAvailableFunds
+            // 
+            this.textBoxAvailableFunds.Location = new System.Drawing.Point(202, 432);
+            this.textBoxAvailableFunds.Name = "textBoxAvailableFunds";
+            this.textBoxAvailableFunds.Size = new System.Drawing.Size(223, 28);
+            this.textBoxAvailableFunds.TabIndex = 26;
+            // 
+            // textBoxCurrentYield
+            // 
+            this.textBoxCurrentYield.Location = new System.Drawing.Point(202, 389);
+            this.textBoxCurrentYield.Name = "textBoxCurrentYield";
+            this.textBoxCurrentYield.Size = new System.Drawing.Size(223, 28);
+            this.textBoxCurrentYield.TabIndex = 25;
+            // 
+            // textBoxModificationLog
+            // 
+            this.textBoxModificationLog.Location = new System.Drawing.Point(202, 484);
+            this.textBoxModificationLog.Name = "textBoxModificationLog";
+            this.textBoxModificationLog.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.textBoxModificationLog.Size = new System.Drawing.Size(507, 28);
+            this.textBoxModificationLog.TabIndex = 28;
+            // 
+            // labelAvailableFunds
+            // 
+            this.labelAvailableFunds.AutoSize = true;
+            this.labelAvailableFunds.Location = new System.Drawing.Point(21, 432);
+            this.labelAvailableFunds.Name = "labelAvailableFunds";
+            this.labelAvailableFunds.Size = new System.Drawing.Size(145, 24);
+            this.labelAvailableFunds.TabIndex = 23;
+            this.labelAvailableFunds.Text = "Available Funds";
+            // 
+            // labelModificationLog
+            // 
+            this.labelModificationLog.AutoSize = true;
+            this.labelModificationLog.Location = new System.Drawing.Point(21, 484);
+            this.labelModificationLog.Name = "labelModificationLog";
+            this.labelModificationLog.Size = new System.Drawing.Size(156, 48);
+            this.labelModificationLog.TabIndex = 22;
+            this.labelModificationLog.Text = "Modifications Log\r\n(URL)";
+            // 
+            // labelCurrentYield
+            // 
+            this.labelCurrentYield.AutoSize = true;
+            this.labelCurrentYield.Location = new System.Drawing.Point(21, 389);
+            this.labelCurrentYield.Name = "labelCurrentYield";
+            this.labelCurrentYield.Size = new System.Drawing.Size(114, 24);
+            this.labelCurrentYield.TabIndex = 21;
+            this.labelCurrentYield.Text = "CurrentYield";
+            // 
+            // TextBoxProjectLongDetails
+            // 
+            this.TextBoxProjectLongDetails.Location = new System.Drawing.Point(202, 182);
+            this.TextBoxProjectLongDetails.Name = "TextBoxProjectLongDetails";
+            this.TextBoxProjectLongDetails.Size = new System.Drawing.Size(507, 144);
+            this.TextBoxProjectLongDetails.TabIndex = 18;
+            this.TextBoxProjectLongDetails.Text = "";
+            // 
+            // TextBoxProjectShortDetails
+            // 
+            this.TextBoxProjectShortDetails.Location = new System.Drawing.Point(202, 80);
+            this.TextBoxProjectShortDetails.MaxLength = 250;
+            this.TextBoxProjectShortDetails.Name = "TextBoxProjectShortDetails";
+            this.TextBoxProjectShortDetails.Size = new System.Drawing.Size(507, 74);
+            this.TextBoxProjectShortDetails.TabIndex = 17;
+            this.TextBoxProjectShortDetails.Text = "";
+            // 
+            // LabelProjectImage
+            // 
+            this.LabelProjectImage.AutoSize = true;
+            this.LabelProjectImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelProjectImage.Location = new System.Drawing.Point(21, 343);
+            this.LabelProjectImage.Name = "LabelProjectImage";
+            this.LabelProjectImage.Size = new System.Drawing.Size(197, 24);
+            this.LabelProjectImage.TabIndex = 16;
+            this.LabelProjectImage.Text = "Project Image (URL)\r\n";
+            // 
+            // LabelProjectDetailedDescription
+            // 
+            this.LabelProjectDetailedDescription.AutoSize = true;
+            this.LabelProjectDetailedDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelProjectDetailedDescription.Location = new System.Drawing.Point(21, 184);
+            this.LabelProjectDetailedDescription.Name = "LabelProjectDetailedDescription";
+            this.LabelProjectDetailedDescription.Size = new System.Drawing.Size(195, 24);
+            this.LabelProjectDetailedDescription.TabIndex = 15;
+            this.LabelProjectDetailedDescription.Text = "Detailed description";
+            // 
+            // LabelProjectShortDescription
+            // 
+            this.LabelProjectShortDescription.AutoSize = true;
+            this.LabelProjectShortDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelProjectShortDescription.Location = new System.Drawing.Point(21, 80);
+            this.LabelProjectShortDescription.Name = "LabelProjectShortDescription";
+            this.LabelProjectShortDescription.Size = new System.Drawing.Size(205, 48);
+            this.LabelProjectShortDescription.TabIndex = 14;
+            this.LabelProjectShortDescription.Text = "Short description\r\n(max 250 characters)\r\n";
+            // 
+            // LabelProjectName
+            // 
+            this.LabelProjectName.AutoSize = true;
+            this.LabelProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelProjectName.Location = new System.Drawing.Point(21, 18);
+            this.LabelProjectName.Name = "LabelProjectName";
+            this.LabelProjectName.Size = new System.Drawing.Size(65, 24);
+            this.LabelProjectName.TabIndex = 13;
+            this.LabelProjectName.Text = "Name";
+            // 
+            // TextBoxProjectTitle
+            // 
+            this.TextBoxProjectTitle.Location = new System.Drawing.Point(202, 16);
+            this.TextBoxProjectTitle.Name = "TextBoxProjectTitle";
+            this.TextBoxProjectTitle.Size = new System.Drawing.Size(312, 28);
+            this.TextBoxProjectTitle.TabIndex = 12;
+            // 
+            // ButtonCreateProject
+            // 
+            this.ButtonCreateProject.Location = new System.Drawing.Point(278, 563);
+            this.ButtonCreateProject.Name = "ButtonCreateProject";
+            this.ButtonCreateProject.Size = new System.Drawing.Size(256, 55);
+            this.ButtonCreateProject.TabIndex = 29;
+            this.ButtonCreateProject.Text = "Create Project";
+            this.ButtonCreateProject.UseVisualStyleBackColor = true;
+            this.ButtonCreateProject.Click += new System.EventHandler(this.ButtonCreateProject_Click);
             // 
             // checkedListBox1
             // 
@@ -212,88 +362,6 @@
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(8, 4);
             this.checkedListBox1.TabIndex = 9;
-            // 
-            // ProjectLogoImage
-            // 
-            this.ProjectLogoImage.Location = new System.Drawing.Point(162, 363);
-            this.ProjectLogoImage.Name = "ProjectLogoImage";
-            this.ProjectLogoImage.Size = new System.Drawing.Size(384, 207);
-            this.ProjectLogoImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ProjectLogoImage.TabIndex = 8;
-            this.ProjectLogoImage.TabStop = false;
-            // 
-            // ProjectLongDetailsBox
-            // 
-            this.ProjectLongDetailsBox.Location = new System.Drawing.Point(162, 204);
-            this.ProjectLongDetailsBox.Name = "ProjectLongDetailsBox";
-            this.ProjectLongDetailsBox.Size = new System.Drawing.Size(573, 144);
-            this.ProjectLongDetailsBox.TabIndex = 7;
-            this.ProjectLongDetailsBox.Text = "";
-            // 
-            // ProjectShortDetailsBox
-            // 
-            this.ProjectShortDetailsBox.Location = new System.Drawing.Point(162, 102);
-            this.ProjectShortDetailsBox.Name = "ProjectShortDetailsBox";
-            this.ProjectShortDetailsBox.Size = new System.Drawing.Size(573, 74);
-            this.ProjectShortDetailsBox.TabIndex = 6;
-            this.ProjectShortDetailsBox.Text = "";
-            // 
-            // ProjectLogo
-            // 
-            this.ProjectLogo.AutoSize = true;
-            this.ProjectLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProjectLogo.Location = new System.Drawing.Point(29, 363);
-            this.ProjectLogo.Name = "ProjectLogo";
-            this.ProjectLogo.Size = new System.Drawing.Size(128, 24);
-            this.ProjectLogo.TabIndex = 5;
-            this.ProjectLogo.Text = "Project Logo";
-            // 
-            // ProjectDIn
-            // 
-            this.ProjectDIn.AutoSize = true;
-            this.ProjectDIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProjectDIn.Location = new System.Drawing.Point(6, 207);
-            this.ProjectDIn.Name = "ProjectDIn";
-            this.ProjectDIn.Size = new System.Drawing.Size(195, 24);
-            this.ProjectDIn.TabIndex = 4;
-            this.ProjectDIn.Text = "Detailed description";
-            // 
-            // ProjectSInfo
-            // 
-            this.ProjectSInfo.AutoSize = true;
-            this.ProjectSInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProjectSInfo.Location = new System.Drawing.Point(19, 102);
-            this.ProjectSInfo.Name = "ProjectSInfo";
-            this.ProjectSInfo.Size = new System.Drawing.Size(168, 24);
-            this.ProjectSInfo.TabIndex = 3;
-            this.ProjectSInfo.Text = "Short description";
-            // 
-            // ProjectName
-            // 
-            this.ProjectName.AutoSize = true;
-            this.ProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProjectName.Location = new System.Drawing.Point(40, 38);
-            this.ProjectName.Name = "ProjectName";
-            this.ProjectName.Size = new System.Drawing.Size(65, 24);
-            this.ProjectName.TabIndex = 2;
-            this.ProjectName.Text = "Name";
-            // 
-            // ProjectTitleBox
-            // 
-            this.ProjectTitleBox.Location = new System.Drawing.Point(162, 38);
-            this.ProjectTitleBox.Name = "ProjectTitleBox";
-            this.ProjectTitleBox.Size = new System.Drawing.Size(312, 28);
-            this.ProjectTitleBox.TabIndex = 1;
-            // 
-            // newProject
-            // 
-            this.newProject.Location = new System.Drawing.Point(590, 518);
-            this.newProject.Name = "newProject";
-            this.newProject.Size = new System.Drawing.Size(123, 38);
-            this.newProject.TabIndex = 0;
-            this.newProject.Text = "Create Project";
-            this.newProject.UseVisualStyleBackColor = true;
-            this.newProject.Click += new System.EventHandler(this.newProject_Click);
             // 
             // UserAppS
             // 
@@ -313,8 +381,8 @@
             this.tabActiveProjects.PerformLayout();
             this.tabPageProjectSuggestions.ResumeLayout(false);
             this.tabCreateNewProject.ResumeLayout(false);
-            this.tabCreateNewProject.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ProjectLogoImage)).EndInit();
+            this.panelCreateNewProject.ResumeLayout(false);
+            this.panelCreateNewProject.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -332,16 +400,23 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelProjectSuggestions;
         private System.Windows.Forms.TabPage tabPageProjectSuggestions;
         private System.Windows.Forms.TabPage tabCreateNewProject;
-        private System.Windows.Forms.Label ProjectSInfo;
-        private System.Windows.Forms.Label ProjectName;
-        private System.Windows.Forms.TextBox ProjectTitleBox;
-        private System.Windows.Forms.Button newProject;
-        private System.Windows.Forms.PictureBox ProjectLogoImage;
-        private System.Windows.Forms.RichTextBox ProjectLongDetailsBox;
-        private System.Windows.Forms.RichTextBox ProjectShortDetailsBox;
-        private System.Windows.Forms.Label ProjectLogo;
-        private System.Windows.Forms.Label ProjectDIn;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.Button ChangeProjectImage;
+        private System.Windows.Forms.Panel panelCreateNewProject;
+        private System.Windows.Forms.RichTextBox TextBoxProjectLongDetails;
+        private System.Windows.Forms.RichTextBox TextBoxProjectShortDetails;
+        private System.Windows.Forms.Label LabelProjectImage;
+        private System.Windows.Forms.Label LabelProjectDetailedDescription;
+        private System.Windows.Forms.Label LabelProjectShortDescription;
+        private System.Windows.Forms.Label LabelProjectName;
+        private System.Windows.Forms.TextBox TextBoxProjectTitle;
+        private System.Windows.Forms.Button ButtonCreateProject;
+        private System.Windows.Forms.Label labelEmpty;
+        private System.Windows.Forms.TextBox textBoxAvailableFunds;
+        private System.Windows.Forms.TextBox textBoxCurrentYield;
+        private System.Windows.Forms.TextBox textBoxModificationLog;
+        private System.Windows.Forms.Label labelAvailableFunds;
+        private System.Windows.Forms.Label labelModificationLog;
+        private System.Windows.Forms.Label labelCurrentYield;
+        private System.Windows.Forms.TextBox textBoxImageURL;
     }
 }

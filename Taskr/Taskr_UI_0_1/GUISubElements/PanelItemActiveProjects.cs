@@ -19,14 +19,17 @@ namespace Taskr_UI_0_1
         private ProjectData pd;
         private DatabaseHandler d;
 
+        private bool HasAlreadyRequestedJoin;
+
         Taskr_UI_0_1.UserAppS us;
 
         public PanelItemActiveProjects( ProjectData pd, DatabaseHandler d,UserAppS us)
         {
-            
             this.us = us;   
             this.pd = pd;
             this.d = d;
+
+            HasAlreadyRequestedJoin = d.HasAlreadyRequestedJoin(pd);
             //
             //for resourecs
             //
@@ -45,6 +48,14 @@ namespace Taskr_UI_0_1
             // panel
             // 
             this.BackColor = System.Drawing.Color.DarkGray;
+            if (HasAlreadyRequestedJoin)
+            {
+                this.BackColor = System.Drawing.Color.Aquamarine;
+            }
+            else
+            {
+                this.BackColor = System.Drawing.Color.DarkGray;
+            }
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.buttonViewTasks);
@@ -83,6 +94,10 @@ namespace Taskr_UI_0_1
             this.buttonJoinProjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonJoinProjects.UseVisualStyleBackColor = true;
             this.buttonJoinProjects.Click += new System.EventHandler(this.buttonJoinProjects_Click);
+            if (HasAlreadyRequestedJoin)
+            {
+                this.buttonJoinProjects.Enabled = false;
+            }
             // 
             // buttonViewTasks
             // 
