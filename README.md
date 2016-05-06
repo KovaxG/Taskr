@@ -25,3 +25,5 @@ git commit -m "Puneti un mesaj aici, sa fie putin descriptiv"
 git push http://github.com/KovaxG/Taskr.git master
 
 that's all folks
+
+**Sau puteti sa folositi Git GUI, din acelash program, la push la destination trebuie sa puneti http://github.com/KovaxG/Taskr.git , in rest cred ca este destul de clar (Robert)
