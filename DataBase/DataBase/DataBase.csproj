@@ -47,7 +47,4 @@
     <Compile Include="DBDefaults.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <None Include="TODO.txt" />
-  </ItemGroup>
 </Project>
