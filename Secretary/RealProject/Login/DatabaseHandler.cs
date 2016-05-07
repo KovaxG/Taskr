@@ -18,7 +18,7 @@ namespace Login
         private string password;
 
         // Default values
-        const string DEFAULT_TEXT = "-";
+        const string DEFAULT_TEXT = "...";
 	    const int DEFAULT_ID   = 0;
         DateTime DEFAULT_DATE = new DateTime(1970,1,1,0,0,0);
         
@@ -88,7 +88,7 @@ namespace Login
         /* ----------------------------------------> SECRETARY ACTIONS <---------------------------------------- */
 
         // Create new secretary
-        public void createSecretary(string firstname, string lastname, string email, string displayname, string phonenumber, string password, string avatarurl, DateTime date)
+        public void createSecretary(string firstname, string lastname, string email, string displayname, string phonenumber, string password,  DateTime date)
         {
             OpenConnection();
             MySqlCommand command = new MySqlCommand("INSERT INTO secretary (FirstName, LastName, Email, DisplayName, PhoneNumber, PasswordHash, AvatarLink, JoinDate, Status, PersonalNotes, LeaveDate, ReasonForLeaving, RejoinDesirability, Observations) VALUES (@FirstName, @LastName, @Email, @DisplayName, @PhoneNumber, @PasswordHash, @AvatarLink, @JoinDate, @Status, @PersonalNotes, @LeaveDate, @ReasonForLeaving, @RejoinDesirability, @Observations);", connection);
@@ -98,7 +98,7 @@ namespace Login
             command.Parameters.Add("@DisplayName", MySqlDbType.Text).Value = displayname;
             command.Parameters.Add("@PhoneNumber", MySqlDbType.Text).Value = phonenumber;
             command.Parameters.Add("@PasswordHash", MySqlDbType.Text).Value = password;
-            command.Parameters.Add("@AvatarLink", MySqlDbType.Text).Value = avatarurl;
+            command.Parameters.Add("@AvatarLink", MySqlDbType.Text).Value = DEFAULT_TEXT;
             command.Parameters.Add("@JoinDate", MySqlDbType.Date).Value = date;
             command.Parameters.Add("@Status", MySqlDbType.Text).Value = "Available";
             command.Parameters.Add("@PersonalNotes", MySqlDbType.Text).Value = DEFAULT_TEXT;
@@ -114,17 +114,27 @@ namespace Login
         public bool CheckLogin(string username, string password)
         {
             OpenConnection();
+            int id;
             MySqlCommand command = new MySqlCommand();
-            command.CommandText = "Select * from secretary where Email=@username and PasswordHash=@password and LeaveDate=@DefaultDate";
+            command.CommandText = "Select Id from secretary where (Email=@username or DisplayName = @username) and LeaveDate=@DefaultDate";
             command.Parameters.AddWithValue("@username", username);
-            command.Parameters.AddWithValue("@password", password);
             command.Parameters.AddWithValue("@DefaultDate", DEFAULT_DATE);
             command.Connection = connection;
             MySqlDataReader login = command.ExecuteReader();
             if (login.Read())
             {
+                string line = login.GetString("Id");
+                id = Int32.Parse(line);
                 CloseConnection();
-                return true;
+                string hashed_password = Hash.hash(password, id, 16);
+                if (hashed_password.Equals(getPasswordSecretary(id)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -460,6 +470,10 @@ namespace Login
         // Update the personal notes of the secretary
         public void updatePersonalNotesSecretary(int user, string personalnotes)
         {
+            if(personalnotes.Equals(""))
+            {
+                personalnotes = DEFAULT_TEXT;
+            }
             OpenConnection();
             MySqlCommand command = new MySqlCommand("UPDATE secretary SET PersonalNotes='" + personalnotes + "'WHERE Id=" + user + ";", connection);
             command.ExecuteNonQuery();
@@ -496,6 +510,10 @@ namespace Login
         // Update the observations of the secretary
         public void updateObservationsSecretary(int user, string observations)
         {
+            if(observations.Equals(""))
+            {
+                observations = DEFAULT_TEXT;
+            }
             OpenConnection();
             MySqlCommand command = new MySqlCommand("UPDATE secretary SET Observations='" + observations + "'WHERE Id=" + user + ";", connection);
             command.ExecuteNonQuery();
@@ -517,7 +535,7 @@ namespace Login
         /* ----------------------------------------> USER ACTIONS <---------------------------------------- */
 
         // Create new user
-        public void createFreelancer(string firstname,string lastname, string email, string displayname, string phonenumber, string password, string avatarurl, DateTime date, int user)
+        public void createFreelancer(string firstname,string lastname, string email, string displayname, string phonenumber, string password,  DateTime date, int user)
         {
             OpenConnection();
             MySqlCommand command = new MySqlCommand("INSERT INTO users (FirstName, LastName, Email, DisplayName, PhoneNumber, PasswordHash, AvatarLink, JoinDate, AddedBy,WorkStatus,ActiveProject,ActiveTask, PersonalNotes, LeaveDate, ReasonForLeaving, RejoinDesirability, Observations) VALUES (@FirstName, @LastName, @Email, @DisplayName, @PhoneNumber, @PasswordHash, @AvatarLink, @JoinDate, @AddedBy, @Status, @ActiveProject, @ActiveTask, @PersonalNotes, @LeaveDate, @ReasonForLeaving, @RejoinDesirability, @Observations);", connection);
@@ -527,7 +545,7 @@ namespace Login
             command.Parameters.Add("@DisplayName", MySqlDbType.Text).Value = displayname;
             command.Parameters.Add("@PhoneNumber", MySqlDbType.Text).Value = phonenumber;
             command.Parameters.Add("@PasswordHash", MySqlDbType.Text).Value = password;
-            command.Parameters.Add("@AvatarLink", MySqlDbType.Text).Value = avatarurl;
+            command.Parameters.Add("@AvatarLink", MySqlDbType.Text).Value = DEFAULT_TEXT;
             command.Parameters.Add("@JoinDate", MySqlDbType.Date).Value = date;
             command.Parameters.Add("@AddedBy", MySqlDbType.Text).Value = user;
             command.Parameters.Add("@Status", MySqlDbType.Text).Value = "Available";
@@ -543,6 +561,23 @@ namespace Login
         }
 
         /* <====================================== GET FIELDS ======================================> */
+
+        // Get id user
+        public int getIdUser(string username)
+        {
+            OpenConnection();
+            int id = 0;
+            MySqlDataReader reader;
+            MySqlCommand command = new MySqlCommand("Select Id FROM users WHERE Email='" + username + "';", connection);
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string line = reader.GetString("Id");
+                id = Int32.Parse(line);
+            }
+            CloseConnection();
+            return id;
+        }
 
         // Get the firstname of the user
         public string getFirstNameUser(int user)
@@ -922,6 +957,10 @@ namespace Login
         // Update the personal notes of the user
         public void updatePersonalNotesUser(int user, string personalnotes)
         {
+            if(personalnotes.Equals(""))
+            {
+                personalnotes = DEFAULT_TEXT;
+            }
             OpenConnection();
             MySqlCommand command = new MySqlCommand("UPDATE users SET PersonalNotes='" + personalnotes + "'WHERE Id=" + user + ";", connection);
             command.ExecuteNonQuery();
@@ -949,6 +988,10 @@ namespace Login
         // Update the observations of the user
         public void updateObservationsUser(int user, string observations)
         {
+            if(observations.Equals(""))
+            {
+                observations = DEFAULT_TEXT;
+            }
             OpenConnection();
             MySqlCommand command = new MySqlCommand("UPDATE users SET Observations='" + observations + "'WHERE Id=" + user + ";", connection);
             command.ExecuteNonQuery();
@@ -1020,7 +1063,7 @@ namespace Login
         public DataSet loadEmployees()
         {
             OpenConnection();
-            MySqlCommand command = new MySqlCommand("SELECT ID,FirstName,LastName FROM users WHERE LeaveDate=@DefaultDate;", connection);
+            MySqlCommand command = new MySqlCommand("SELECT Id,FirstName,LastName FROM users WHERE LeaveDate=@DefaultDate;", connection);
             command.Parameters.Add("@DefaultDate", MySqlDbType.Date).Value = DEFAULT_DATE;
             command.ExecuteNonQuery();
 
@@ -1037,7 +1080,7 @@ namespace Login
         public DataSet loadFormerEmployees()
         {
             OpenConnection();
-            MySqlCommand command = new MySqlCommand("SELECT ID,FirstName,LastName FROM users WHERE LeaveDate <>@DefaultDate;", connection);
+            MySqlCommand command = new MySqlCommand("SELECT Id,FirstName,LastName FROM users WHERE LeaveDate <>@DefaultDate;", connection);
             command.Parameters.Add("@DefaultDate", MySqlDbType.Date).Value = DEFAULT_DATE;
             command.ExecuteNonQuery();
             
@@ -1083,6 +1126,89 @@ namespace Login
 
         /* ----------------------------------------> END OF LOAD TABLES <---------------------------------------- */
 
+        public bool checkUniqueEmailSecretary (string email, int id)
+        {
+            OpenConnection();
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText = "Select * from secretary where Email=@email AND Id<>@id";
+            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@id", id);
+            command.Connection = connection;
+            MySqlDataReader check = command.ExecuteReader();
+            if (check.Read())
+            {
+                CloseConnection();
+                return false;
+            }
+            else
+            {
+                CloseConnection();
+                return true;
+            }
+        }
+
+        public bool checkUniqueDisplayNameSecretary(string displayname, int id)
+        {
+            OpenConnection();
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText = "Select * from secretary where DisplayName=@displayname AND Id<>@id";
+            command.Parameters.AddWithValue("@displayname", displayname);
+            command.Parameters.AddWithValue("@id", id);
+            command.Connection = connection;
+            MySqlDataReader check = command.ExecuteReader();
+            if (check.Read())
+            {
+                CloseConnection();
+                return false;
+            }
+            else
+            {
+                CloseConnection();
+                return true;
+            }
+        }
+
+        public bool checkUniqueEmailUser(string email, int id)
+        {
+            OpenConnection();
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText = "Select * from users where Email=@email AND Id<>@id";
+            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@id", id);
+            command.Connection = connection;
+            MySqlDataReader check = command.ExecuteReader();
+            if (check.Read())
+            {
+                CloseConnection();
+                return false;
+            }
+            else
+            {
+                CloseConnection();
+                return true;
+            }
+        }
+
+        public bool checkUniqueDisplayNameUser(string displayname, int id)
+        {
+            OpenConnection();
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText = "Select * from users where DisplayName=@displayname AND Id<>@id";
+            command.Parameters.AddWithValue("@displayname", displayname);
+            command.Parameters.AddWithValue("@id", id);
+            command.Connection = connection;
+            MySqlDataReader check = command.ExecuteReader();
+            if (check.Read())
+            {
+                CloseConnection();
+                return false;
+            }
+            else
+            {
+                CloseConnection();
+                return true;
+            }
+        }
 
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Login
 {
-    partial class Login
+    partial class LoginSecretary
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginSecretary));
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
@@ -63,6 +64,7 @@
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(167, 20);
             this.textBoxPassword.TabIndex = 7;
+            this.textBoxPassword.UseSystemPasswordChar = true;
             // 
             // textBoxUsername
             // 
@@ -99,9 +101,8 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(330, 129);
             this.flowLayoutPanel1.TabIndex = 11;
-            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
-            // Login
+            // LoginSecretary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -113,8 +114,10 @@
             this.Controls.Add(this.textBoxUsername);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Name = "Login";
-            this.Text = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.Name = "LoginSecretary";
+            this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
 

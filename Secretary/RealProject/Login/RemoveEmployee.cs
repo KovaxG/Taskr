@@ -12,46 +12,98 @@ namespace Login
 {
     public partial class RemoveEmployee : Form
     {
-        int ID;
+        int employee_id;
         DatabaseHandler db = new DatabaseHandler();
+        VerifyText verify_text = new VerifyText();
+        
+        // Constructor
         public RemoveEmployee(int id)
         {
             InitializeComponent();
-            ID = id;
-            textBoxFirstName.Text = db.getFirstNameUser(ID);
-            textBoxLastName.Text = db.getLastNameUser(ID);
+            employee_id = id;
+            textBoxFirstName.Text = db.getFirstNameUser(employee_id);
+            textBoxLastName.Text = db.getLastNameUser(employee_id);
         }
 
+        // Cancel button
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // Reset button
         private void buttonReset_Click(object sender, EventArgs e)
         {
-            textBoxFirstName.Text = db.getFirstNameUser(ID);
-            textBoxLastName.Text = db.getLastNameUser(ID);
+            textBoxFirstName.Text = db.getFirstNameUser(employee_id);
+            textBoxLastName.Text = db.getLastNameUser(employee_id);
             textBoxReasonForLeaving.Text = "";
             textBoxRejoinDesirability.Text = "";
-            textBoxObservatios.Text = "";
+            textBoxObservations.Text = "";
             dateTimePickerLeaveDate.Value = DateTime.Now;
         }
 
+        // Accept button
         private void buttonAccept_Click(object sender, EventArgs e)
         {
             string reasonforleaving = textBoxReasonForLeaving.Text;
             string rejoindesirability = textBoxRejoinDesirability.Text;
-            string observations = textBoxObservatios.Text;
+            string observations = textBoxObservations.Text;
             DateTime leavedate = dateTimePickerLeaveDate.Value;
-            db.updateReasonForLeavingUser(ID, reasonforleaving);
-            db.updateRejoinDesirabilityUser(ID, rejoindesirability);
-            db.updateLeaveDateUser(ID, leavedate);
-            db.updateObservationsUser(ID, observations);
-            db.deleteProjectRequestUser(ID);
-            db.deleteTaskRequestUser(ID);
-            db.deleteFromActiveProject(ID);
-            db.deleteFromActiveTask(ID);
-            MessageBox.Show("Succsessfully updated!");
+            bool ok = true;
+
+            // Verify reason for leaving
+            if (verify_text.IsInjection(reasonforleaving) || !verify_text.HasOnlyLetters(reasonforleaving))
+            {
+                labelReasonForLeaving.Show();
+                labelReasonForLeaving.Text = "Please insert only letters ";
+                labelReasonForLeaving.ForeColor = System.Drawing.Color.Red;
+                ok = false;
+            }
+            else
+            {
+                labelReasonForLeaving.Hide();
+            }
+
+            // Verify rejoin desirability
+            if (verify_text.IsInjection(rejoindesirability) || !verify_text.HasOnlyLetters(rejoindesirability))
+            {
+                labelRejoinDesirability.Show();
+                labelRejoinDesirability.Text = "Please insert only letters ";
+                labelRejoinDesirability.ForeColor = System.Drawing.Color.Red;
+                ok = false;
+            }
+            else
+            {
+                labelRejoinDesirability.Hide();
+            }
+
+            // Verify observations
+            if (verify_text.IsInjection(observations))
+            {
+                labelObservations.Show();
+                labelObservations.Text = "Please don't use SQL injection characters like ' or \\";
+                labelObservations.ForeColor = System.Drawing.Color.Red;
+                ok = false;
+            }
+            else
+            {
+                labelObservations.Hide();
+            }
+
+            // If all data is correct 
+            if (ok == true)
+            {
+                db.updateReasonForLeavingUser(employee_id, reasonforleaving);
+                db.updateRejoinDesirabilityUser(employee_id, rejoindesirability);
+                db.updateLeaveDateUser(employee_id, leavedate);
+                db.updateObservationsUser(employee_id, observations);
+                db.deleteProjectRequestUser(employee_id);
+                db.deleteTaskRequestUser(employee_id);
+                db.deleteFromActiveProject(employee_id);
+                db.deleteFromActiveTask(employee_id);
+                MessageBox.Show("Succsessfully updated!");
+                this.Close();
+            }
         }
     }
 }

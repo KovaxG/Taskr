@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,17 +80,18 @@
     <Compile Include="EditFormerSecretary.Designer.cs">
       <DependentUpon>EditFormerSecretary.cs</DependentUpon>
     </Compile>
-    <Compile Include="HomePage.cs">
+    <Compile Include="Hash.cs" />
+    <Compile Include="Secretary.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HomePage.Designer.cs">
-      <DependentUpon>HomePage.cs</DependentUpon>
+    <Compile Include="Secretary.Designer.cs">
+      <DependentUpon>Secretary.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login.cs">
+    <Compile Include="LoginSecretary.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
+    <Compile Include="LoginSecretary.Designer.cs">
+      <DependentUpon>LoginSecretary.cs</DependentUpon>
     </Compile>
     <Compile Include="NewUser.cs">
       <SubType>Form</SubType>
@@ -111,12 +113,7 @@
     <Compile Include="RemoveSecretary.Designer.cs">
       <DependentUpon>RemoveSecretary.cs</DependentUpon>
     </Compile>
-    <Compile Include="SearchUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SearchUser.Designer.cs">
-      <DependentUpon>SearchUser.cs</DependentUpon>
-    </Compile>
+    <Compile Include="VerifyText.cs" />
     <EmbeddedResource Include="EditEmployee.resx">
       <DependentUpon>EditEmployee.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,11 +129,11 @@
     <EmbeddedResource Include="EditFormerSecretary.resx">
       <DependentUpon>EditFormerSecretary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HomePage.resx">
-      <DependentUpon>HomePage.cs</DependentUpon>
+    <EmbeddedResource Include="Secretary.resx">
+      <DependentUpon>Secretary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
+    <EmbeddedResource Include="LoginSecretary.resx">
+      <DependentUpon>LoginSecretary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewUser.resx">
       <DependentUpon>NewUser.cs</DependentUpon>
@@ -156,9 +153,6 @@
     <EmbeddedResource Include="RemoveSecretary.resx">
       <DependentUpon>RemoveSecretary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SearchUser.resx">
-      <DependentUpon>SearchUser.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -172,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

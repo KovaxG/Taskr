@@ -28,26 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemoveEmployee));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
             this.buttonAccept = new System.Windows.Forms.Button();
             this.dateTimePickerLeaveDate = new System.Windows.Forms.DateTimePicker();
-            this.textBoxObservatios = new System.Windows.Forms.TextBox();
-            this.textBoxRejoinDesirability = new System.Windows.Forms.TextBox();
-            this.textBoxReasonForLeaving = new System.Windows.Forms.TextBox();
             this.textBoxLastName = new System.Windows.Forms.TextBox();
             this.textBoxFirstName = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.labelObservations = new System.Windows.Forms.Label();
+            this.labelRejoinDesirability = new System.Windows.Forms.Label();
+            this.labelReasonForLeaving = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBoxObservations = new System.Windows.Forms.TextBox();
+            this.textBoxRejoinDesirability = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBoxReasonForLeaving = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(234, 244);
+            this.buttonCancel.Location = new System.Drawing.Point(351, 399);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 55);
             this.buttonCancel.TabIndex = 47;
@@ -57,7 +61,7 @@
             // 
             // buttonReset
             // 
-            this.buttonReset.Location = new System.Drawing.Point(133, 244);
+            this.buttonReset.Location = new System.Drawing.Point(244, 399);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(75, 55);
             this.buttonReset.TabIndex = 46;
@@ -67,7 +71,7 @@
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Location = new System.Drawing.Point(35, 244);
+            this.buttonAccept.Location = new System.Drawing.Point(136, 399);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(75, 55);
             this.buttonAccept.TabIndex = 45;
@@ -79,37 +83,15 @@
             // 
             this.dateTimePickerLeaveDate.Location = new System.Drawing.Point(133, 68);
             this.dateTimePickerLeaveDate.Name = "dateTimePickerLeaveDate";
-            this.dateTimePickerLeaveDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerLeaveDate.Size = new System.Drawing.Size(293, 20);
             this.dateTimePickerLeaveDate.TabIndex = 44;
-            // 
-            // textBoxObservatios
-            // 
-            this.textBoxObservatios.Location = new System.Drawing.Point(133, 145);
-            this.textBoxObservatios.Multiline = true;
-            this.textBoxObservatios.Name = "textBoxObservatios";
-            this.textBoxObservatios.Size = new System.Drawing.Size(200, 60);
-            this.textBoxObservatios.TabIndex = 43;
-            // 
-            // textBoxRejoinDesirability
-            // 
-            this.textBoxRejoinDesirability.Location = new System.Drawing.Point(133, 119);
-            this.textBoxRejoinDesirability.Name = "textBoxRejoinDesirability";
-            this.textBoxRejoinDesirability.Size = new System.Drawing.Size(200, 20);
-            this.textBoxRejoinDesirability.TabIndex = 42;
-            // 
-            // textBoxReasonForLeaving
-            // 
-            this.textBoxReasonForLeaving.Location = new System.Drawing.Point(133, 93);
-            this.textBoxReasonForLeaving.Name = "textBoxReasonForLeaving";
-            this.textBoxReasonForLeaving.Size = new System.Drawing.Size(200, 20);
-            this.textBoxReasonForLeaving.TabIndex = 41;
             // 
             // textBoxLastName
             // 
             this.textBoxLastName.Location = new System.Drawing.Point(133, 42);
             this.textBoxLastName.Name = "textBoxLastName";
             this.textBoxLastName.ReadOnly = true;
-            this.textBoxLastName.Size = new System.Drawing.Size(200, 20);
+            this.textBoxLastName.Size = new System.Drawing.Size(293, 20);
             this.textBoxLastName.TabIndex = 40;
             // 
             // textBoxFirstName
@@ -117,40 +99,13 @@
             this.textBoxFirstName.Location = new System.Drawing.Point(133, 16);
             this.textBoxFirstName.Name = "textBoxFirstName";
             this.textBoxFirstName.ReadOnly = true;
-            this.textBoxFirstName.Size = new System.Drawing.Size(200, 20);
+            this.textBoxFirstName.Size = new System.Drawing.Size(293, 20);
             this.textBoxFirstName.TabIndex = 39;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 148);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(69, 13);
-            this.label6.TabIndex = 38;
-            this.label6.Text = "Observations";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 122);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 13);
-            this.label5.TabIndex = 37;
-            this.label5.Text = "Rejoin Desirability";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 96);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 13);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "Reason For Leaving";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 71);
+            this.label3.Location = new System.Drawing.Point(13, 74);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 35;
@@ -159,7 +114,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 45);
+            this.label2.Location = new System.Drawing.Point(13, 48);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 34;
@@ -168,32 +123,110 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 19);
+            this.label1.Location = new System.Drawing.Point(13, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 33;
             this.label1.Text = "First Name";
             // 
+            // labelObservations
+            // 
+            this.labelObservations.AutoSize = true;
+            this.labelObservations.Location = new System.Drawing.Point(133, 307);
+            this.labelObservations.Name = "labelObservations";
+            this.labelObservations.Size = new System.Drawing.Size(0, 13);
+            this.labelObservations.TabIndex = 112;
+            // 
+            // labelRejoinDesirability
+            // 
+            this.labelRejoinDesirability.AutoSize = true;
+            this.labelRejoinDesirability.Location = new System.Drawing.Point(133, 167);
+            this.labelRejoinDesirability.Name = "labelRejoinDesirability";
+            this.labelRejoinDesirability.Size = new System.Drawing.Size(0, 13);
+            this.labelRejoinDesirability.TabIndex = 111;
+            // 
+            // labelReasonForLeaving
+            // 
+            this.labelReasonForLeaving.AutoSize = true;
+            this.labelReasonForLeaving.Location = new System.Drawing.Point(133, 128);
+            this.labelReasonForLeaving.Name = "labelReasonForLeaving";
+            this.labelReasonForLeaving.Size = new System.Drawing.Size(0, 13);
+            this.labelReasonForLeaving.TabIndex = 110;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(13, 194);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(69, 13);
+            this.label17.TabIndex = 109;
+            this.label17.Text = "Observations";
+            // 
+            // textBoxObservations
+            // 
+            this.textBoxObservations.Location = new System.Drawing.Point(133, 191);
+            this.textBoxObservations.Multiline = true;
+            this.textBoxObservations.Name = "textBoxObservations";
+            this.textBoxObservations.Size = new System.Drawing.Size(293, 110);
+            this.textBoxObservations.TabIndex = 108;
+            // 
+            // textBoxRejoinDesirability
+            // 
+            this.textBoxRejoinDesirability.Location = new System.Drawing.Point(133, 144);
+            this.textBoxRejoinDesirability.Name = "textBoxRejoinDesirability";
+            this.textBoxRejoinDesirability.Size = new System.Drawing.Size(293, 20);
+            this.textBoxRejoinDesirability.TabIndex = 107;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(13, 151);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(90, 13);
+            this.label16.TabIndex = 106;
+            this.label16.Text = "Rejoin Desirability";
+            // 
+            // textBoxReasonForLeaving
+            // 
+            this.textBoxReasonForLeaving.Location = new System.Drawing.Point(133, 105);
+            this.textBoxReasonForLeaving.Name = "textBoxReasonForLeaving";
+            this.textBoxReasonForLeaving.Size = new System.Drawing.Size(293, 20);
+            this.textBoxReasonForLeaving.TabIndex = 105;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(13, 112);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(103, 13);
+            this.label15.TabIndex = 104;
+            this.label15.Text = "Reason For Leaving";
+            // 
             // RemoveEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(357, 326);
+            this.ClientSize = new System.Drawing.Size(570, 536);
+            this.Controls.Add(this.labelObservations);
+            this.Controls.Add(this.labelRejoinDesirability);
+            this.Controls.Add(this.labelReasonForLeaving);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.textBoxObservations);
+            this.Controls.Add(this.textBoxRejoinDesirability);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.textBoxReasonForLeaving);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.buttonAccept);
             this.Controls.Add(this.dateTimePickerLeaveDate);
-            this.Controls.Add(this.textBoxObservatios);
-            this.Controls.Add(this.textBoxRejoinDesirability);
-            this.Controls.Add(this.textBoxReasonForLeaving);
             this.Controls.Add(this.textBoxLastName);
             this.Controls.Add(this.textBoxFirstName);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "RemoveEmployee";
             this.Text = "RemoveEmployee";
             this.ResumeLayout(false);
@@ -207,16 +240,19 @@
         private System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.DateTimePicker dateTimePickerLeaveDate;
-        private System.Windows.Forms.TextBox textBoxObservatios;
-        private System.Windows.Forms.TextBox textBoxRejoinDesirability;
-        private System.Windows.Forms.TextBox textBoxReasonForLeaving;
         private System.Windows.Forms.TextBox textBoxLastName;
         private System.Windows.Forms.TextBox textBoxFirstName;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelObservations;
+        private System.Windows.Forms.Label labelRejoinDesirability;
+        private System.Windows.Forms.Label labelReasonForLeaving;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textBoxObservations;
+        private System.Windows.Forms.TextBox textBoxRejoinDesirability;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBoxReasonForLeaving;
+        private System.Windows.Forms.Label label15;
     }
 }

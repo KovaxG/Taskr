@@ -13,96 +13,257 @@ namespace Login
     
     public partial class NewUser : Form
     {
-        private HomePage mainForm = null;
         DatabaseHandler db = new DatabaseHandler();
-        int user;
-        public NewUser(Form callingForm)
+        VerifyText verify_text = new VerifyText();
+        int secretary_id;
+        
+        // Constructor
+        public NewUser(int id)
         {
             InitializeComponent();
-            mainForm = callingForm as HomePage;
-            user = this.mainForm.getUser;
+            secretary_id = id;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        // Create button
         private void buttonCreate_Click(object sender, EventArgs e)
         {
-            int ok = 0;
-            if (!String.IsNullOrEmpty(textBoxDisplayName.Text) && !String.IsNullOrEmpty(textBoxAvatarURL.Text) && !String.IsNullOrEmpty(textBoxFirstName.Text) && !String.IsNullOrEmpty(textBoxLastName.Text)&& !String.IsNullOrEmpty(textBoxEmail.Text)&& !String.IsNullOrEmpty(textBoxPassword.Text)&& !String.IsNullOrEmpty(textBoxPhoneNumber.Text) )
+            bool ok = true;
+            bool ok_pass = false;
+            string displayname = textBoxDisplayName.Text;
+            string firstname = textBoxFirstName.Text;
+            string lastname = textBoxLastName.Text;
+            string email = textBoxEmail.Text;
+            string password = textBoxPassword.Text;
+            string confirmpassword = textBoxConfirmPassword.Text;
+            string phonenumber = textBoxPhoneNumber.Text;
+            DateTime date = dateTimePicker.Value.Date;
+
+            // Verify firstname
+            if(verify_text.IsInjection(firstname) || !verify_text.HasOnlyLetters(firstname))
             {
-                string firstname = textBoxFirstName.Text;
-                string lastname = textBoxLastName.Text;
-                string email = textBoxEmail.Text;
-                string password = textBoxPassword.Text;
-                string phonenumber = textBoxPhoneNumber.Text;
-                string avatarurl = textBoxAvatarURL.Text;
-                string displayname = textBoxDisplayName.Text;
-                DateTime date = dateTimePicker.Value.Date;
-              
-                if (radioButtonFreelancer.Checked)
-                {
-                    db.createFreelancer(firstname, lastname, email, displayname, phonenumber, password, avatarurl, date, user);
-                    MessageBox.Show("New Freelancer created!");
-                    textBoxFirstName.Clear();
-                    textBoxLastName.Clear();
-                    textBoxEmail.Clear();
-                    textBoxPassword.Clear();
-                    textBoxAvatarURL.Clear();
-                    textBoxPhoneNumber.Clear();
-                    textBoxDisplayName.Clear();
-                    dateTimePicker.ResetText();
-                }
-                if (radioButtonSecretary.Checked)
-                {
-                    db.createSecretary(firstname, lastname, email, displayname, phonenumber, password, avatarurl, date);
-                    MessageBox.Show("New Secretary created!");
-                    textBoxFirstName.Clear();
-                    textBoxLastName.Clear();
-                    textBoxEmail.Clear();
-                    textBoxPassword.Clear();
-                    textBoxAvatarURL.Clear();
-                    textBoxPhoneNumber.Clear();
-                    textBoxDisplayName.Clear();
-                    dateTimePicker.ResetText();
-                }
+                labelFirstname.Show();
+                labelFirstname.Text = "Please use only letters (a-z A-Z) in the Firstname";
+                labelFirstname.ForeColor = System.Drawing.Color.Red;
+                ok = false;
             }
-                
             else
             {
-                if(!radioButtonFreelancer.Checked && !radioButtonSecretary.Checked)
+                labelFirstname.Hide();
+            }
+
+            // Verify lastname
+            if (verify_text.IsInjection(lastname) || !verify_text.HasOnlyLetters(lastname))
+            {
+                labelLastname.Show();
+                labelLastname.Text = "Please use only letters (a-z A-Z) in the Lastname";
+                labelLastname.ForeColor = System.Drawing.Color.Red;
+                ok = false;
+            }
+            else
+            {
+                labelLastname.Hide();
+            }
+            if (radioButtonFreelancer.Checked)
+            {
+                // Verify displayname
+                if (verify_text.IsInjection(displayname) || !verify_text.HasOnlyLettersNumbersUnderscore(displayname))
                 {
-                    MessageBox.Show("Please choose the type of user and fill all entries!");
-                    ok = 1;
+                    labelDisplayname.Show();
+                    labelDisplayname.Text = "Please use only letters (a-z A-Z), numbers (0-9) or" + "\n" + " underscore (-) in the DisplayName";
+                    labelDisplayname.ForeColor = System.Drawing.Color.Red;
+                    ok = false;
                 }
                 else
                 {
-                    MessageBox.Show("Please fill all entries!");
+                    if (!db.checkUniqueDisplayNameUser(displayname,0))
+                    {
+                        labelDisplayname.Show();
+                        labelDisplayname.Text = "This Displayname is already taken, please type another";
+                        labelDisplayname.ForeColor = System.Drawing.Color.Red;
+                        ok = false;
+                    }
+                    else
+                    {
+                        labelDisplayname.Hide();
+                    }
+                }
+
+                // Verify email
+                if (verify_text.IsInjection(email) || !verify_text.IsValidEmail(email))
+                {
+                    labelEmail.Show();
+                    labelEmail.Text = "Please enter a valid email.";
+                    labelEmail.ForeColor = System.Drawing.Color.Red;
+                    ok = false;
+                }
+                else
+                {
+                    if (!db.checkUniqueEmailUser(email,0))
+                    {
+                        labelEmail.Show();
+                        labelEmail.Text = "This Email is already taken, please type another.";
+                        labelEmail.ForeColor = System.Drawing.Color.Red;
+                        ok = false;
+                    }
+                    else
+                    {
+                        labelEmail.Hide();
+                    }
                 }
             }
-            if (!radioButtonFreelancer.Checked && !radioButtonSecretary.Checked && ok == 0)
+
+            if (radioButtonSecretary.Checked)
             {
-                MessageBox.Show("Please choose the type of user!");
+                // Verify displayname
+                if (verify_text.IsInjection(displayname) || !verify_text.HasOnlyLettersNumbersUnderscore(displayname))
+                {
+                    labelDisplayname.Show();
+                    labelDisplayname.Text = "Please use only letters (a-z A-Z), numbers (0-9) or" + "\n" + " underscore (-) in the DisplayName";
+                    labelDisplayname.ForeColor = System.Drawing.Color.Red;
+                    ok = false;
+                }
+                else
+                {
+                    if (!db.checkUniqueDisplayNameSecretary(displayname,0))
+                    {
+                        labelDisplayname.Show();
+                        labelDisplayname.Text = "This Displayname is already taken, please type another";
+                        labelDisplayname.ForeColor = System.Drawing.Color.Red;
+                        ok = false;
+                    }
+                    else
+                    {
+                        labelDisplayname.Hide();
+                    }
+                }
+
+                // Verify email
+                if (verify_text.IsInjection(email) || !verify_text.IsValidEmail(email))
+                {
+                    labelEmail.Show();
+                    labelEmail.Text = "Please enter a valid email.";
+                    labelEmail.ForeColor = System.Drawing.Color.Red;
+                    ok = false;
+                }
+                else
+                {
+                    if (!db.checkUniqueEmailSecretary(email,0))
+                    {
+                        labelEmail.Show();
+                        labelEmail.Text = "This Email is already taken, please type another.";
+                        labelEmail.ForeColor = System.Drawing.Color.Red;
+                        ok = false;
+                    }
+                    else
+                    {
+                        labelEmail.Hide();
+                    }
+                }
             }
-            
-            
+
+
+            // Verify password 
+            if (password.Equals(confirmpassword) && !verify_text.IsNull(password) && !verify_text.IsNull(confirmpassword))
+            {
+                labelConfirmPassword.Hide();
+                if (verify_text.IsStrongPassword(password))
+                {
+                    ok_pass = true;
+                    labelConfirmPassword.Hide();
+                }
+                else
+                {
+                    labelConfirmPassword.Show();
+                    labelConfirmPassword.Text = "The password must have 8-15 charcters containing at least" + "\n" + " one lowercase, one uppercase and one digit";
+                    labelConfirmPassword.ForeColor = System.Drawing.Color.Red;
+                    ok_pass = false;
+                    ok = false;
+                }
+            }
+            if (!password.Equals(confirmpassword))
+            {
+                labelConfirmPassword.Show();
+                labelConfirmPassword.Text = "The 2 passwords don't match";
+                labelConfirmPassword.ForeColor = System.Drawing.Color.Red;
+                ok_pass = false;
+                ok = false;
+            }
+
+            // // Verify phonenumber
+            if(verify_text.IsInjection(phonenumber) || !verify_text.IsValidPhoneNumber(phonenumber))
+            {
+                labelPhonenumber.Show();
+                labelPhonenumber.Text = "The phonenumber must have exactly 10 digits";
+                labelPhonenumber.ForeColor = System.Drawing.Color.Red;
+                ok = false;
+            }
+            else
+            {
+                labelPhonenumber.Hide();
+            }
+
+            // Verify radiobuttons
+            if(!radioButtonFreelancer.Checked && !radioButtonSecretary.Checked)
+            {
+                labelRadiobuttons.Show();
+                labelRadiobuttons.Text = "Choose the type of the user.";
+                labelRadiobuttons.ForeColor = System.Drawing.Color.Red;
+                ok = false;
+            }
+            else
+            {
+                labelRadiobuttons.Hide();
+            }
+
+            // If all data is correct
+            if(ok == true)
+            {
+                if (radioButtonFreelancer.Checked)
+                {
+                    if (ok_pass == true)
+                    {
+                        //string hashed_password = Hash.hash(password, employee_id, 16);
+                        db.createFreelancer(firstname, lastname, email, displayname, phonenumber, password, date, secretary_id);
+                        int id = db.getIdUser(email);
+                        string hashed_password = Hash.hash(password, id, 16);
+                        db.updatePasswordUser(id, hashed_password);
+                        MessageBox.Show("New Freelancer created!");
+                        textBoxFirstName.Clear();
+                        textBoxLastName.Clear();
+                        textBoxEmail.Clear();
+                        textBoxPassword.Clear();
+                        textBoxPhoneNumber.Clear();
+                        textBoxDisplayName.Clear();
+                        dateTimePicker.ResetText();
+                        this.Close();
+                    }
+                }
+                if (radioButtonSecretary.Checked)
+                {
+                    if (ok_pass == true)
+                    {
+                        db.createSecretary(firstname, lastname, email, displayname, phonenumber, password, date);
+                        int id = db.getIdSecretary(email);
+                        string hashed_password = Hash.hash(password, id, 16);
+                        db.updatePasswordSecretary(id, hashed_password);
+                        MessageBox.Show("New Secretary created!");
+                        textBoxFirstName.Clear();
+                        textBoxLastName.Clear();
+                        textBoxEmail.Clear();
+                        textBoxPassword.Clear();
+                        textBoxPhoneNumber.Clear();
+                        textBoxDisplayName.Clear();
+                        dateTimePicker.ResetText();
+                        this.Close();
+                    }
+                }
+            }
         }
 
+        // Cancel button
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButtonFreelancer_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
