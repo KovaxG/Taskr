@@ -40,15 +40,15 @@ namespace Taskr_UI_0_1
             this.tabControlVarious = new System.Windows.Forms.TabControl();
             this.tabActiveTasks = new System.Windows.Forms.TabPage();
             this.flowLayoutPanelTasks = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonCreateItem = new System.Windows.Forms.Button();
-            this.labelNoItems = new System.Windows.Forms.Label();
+            this.panelNoItems = new System.Windows.Forms.Panel();
+            this.buttonCreateTaskRedirector = new System.Windows.Forms.Button();
+            this.labelNoTasks = new System.Windows.Forms.Label();
             this.tabCreateTask = new System.Windows.Forms.TabPage();
             this.panelCreateTask = new System.Windows.Forms.Panel();
             this.dateTimePickerDeadLine = new System.Windows.Forms.DateTimePicker();
             this.pictureBoxTaskImage = new System.Windows.Forms.PictureBox();
             this.textBoxTaskImageURL = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelEmptyCreateNewTask = new System.Windows.Forms.Label();
             this.buttonCreateTask = new System.Windows.Forms.Button();
             this.labelDeadLine = new System.Windows.Forms.Label();
             this.textBoxTaskLongDescription = new System.Windows.Forms.RichTextBox();
@@ -62,9 +62,10 @@ namespace Taskr_UI_0_1
             this.flowLayoutPanelProjectSuggestions = new System.Windows.Forms.FlowLayoutPanel();
             this.tabEditProject = new System.Windows.Forms.TabPage();
             this.LabelProjectSInfo = new System.Windows.Forms.Panel();
+            this.buttonAbolishProject = new System.Windows.Forms.Button();
             this.pictureBoxProjectImage = new System.Windows.Forms.PictureBox();
             this.textBoxProjectImageURL = new System.Windows.Forms.TextBox();
-            this.labelEmpty = new System.Windows.Forms.Label();
+            this.labelEmptyEditProjectDetails = new System.Windows.Forms.Label();
             this.textBoxAvailableFunds = new System.Windows.Forms.TextBox();
             this.ButtonUpdateProjectDetails = new System.Windows.Forms.Button();
             this.textBoxCurrentYield = new System.Windows.Forms.TextBox();
@@ -79,14 +80,13 @@ namespace Taskr_UI_0_1
             this.LabelProjectShortDescription = new System.Windows.Forms.Label();
             this.LabelProjectTitle = new System.Windows.Forms.Label();
             this.TextBoxProjectTitle = new System.Windows.Forms.TextBox();
-            this.buttonAbandonProject = new System.Windows.Forms.Button();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.panelSide.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).BeginInit();
             this.tabControlVarious.SuspendLayout();
             this.tabActiveTasks.SuspendLayout();
             this.flowLayoutPanelTasks.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelNoItems.SuspendLayout();
             this.tabCreateTask.SuspendLayout();
             this.panelCreateTask.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTaskImage)).BeginInit();
@@ -189,7 +189,7 @@ namespace Taskr_UI_0_1
             this.flowLayoutPanelTasks.AutoScroll = true;
             this.flowLayoutPanelTasks.AutoSize = true;
             this.flowLayoutPanelTasks.BackColor = System.Drawing.Color.Gainsboro;
-            this.flowLayoutPanelTasks.Controls.Add(this.panel1);
+            this.flowLayoutPanelTasks.Controls.Add(this.panelNoItems);
             this.flowLayoutPanelTasks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelTasks.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanelTasks.Location = new System.Drawing.Point(3, 3);
@@ -198,33 +198,35 @@ namespace Taskr_UI_0_1
             this.flowLayoutPanelTasks.TabIndex = 0;
             this.flowLayoutPanelTasks.WrapContents = false;
             // 
-            // panel1
+            // panelNoItems
             // 
-            this.panel1.Controls.Add(this.buttonCreateItem);
-            this.panel1.Controls.Add(this.labelNoItems);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(740, 159);
-            this.panel1.TabIndex = 0;
+            this.panelNoItems.Controls.Add(this.buttonCreateTaskRedirector);
+            this.panelNoItems.Controls.Add(this.labelNoTasks);
+            this.panelNoItems.Enabled = false;
+            this.panelNoItems.Location = new System.Drawing.Point(3, 3);
+            this.panelNoItems.Name = "panelNoItems";
+            this.panelNoItems.Size = new System.Drawing.Size(740, 159);
+            this.panelNoItems.TabIndex = 0;
+            this.panelNoItems.Visible = false;
             // 
-            // buttonCreateItem
+            // buttonCreateTaskRedirector
             // 
-            this.buttonCreateItem.Location = new System.Drawing.Point(224, 61);
-            this.buttonCreateItem.Name = "buttonCreateItem";
-            this.buttonCreateItem.Size = new System.Drawing.Size(261, 57);
-            this.buttonCreateItem.TabIndex = 2;
-            this.buttonCreateItem.Text = "Create New Item!";
-            this.buttonCreateItem.UseVisualStyleBackColor = true;
-            this.buttonCreateItem.Click += new System.EventHandler(this.buttonCreateItem_Click);
+            this.buttonCreateTaskRedirector.Location = new System.Drawing.Point(224, 61);
+            this.buttonCreateTaskRedirector.Name = "buttonCreateTaskRedirector";
+            this.buttonCreateTaskRedirector.Size = new System.Drawing.Size(261, 57);
+            this.buttonCreateTaskRedirector.TabIndex = 2;
+            this.buttonCreateTaskRedirector.Text = "Create new task!";
+            this.buttonCreateTaskRedirector.UseVisualStyleBackColor = true;
+            this.buttonCreateTaskRedirector.Click += new System.EventHandler(this.buttonCreateItem_Click);
             // 
-            // labelNoItems
+            // labelNoTasks
             // 
-            this.labelNoItems.AutoSize = true;
-            this.labelNoItems.Location = new System.Drawing.Point(176, 16);
-            this.labelNoItems.Name = "labelNoItems";
-            this.labelNoItems.Size = new System.Drawing.Size(346, 24);
-            this.labelNoItems.TabIndex = 1;
-            this.labelNoItems.Text = "There are currently no <Items> available";
+            this.labelNoTasks.AutoSize = true;
+            this.labelNoTasks.Location = new System.Drawing.Point(176, 16);
+            this.labelNoTasks.Name = "labelNoTasks";
+            this.labelNoTasks.Size = new System.Drawing.Size(321, 24);
+            this.labelNoTasks.TabIndex = 1;
+            this.labelNoTasks.Text = "There are currently no tasks available";
             // 
             // tabCreateTask
             // 
@@ -244,7 +246,7 @@ namespace Taskr_UI_0_1
             this.panelCreateTask.Controls.Add(this.dateTimePickerDeadLine);
             this.panelCreateTask.Controls.Add(this.pictureBoxTaskImage);
             this.panelCreateTask.Controls.Add(this.textBoxTaskImageURL);
-            this.panelCreateTask.Controls.Add(this.label1);
+            this.panelCreateTask.Controls.Add(this.labelEmptyCreateNewTask);
             this.panelCreateTask.Controls.Add(this.buttonCreateTask);
             this.panelCreateTask.Controls.Add(this.labelDeadLine);
             this.panelCreateTask.Controls.Add(this.textBoxTaskLongDescription);
@@ -263,7 +265,7 @@ namespace Taskr_UI_0_1
             // 
             this.dateTimePickerDeadLine.CustomFormat = " yyyy-MMM-dd   HH:mm";
             this.dateTimePickerDeadLine.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerDeadLine.Location = new System.Drawing.Point(202, 451);
+            this.dateTimePickerDeadLine.Location = new System.Drawing.Point(202, 431);
             this.dateTimePickerDeadLine.Name = "dateTimePickerDeadLine";
             this.dateTimePickerDeadLine.Size = new System.Drawing.Size(270, 28);
             this.dateTimePickerDeadLine.TabIndex = 30;
@@ -272,7 +274,7 @@ namespace Taskr_UI_0_1
             // 
             this.pictureBoxTaskImage.ErrorImage = global::Taskr_UI_0_1.Properties.Resources.X_128;
             this.pictureBoxTaskImage.Image = global::Taskr_UI_0_1.Properties.Resources.X;
-            this.pictureBoxTaskImage.Location = new System.Drawing.Point(508, 393);
+            this.pictureBoxTaskImage.Location = new System.Drawing.Point(540, 427);
             this.pictureBoxTaskImage.Name = "pictureBoxTaskImage";
             this.pictureBoxTaskImage.Size = new System.Drawing.Size(128, 128);
             this.pictureBoxTaskImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -287,17 +289,17 @@ namespace Taskr_UI_0_1
             this.textBoxTaskImageURL.TabIndex = 24;
             this.textBoxTaskImageURL.LostFocus += new System.EventHandler(this.textBoxTaskImageURL_LostFocus);
             // 
-            // label1
+            // labelEmptyCreateNewTask
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(400, 650);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 24);
-            this.label1.TabIndex = 27;
+            this.labelEmptyCreateNewTask.AutoSize = true;
+            this.labelEmptyCreateNewTask.Location = new System.Drawing.Point(400, 580);
+            this.labelEmptyCreateNewTask.Name = "labelEmptyCreateNewTask";
+            this.labelEmptyCreateNewTask.Size = new System.Drawing.Size(0, 24);
+            this.labelEmptyCreateNewTask.TabIndex = 27;
             // 
             // buttonCreateTask
             // 
-            this.buttonCreateTask.Location = new System.Drawing.Point(274, 583);
+            this.buttonCreateTask.Location = new System.Drawing.Point(216, 505);
             this.buttonCreateTask.Name = "buttonCreateTask";
             this.buttonCreateTask.Size = new System.Drawing.Size(238, 51);
             this.buttonCreateTask.TabIndex = 0;
@@ -308,7 +310,7 @@ namespace Taskr_UI_0_1
             // labelDeadLine
             // 
             this.labelDeadLine.AutoSize = true;
-            this.labelDeadLine.Location = new System.Drawing.Point(21, 455);
+            this.labelDeadLine.Location = new System.Drawing.Point(21, 435);
             this.labelDeadLine.Name = "labelDeadLine";
             this.labelDeadLine.Size = new System.Drawing.Size(85, 24);
             this.labelDeadLine.TabIndex = 21;
@@ -405,7 +407,6 @@ namespace Taskr_UI_0_1
             // 
             this.tabEditProject.BackColor = System.Drawing.Color.Gainsboro;
             this.tabEditProject.Controls.Add(this.LabelProjectSInfo);
-            this.tabEditProject.Controls.Add(this.buttonAbandonProject);
             this.tabEditProject.Controls.Add(this.checkedListBox1);
             this.tabEditProject.Location = new System.Drawing.Point(4, 31);
             this.tabEditProject.Name = "tabEditProject";
@@ -418,9 +419,10 @@ namespace Taskr_UI_0_1
             // 
             this.LabelProjectSInfo.AutoScroll = true;
             this.LabelProjectSInfo.BackColor = System.Drawing.Color.Gainsboro;
+            this.LabelProjectSInfo.Controls.Add(this.buttonAbolishProject);
             this.LabelProjectSInfo.Controls.Add(this.pictureBoxProjectImage);
             this.LabelProjectSInfo.Controls.Add(this.textBoxProjectImageURL);
-            this.LabelProjectSInfo.Controls.Add(this.labelEmpty);
+            this.LabelProjectSInfo.Controls.Add(this.labelEmptyEditProjectDetails);
             this.LabelProjectSInfo.Controls.Add(this.textBoxAvailableFunds);
             this.LabelProjectSInfo.Controls.Add(this.ButtonUpdateProjectDetails);
             this.LabelProjectSInfo.Controls.Add(this.textBoxCurrentYield);
@@ -435,10 +437,21 @@ namespace Taskr_UI_0_1
             this.LabelProjectSInfo.Controls.Add(this.LabelProjectShortDescription);
             this.LabelProjectSInfo.Controls.Add(this.LabelProjectTitle);
             this.LabelProjectSInfo.Controls.Add(this.TextBoxProjectTitle);
-            this.LabelProjectSInfo.Location = new System.Drawing.Point(1, 1);
+            this.LabelProjectSInfo.Location = new System.Drawing.Point(3, 3);
             this.LabelProjectSInfo.Name = "LabelProjectSInfo";
             this.LabelProjectSInfo.Size = new System.Drawing.Size(745, 564);
             this.LabelProjectSInfo.TabIndex = 12;
+            // 
+            // buttonAbolishProject
+            // 
+            this.buttonAbolishProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAbolishProject.Location = new System.Drawing.Point(471, 590);
+            this.buttonAbolishProject.Name = "buttonAbolishProject";
+            this.buttonAbolishProject.Size = new System.Drawing.Size(238, 51);
+            this.buttonAbolishProject.TabIndex = 30;
+            this.buttonAbolishProject.Text = "Abolish Project";
+            this.buttonAbolishProject.UseVisualStyleBackColor = true;
+            this.buttonAbolishProject.Click += new System.EventHandler(this.buttonAbolishProject_Click);
             // 
             // pictureBoxProjectImage
             // 
@@ -460,13 +473,13 @@ namespace Taskr_UI_0_1
             this.textBoxProjectImageURL.TextChanged += new System.EventHandler(this.textBoxImageURL_TextChanged);
             this.textBoxProjectImageURL.LostFocus += new System.EventHandler(this.textBoxProjectImageURL_LostFocus);
             // 
-            // labelEmpty
+            // labelEmptyEditProjectDetails
             // 
-            this.labelEmpty.AutoSize = true;
-            this.labelEmpty.Location = new System.Drawing.Point(400, 650);
-            this.labelEmpty.Name = "labelEmpty";
-            this.labelEmpty.Size = new System.Drawing.Size(0, 24);
-            this.labelEmpty.TabIndex = 27;
+            this.labelEmptyEditProjectDetails.AutoSize = true;
+            this.labelEmptyEditProjectDetails.Location = new System.Drawing.Point(400, 650);
+            this.labelEmptyEditProjectDetails.Name = "labelEmptyEditProjectDetails";
+            this.labelEmptyEditProjectDetails.Size = new System.Drawing.Size(0, 24);
+            this.labelEmptyEditProjectDetails.TabIndex = 27;
             // 
             // textBoxAvailableFunds
             // 
@@ -478,7 +491,7 @@ namespace Taskr_UI_0_1
             // 
             // ButtonUpdateProjectDetails
             // 
-            this.ButtonUpdateProjectDetails.Location = new System.Drawing.Point(301, 595);
+            this.ButtonUpdateProjectDetails.Location = new System.Drawing.Point(202, 590);
             this.ButtonUpdateProjectDetails.Name = "ButtonUpdateProjectDetails";
             this.ButtonUpdateProjectDetails.Size = new System.Drawing.Size(238, 51);
             this.ButtonUpdateProjectDetails.TabIndex = 0;
@@ -597,17 +610,6 @@ namespace Taskr_UI_0_1
             this.TextBoxProjectTitle.TabIndex = 12;
             this.TextBoxProjectTitle.TextChanged += new System.EventHandler(this.TextBoxProjectTitle_TextChanged);
             // 
-            // buttonAbandonProject
-            // 
-            this.buttonAbandonProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAbandonProject.Location = new System.Drawing.Point(530, 513);
-            this.buttonAbandonProject.Name = "buttonAbandonProject";
-            this.buttonAbandonProject.Size = new System.Drawing.Size(205, 45);
-            this.buttonAbandonProject.TabIndex = 11;
-            this.buttonAbandonProject.Text = "Abolish Project";
-            this.buttonAbandonProject.UseVisualStyleBackColor = true;
-            this.buttonAbandonProject.Click += new System.EventHandler(this.buttonAbandonProject_Click);
-            // 
             // checkedListBox1
             // 
             this.checkedListBox1.FormattingEnabled = true;
@@ -626,7 +628,7 @@ namespace Taskr_UI_0_1
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TeamLeader";
-            this.Text = "UserAppS";
+            this.Text = "FreeLancer";
             this.panelSide.ResumeLayout(false);
             this.panelSide.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).EndInit();
@@ -634,8 +636,8 @@ namespace Taskr_UI_0_1
             this.tabActiveTasks.ResumeLayout(false);
             this.tabActiveTasks.PerformLayout();
             this.flowLayoutPanelTasks.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelNoItems.ResumeLayout(false);
+            this.panelNoItems.PerformLayout();
             this.tabCreateTask.ResumeLayout(false);
             this.panelCreateTask.ResumeLayout(false);
             this.panelCreateTask.PerformLayout();
@@ -664,12 +666,11 @@ namespace Taskr_UI_0_1
         private System.Windows.Forms.TabPage tabCreateTask;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.TabPage tabEditProject;
-        private System.Windows.Forms.Button buttonAbandonProject;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.Button ButtonUpdateProjectDetails;
         private System.Windows.Forms.Panel LabelProjectSInfo;
         private System.Windows.Forms.TextBox textBoxProjectImageURL;
-        private System.Windows.Forms.Label labelEmpty;
+        private System.Windows.Forms.Label labelEmptyEditProjectDetails;
         private System.Windows.Forms.TextBox textBoxAvailableFunds;
         private System.Windows.Forms.TextBox textBoxCurrentYield;
         private System.Windows.Forms.TextBox textBoxModificationLog;
@@ -684,13 +685,13 @@ namespace Taskr_UI_0_1
         private System.Windows.Forms.Label LabelProjectTitle;
         private System.Windows.Forms.TextBox TextBoxProjectTitle;
         private System.Windows.Forms.PictureBox pictureBoxProjectImage;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonCreateItem;
-        private System.Windows.Forms.Label labelNoItems;
+        private System.Windows.Forms.Panel panelNoItems;
+        private System.Windows.Forms.Button buttonCreateTaskRedirector;
+        private System.Windows.Forms.Label labelNoTasks;
         private System.Windows.Forms.Panel panelCreateTask;
         private System.Windows.Forms.PictureBox pictureBoxTaskImage;
         private System.Windows.Forms.TextBox textBoxTaskImageURL;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelEmptyCreateNewTask;
         private System.Windows.Forms.Button buttonCreateTask;
         private System.Windows.Forms.Label labelDeadLine;
         private System.Windows.Forms.RichTextBox textBoxTaskLongDescription;
@@ -701,5 +702,6 @@ namespace Taskr_UI_0_1
         private System.Windows.Forms.Label labelTaskTitle;
         private System.Windows.Forms.TextBox textBoxTaskTitle;
         private System.Windows.Forms.DateTimePicker dateTimePickerDeadLine;
+        private Button buttonAbolishProject;
     }
 }

@@ -18,10 +18,10 @@ namespace Taskr_UI_0_1
         private DatabaseHandler d;
 
         private ProjectSuggestionData psd;
-        private UserAppS us;
+        private FreeLancer us;
         
 
-        public PanelItemProjectSuggestions(ProjectSuggestionData psd,DatabaseHandler d, UserAppS us)
+        public PanelItemProjectSuggestions(ProjectSuggestionData psd,DatabaseHandler d, FreeLancer us)
         {
             this.us = us;
             this.psd = psd;
@@ -29,7 +29,7 @@ namespace Taskr_UI_0_1
             //
             //for resourecs
             //
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserAppS));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FreeLancer));
             //
             //initialize component classes
             //
