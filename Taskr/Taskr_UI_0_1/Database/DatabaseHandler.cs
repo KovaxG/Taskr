@@ -965,8 +965,9 @@ namespace DataBase
          */ 
         public string GetModeForUser(UserData user)
         {
-
+			
 			if (user == null) return "error -> user is null!";
+			RefreshUser (user);
 
             if (user.ActiveProject == 0) return "freelancer";
             else {
