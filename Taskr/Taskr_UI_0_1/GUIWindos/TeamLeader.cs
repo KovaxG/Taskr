@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -65,6 +66,24 @@ namespace Taskr_UI_0_1
                 foreach (TaskData td in tdl)
                 {
                     PanelItemTasksFromLeader item = new PanelItemTasksFromLeader(d,td);
+                    switch (td.Status)
+                    {
+                        case ("Completed"):
+                            item.BackColor = Color.BurlyWood;
+                            break;
+                        case ("Failed"):
+                            item.BackColor = Color.DarkRed;
+                            break;
+                        case ("Idle"):
+                            item.BackColor = Color.Gainsboro;
+                            break;
+                        case ("Tackling"):
+                            item.BackColor = Color.DarkGreen;
+                            break;
+                        default://Unhandled value
+                            item.BackColor = Color.Aqua;
+                            break;
+                    }
                     this.flowLayoutPanelTasks.Controls.Add(item);
                 }
             }
