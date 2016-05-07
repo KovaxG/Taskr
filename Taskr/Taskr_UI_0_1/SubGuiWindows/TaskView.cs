@@ -17,10 +17,10 @@ namespace Taskr_UI_0_1
     {
      
         DatabaseHandler d;
-        UserAppS us;
+        FreeLancer us;
         ProjectData pd;
         private List<TaskData> tdl;
-        public TaskView(ProjectData pd,  DatabaseHandler d, UserAppS us)
+        public TaskView(ProjectData pd,  DatabaseHandler d, FreeLancer us)
         {
            
            tdl = d.GetTasksForProject(pd);

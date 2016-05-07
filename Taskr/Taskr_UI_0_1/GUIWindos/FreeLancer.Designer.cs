@@ -1,6 +1,6 @@
 ﻿namespace Taskr_UI_0_1
 {
-    partial class UserAppS
+    partial class FreeLancer
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserAppS));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FreeLancer));
             this.pictureAvatar = new System.Windows.Forms.PictureBox();
             this.labelUsername = new System.Windows.Forms.Label();
             this.buttonEditProfile = new System.Windows.Forms.Button();
@@ -401,7 +401,7 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // UserAppS
+            // FreeLancer
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Silver;
@@ -411,8 +411,8 @@
             this.Controls.Add(this.panelSide);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "UserAppS";
-            this.Text = "UserAppS";
+            this.Name = "FreeLancer";
+            this.Text = "FreeLancer";
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).EndInit();
             this.panelSide.ResumeLayout(false);
             this.panelSide.PerformLayout();
