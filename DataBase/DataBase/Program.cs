@@ -49,7 +49,15 @@ namespace DataBase
 			else Console.WriteLine ("Login not succesfull.");
 			// End of Login----------------------------------------------------------------------
 
-			//viewAvailibleProjects ();
+			viewAvailibleProjects ();
+
+			ProjectData uj = new ProjectData (db.User.ID);
+			uj.Title = "InsertTest";
+
+			db.InsertNewProject (uj);
+
+			viewAvailibleProjects ();
+
 
 		}
 

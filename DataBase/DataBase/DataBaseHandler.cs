@@ -251,6 +251,11 @@ namespace DataBase
 	                command.ExecuteNonQuery();
     	            command.Dispose();
         	        CloseConnection();
+
+					// Update User
+					User.ActiveProject = GetActiveProjectsList ().Find (p => p.Title == newProject.Title).ID;
+					UpdateThisUser ();
+
             	    return true;
 				} // End of insert
             }
