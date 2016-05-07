@@ -33,7 +33,7 @@
             this.pictureBoxTaskImage = new System.Windows.Forms.PictureBox();
             this.textBoxTaskImageURL = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonCreateTask = new System.Windows.Forms.Button();
+            this.buttonUpdateTask = new System.Windows.Forms.Button();
             this.labelDeadLine = new System.Windows.Forms.Label();
             this.textBoxTaskLongDescription = new System.Windows.Forms.RichTextBox();
             this.textBoxTaskShortDescription = new System.Windows.Forms.RichTextBox();
@@ -54,7 +54,7 @@
             this.panelCreateTask.Controls.Add(this.pictureBoxTaskImage);
             this.panelCreateTask.Controls.Add(this.textBoxTaskImageURL);
             this.panelCreateTask.Controls.Add(this.label1);
-            this.panelCreateTask.Controls.Add(this.buttonCreateTask);
+            this.panelCreateTask.Controls.Add(this.buttonUpdateTask);
             this.panelCreateTask.Controls.Add(this.labelDeadLine);
             this.panelCreateTask.Controls.Add(this.textBoxTaskLongDescription);
             this.panelCreateTask.Controls.Add(this.textBoxTaskShortDescription);
@@ -70,12 +70,16 @@
             // 
             // dateTimePickerDeadLine
             // 
+            this.dateTimePickerDeadLine.CalendarMonthBackground = System.Drawing.SystemColors.Menu;
+            this.dateTimePickerDeadLine.CalendarTitleBackColor = System.Drawing.Color.AntiqueWhite;
             this.dateTimePickerDeadLine.CustomFormat = " yyyy-MMM-dd   HH:mm";
+            this.dateTimePickerDeadLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePickerDeadLine.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerDeadLine.Location = new System.Drawing.Point(202, 451);
             this.dateTimePickerDeadLine.Name = "dateTimePickerDeadLine";
             this.dateTimePickerDeadLine.Size = new System.Drawing.Size(270, 22);
             this.dateTimePickerDeadLine.TabIndex = 30;
+            this.dateTimePickerDeadLine.ValueChanged += new System.EventHandler(this.dateTimePickerDeadLine_ValueChanged);
             // 
             // pictureBoxTaskImage
             // 
@@ -90,10 +94,13 @@
             // 
             // textBoxTaskImageURL
             // 
+            this.textBoxTaskImageURL.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxTaskImageURL.Location = new System.Drawing.Point(202, 350);
             this.textBoxTaskImageURL.Name = "textBoxTaskImageURL";
             this.textBoxTaskImageURL.Size = new System.Drawing.Size(507, 22);
             this.textBoxTaskImageURL.TabIndex = 24;
+            this.textBoxTaskImageURL.TextChanged += new System.EventHandler(this.textBoxTaskImageURL_TextChanged);
+            this.textBoxTaskImageURL.LostFocus += new System.EventHandler(this.textBoxTaskImageURL_LostFocus);
             // 
             // label1
             // 
@@ -103,14 +110,15 @@
             this.label1.Size = new System.Drawing.Size(0, 17);
             this.label1.TabIndex = 27;
             // 
-            // buttonCreateTask
+            // buttonUpdateTask
             // 
-            this.buttonCreateTask.Location = new System.Drawing.Point(274, 583);
-            this.buttonCreateTask.Name = "buttonCreateTask";
-            this.buttonCreateTask.Size = new System.Drawing.Size(238, 51);
-            this.buttonCreateTask.TabIndex = 0;
-            this.buttonCreateTask.Text = "Create Task";
-            this.buttonCreateTask.UseVisualStyleBackColor = true;
+            this.buttonUpdateTask.Location = new System.Drawing.Point(274, 583);
+            this.buttonUpdateTask.Name = "buttonUpdateTask";
+            this.buttonUpdateTask.Size = new System.Drawing.Size(238, 51);
+            this.buttonUpdateTask.TabIndex = 0;
+            this.buttonUpdateTask.Text = "Update Task";
+            this.buttonUpdateTask.UseVisualStyleBackColor = true;
+            this.buttonUpdateTask.Click += new System.EventHandler(this.buttonUpdateTask_Click);
             // 
             // labelDeadLine
             // 
@@ -128,6 +136,7 @@
             this.textBoxTaskLongDescription.Size = new System.Drawing.Size(507, 144);
             this.textBoxTaskLongDescription.TabIndex = 18;
             this.textBoxTaskLongDescription.Text = "";
+            this.textBoxTaskLongDescription.TextChanged += new System.EventHandler(this.textBoxTaskLongDescription_TextChanged);
             // 
             // textBoxTaskShortDescription
             // 
@@ -137,6 +146,7 @@
             this.textBoxTaskShortDescription.Size = new System.Drawing.Size(507, 74);
             this.textBoxTaskShortDescription.TabIndex = 17;
             this.textBoxTaskShortDescription.Text = "";
+            this.textBoxTaskShortDescription.TextChanged += new System.EventHandler(this.TextBoxTaskShortDescritpion_TextChanged);
             // 
             // labelTaskImage
             // 
@@ -184,6 +194,7 @@
             this.textBoxTaskTitle.Name = "textBoxTaskTitle";
             this.textBoxTaskTitle.Size = new System.Drawing.Size(312, 22);
             this.textBoxTaskTitle.TabIndex = 12;
+            this.textBoxTaskTitle.TextChanged += new System.EventHandler(this.TextBoxTaskTitle_TextChanged);
             // 
             // EditTaskDetails
             // 
@@ -207,7 +218,7 @@
         private System.Windows.Forms.PictureBox pictureBoxTaskImage;
         private System.Windows.Forms.TextBox textBoxTaskImageURL;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonCreateTask;
+        private System.Windows.Forms.Button buttonUpdateTask;
         private System.Windows.Forms.Label labelDeadLine;
         private System.Windows.Forms.RichTextBox textBoxTaskLongDescription;
         private System.Windows.Forms.RichTextBox textBoxTaskShortDescription;

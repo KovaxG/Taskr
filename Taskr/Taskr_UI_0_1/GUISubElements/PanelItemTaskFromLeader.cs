@@ -29,6 +29,8 @@ namespace Taskr_UI_0_1
             //
             //for resourecs
             //
+            this.d = d;
+            this.td = td;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FreeLancer));
             //
             //initialize component classes
