@@ -171,10 +171,10 @@ namespace DataBase
 			set {_status = value;}
 			get {return _status;}
 		}
-        private string _imageURL;
+        private string _ImageURL;
         public string ImageURL { // ImageURL
-            set {_imageURL = value;}
-            get {return _imageURL;}
+            set {_ImageURL = value;}
+            get {return _ImageURL;}
         }
 
 		private string _notes; // Notes

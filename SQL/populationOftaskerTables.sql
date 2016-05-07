@@ -118,13 +118,17 @@ CREATE TABLE `test`.`tasks` (
 -- These two tables will store the requests from users to join a project
 -- or accept a task.
 CREATE TABLE `test`.`projectrequests` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
-  `project_id` INT NOT NULL
+  `project_id` INT NOT NULL,
+  PRIMARY KEY (`Id`)
 );
 
 CREATE TABLE `test`.`taskrequests` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
-  `task_id` INT NOT NULL
+  `task_id` INT NOT NULL,
+  PRIMARY KEY (`Id`)
 );
   
 -- Insert Secretaries

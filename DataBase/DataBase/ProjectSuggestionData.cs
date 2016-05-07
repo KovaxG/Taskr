@@ -154,10 +154,10 @@ namespace DataBase
 			get {return _notes;}
 		}
 
-	    private string _imageURL; // ImageURL
+	    private string _ImageURL; // ImageURL
 	    public string ImageURL {
-	        set {_imageURL = value; }
-            get { return _imageURL; }
+	        set {_ImageURL = value; }
+            get { return _ImageURL; }
 	    }
 
 		public static ProjectSuggestionData Default = new ProjectSuggestionData ();

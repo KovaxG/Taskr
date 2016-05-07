@@ -128,7 +128,7 @@ namespace DataBase
 		private string _avatarURL; // AvatarLink
 		public string AvatarURL {
 			set {_avatarURL = value;}
-			get {return _displayName;}
+			get {return _avatarURL;}
 		}
 
 		private string _email; // Email

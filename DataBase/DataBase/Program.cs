@@ -1,4 +1,7 @@
-﻿using System;
+﻿/*
+ * This is something that I use purely for testing, don't bother reading this!
+ */ 
+using System;
 using System.Collections.Generic;
 using DataBase;
 using System.Linq;
@@ -30,20 +33,23 @@ namespace DataBase
 				Console.WriteLine ("Connection to database succesfull.");
 			// End of Check----------------------------------------------------------------------
 
+
+
 			// Login-----------------------------------------------------------------------------
 			Console.WriteLine ("Login\n\n");
 			Console.Write ("UserName: ");
-			string username = "Pizdosu";//Console.ReadLine ();
+			string username = "Gyuri";//Console.ReadLine ();
 			Console.Write ("Password: ");
-			string password = "passwordmircea1";//
+			string password = "password";//
 			if (db.Login (username, password)) {
 				Console.WriteLine ("\n\nSuccessful login.");
 				printUserDetails (db.User);
+				Console.WriteLine ("Current Project = " + db.GetCurrentProject ().Title);
 			}
-			Console.WriteLine ("Login not succesfull.");
-			// End of Login-----------------------------------------------------------------------
+			else Console.WriteLine ("Login not succesfull.");
+			// End of Login----------------------------------------------------------------------
 
-			viewAvailibleProjects ();
+			//viewAvailibleProjects ();
 
 		}
 
@@ -63,6 +69,16 @@ namespace DataBase
 				Console.WriteLine (ps.Title);
 			}
 			Console.WriteLine ("\n========================================");
+
+
+
+
+
+
+			//db.ProjectJoinRequest (projectList.Find(p => p.ID == 1));
+			//db.CancelProjectJoinRequest (projectList.Find(p => p.ID == 8));
+
+			//db.AbolishProject ("Testing");
 
 		}
 			

@@ -35,7 +35,7 @@ namespace DataBase
 
 			try {
             	OpenConnection();
-            	string query = "SELECT * FROM users WHERE DisplayName LIKE '@user_name' AND PasswordHash LIKE '@password';";
+            	string query = "SELECT * FROM users WHERE DisplayName = '@user_name' AND PasswordHash = '@password';";
 				query = query.Replace ("@user_name", userName);
 				query = query.Replace ("@password", password);
 
@@ -63,6 +63,44 @@ namespace DataBase
 				return new UserData();
 			}
         } // End of VerifyLogin
+
+		// TESTED 2016.05.07 
+		/*	@return List<UserData> - returns all users
+		 */
+		public List<UserData> GetAllUsers()
+		{
+			List<UserData> returnList = new List<UserData>();
+
+			try
+			{
+				OpenConnection();
+				string query = "SELECT * FROM users WHERE LeaveDate = '@emptyDate';";
+				query = query.Replace ("@emptyDate", DBDefaults.DefaultDate.ToShortDateString ());
+
+				MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+				DataSet ds = new DataSet();
+				dataAdapter.Fill(ds, "users");
+				CloseConnection();
+
+				if (ds.Tables["users"].Rows.Count == 0) return returnList;
+
+				foreach (DataRow row in ds.Tables["users"].Rows)
+				{
+					UserData user = new UserData();
+					user.FillFromDataRow(row);
+					returnList.Add(user);
+				}
+
+				return returnList;
+			}
+			catch (Exception e)
+			{
+				string errorMessage = "Exception in DataBaseHandler -> GetAllUsers \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return returnList;
+			}
+		} // End of GetAllUsers
+
 
 		// TESTED 2016.05.06 
         /*	@return List<ProjectData> - returns all the availiable projects, emptylist if no projects
@@ -224,7 +262,7 @@ namespace DataBase
             }
         } // End of InsertNewProject
 
-		// TESTED 2016.05.06
+		// TESTED 2016.05.07
         /*
 		 * @param newTask - inserts into the database all the properties from newTask
 		 * @return bool - true if succes, false if failure
@@ -235,17 +273,33 @@ namespace DataBase
 
             try
             {
-                OpenConnection();
-                string query = "INSERT INTO tasks (ParentId, Title, ShortDescription, "
-                    + "DetailedDescription, ParentProject, DateCreated, CreatedBy, "
-                    + "DateCompleted, CompletedBy, DeadLine, Status, Notes, ImageURL) "
-                    + "VALUES " + newTask.ToQueryString() + ";";
-                MySqlCommand command = new MySqlCommand(query, connection);
+				{ // Check if there is another task with the same title within the same project
+					OpenConnection();
+					string query = "SELECT * FROM tasks WHERE Title = '@project_title' AND ParentProject = @ParentProject;";
+					query = query.Replace ("@project_title", newTask.Title);
+					query = query.Replace ("@ParentProject", newTask.ParentProject.ToString ());
 
-                command.ExecuteNonQuery();
-                command.Dispose();
-                CloseConnection();
-                return true;
+					MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+					DataSet ds = new DataSet();
+					dataAdapter.Fill(ds, "tasks");
+					CloseConnection();
+
+					if (ds.Tables["tasks"].Rows.Count != 0) return false;
+
+				} // End of check
+				{ // Insert new task
+                	OpenConnection();
+                	string query = "INSERT INTO tasks (ParentId, Title, ShortDescription, "
+                	    + "DetailedDescription, ParentProject, DateCreated, CreatedBy, "
+                	    + "DateCompleted, CompletedBy, DeadLine, Status, Notes, ImageURL) "
+                	    + "VALUES " + newTask.ToQueryString() + ";";
+                	MySqlCommand command = new MySqlCommand(query, connection);
+
+	                command.ExecuteNonQuery();
+    	            command.Dispose();
+        	        CloseConnection();
+            	    return true;
+				} // End of Insert
             }
             catch (Exception e)
             {
@@ -253,14 +307,50 @@ namespace DataBase
 				DisplayMessage (errorMessage);
 				return false;
             }
-        } // End of InsertNewTask()
+        } // End of InsertNewTask
 
-		// TESTED 2016.05.06
+        // TESTED 2016.05.06
+        /*
+		 * @param project - the project that is being requested
+		 * @return bool - true if requested, false if not
+		 */
+        public bool HasAlreadyRequestedJoin(ProjectData project)
+        {
+            if (project == null) return false;
+
+            try
+            {
+                 // Check if there is already a request
+                    OpenConnection();
+                    string query = "SELECT * FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
+                    query = query.Replace("@user_id", User.ID.ToString());
+                    query = query.Replace("@project_id", project.ID.ToString());
+
+                    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+                    DataSet ds = new DataSet();
+                    dataAdapter.Fill(ds, "projectrequests");
+                    CloseConnection();
+
+                if (ds.Tables["projectrequests"].Rows.Count != 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception e)
+            {
+				string errorMessage = "Exception in DataBaseHandler -> HasAlreadyRequestedJoin \n\n" + e.ToString();
+                DisplayMessage(errorMessage);
+                return false;
+            }
+		} // End of HasAlreadyRequestedJoin
+
+        // TESTED 2016.05.06
         /*
 		 * @param project - the project that is being requested
 		 * @return bool - true if succes, false if failure
 		 */
-		public bool ProjectJoinRequest(ProjectData project)
+        public bool ProjectJoinRequest(ProjectData project)
         {
 			if (project == null) return false;
 
@@ -279,7 +369,7 @@ namespace DataBase
 
 					if (ds.Tables["projectrequests"].Rows.Count != 0) return false;
 				}
-				{
+				{ // Insert Join Request
                 	OpenConnection();
                 	string query = "INSERT INTO projectrequests (user_id, project_id) VALUES (@user_id, @project_id);";
 					query = query.Replace ("@user_id", User.ID.ToString ());
@@ -300,6 +390,54 @@ namespace DataBase
 				return false;
             }
         } // End of ProjectJoinRequests
+
+		// TESTED 2016.05.07
+		/*
+		 * @param project - the project that is being requested
+		 * @return bool - true if succes, false if failure
+		 */
+		public bool CancelProjectJoinRequest(ProjectData project)
+		{
+			if (project == null) return false;
+
+			try
+			{
+				{ // Check if there is already a request
+					OpenConnection();
+					string query = "SELECT * FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
+					query = query.Replace ("@user_id", User.ID.ToString ());
+					query = query.Replace ("@project_id", project.ID.ToString ());
+
+					MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+					DataSet ds = new DataSet();
+					dataAdapter.Fill(ds, "projectrequests");
+					CloseConnection();
+
+					if (ds.Tables["projectrequests"].Rows.Count == 0) return false;
+				}
+				{ // Drop Join Request
+					OpenConnection();
+					string query = "DELETE FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
+					query = query.Replace ("@user_id", User.ID.ToString ());
+					query = query.Replace ("@project_id", project.ID.ToString ());
+
+					MySqlCommand command = new MySqlCommand(query, connection);
+
+					command.ExecuteNonQuery();
+					command.Dispose();
+					CloseConnection();
+					return true;
+				}
+			}
+			catch (Exception e)
+			{
+				string errorMessage = "Exception in DataBaseHandler -> CancelProjectJoinRequest \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
+			}
+		} // End of ProjectJoinRequests
+
+
 
 		// TESTED 2016.05.06
 		/*
@@ -555,99 +693,101 @@ namespace DataBase
 				DisplayMessage (errorMessage);
 				return false;
             }
-        } // End of RefreshProject()
+        } // End of RefreshProject
 			
-
+		// TESTED 2016.05.07
         /*
-		 * You could aslo do this manually, but eh. Database can handle it
-		 * Nice and short
+         * "Delete" a project. 
 		 */
         public bool AbolishProject(string reason)
         {
+			if (reason == null) return false;
+			if (User.ActiveProject == DBDefaults.DefaultId) return false;
+
             try
             {
-                ProjectData myProject = this.GetCurrentProject();
-                myProject.DateTerminated = DateTime.Now;
-                myProject.TerminatedBy = User.ID;
-                myProject.TerminationReason = reason;
-                this.LeaveProject();
-                this.UpdateProject(myProject);
+				// Add leavedata to project
+				ProjectData myProject = GetCurrentProject();
+				myProject.DateTerminated = DateTime.Now;
+				myProject.TerminatedBy = User.ID;
+				myProject.TerminationReason = reason;
+
+				// Make everyone drop that project
+				foreach (var user in GetAllUsers().Where(u => u.ActiveProject == myProject.ID)) {
+					user.ActiveProject = DBDefaults.DefaultId;
+					UpdateUser(user);
+				}
+
+				// Captain leaves last.
+				if (!LeaveProject()) return false;
+				if (!UpdateProject(myProject)) return false;
                 return true;
             }
             catch (Exception e)
             {
-                //MessageBox.Show(e.ToString());
-				Console.WriteLine(e.ToString());
-                return false;
+				string errorMessage = "Exception in DataBaseHandler -> AbolishProject \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
             }
 
         } // End of AbolishProject
 
+		// TESTED 2016.05.07
         /*
 		 * @param projectSuggestion - the one that will be adopted? adoptend? ...
 		 * @return ProjecData - after creating the project and database and whatevs
 		 */
         public ProjectData AdoptProjectSuggestion(ProjectSuggestionData projectSuggestion)
         {
+			if (projectSuggestion == null) return new ProjectData ();
+			if (User.ActiveProject != DBDefaults.DefaultId) return new ProjectData ();
+
             try
             {
-                // Check if user has active task
-                this.RefreshUser(User);
-                if (User.ActiveProject != DBDefaults.DefaultId)
-                {
-                    return null;
-                }
-
                 // Fetch the data from the projectSuggestion and put it into the new project
-                ProjectData newProject = new ProjectData(User.ID);
+                ProjectData newProject = new ProjectData(User.ID); // ProjectLead, and CreatedBy
                 newProject.Title = projectSuggestion.Title;
                 newProject.ShortDescription = projectSuggestion.ShortDescription;
                 newProject.DetailedDescription = projectSuggestion.DetailedDescription;
                 newProject.CreatedBy = projectSuggestion.CreatedBy;
-                newProject.ProjectLead = User.ID;
                 newProject.DateCreated = DateTime.Now;
                 newProject.Notes = projectSuggestion.Notes;
-                this.InsertNewProject(newProject);
+				if (!InsertNewProject(newProject)) return new ProjectData();
 
-                // HACK I know, I know, It was the deadline's fault!
-                List<ProjectData> listOfAllProjects = this.GetActiveProjectsList();
-                foreach (ProjectData p in listOfAllProjects)
-                {
-                    if (p.ProjectLead == newProject.ProjectLead)
-                    {
-                        newProject = new ProjectData(p); // Rebuild with variables from p (for ID reasons)
-                        break;
-                    }
-                }
-
-                // Add active task to user
-                User.ActiveProject = newProject.ID;
-                this.UpdateUser(User);
+                // Add active project to user
+				ProjectData project = GetActiveProjectsList().Find (p => p.Title == projectSuggestion.Title);
+				if (project == null) return new ProjectData(); // This should never happen.
+				User.ActiveProject = project.ID;
+                UpdateUser(User);
 
                 // Delete SuggestedProject
-                this.RemoveProjectSuggestion(projectSuggestion);
-                projectSuggestion = null;
+                RemoveProjectSuggestion(projectSuggestion);
+				projectSuggestion = new ProjectSuggestionData();
 
-                return newProject;
+                return project;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return null;
+				string errorMessage = "Exception in DataBaseHandler -> AdoptProjectSuggestion \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return new ProjectData();
             }
-        } // End of AdoptProjectSuggestions ()
+        } // End of AdoptProjectSuggestions 
 
-
+		// TESTED 2016.05.07
         /*
-		 * This function may be unnecessary. Who will even check this code?
 		 * @param task - that task that will be deleted
 		 */
         public bool RemoveTask(TaskData task)
         {
+			if (task == null) return false;
+
             try
             {
                 OpenConnection();
-                string query = "DELETE FROM task WHERE  Id = " + task.ID + ";";
+                string query = "DELETE FROM tasks WHERE  Id = @task_id;";
+				query = query.Replace ("@task_id", task.ID.ToString ());
+
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 command.ExecuteNonQuery();
@@ -657,20 +797,26 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return false;
+				string errorMessage = "Exception in DataBaseHandler -> RemoveTask \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
             }
         } // End of RemoveTask
 
+		// TESTED 2016.05.07
         /*
 		 * @param pj - that projectSuggestion that will be deleted
 		 */
         public bool RemoveProjectSuggestion(ProjectSuggestionData pj)
         {
+			if (pj == null) return false;
+
             try
             {
                 OpenConnection();
-                string query = "DELETE FROM projectSuggestions WHERE  Id = " + pj.ID + ";";
+				string query = "DELETE FROM projectSuggestions WHERE  Id = @projSug_id;";
+				query = query.Replace ("@projSug_id", pj.ID.ToString ());
+
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 command.ExecuteNonQuery();
@@ -680,56 +826,69 @@ namespace DataBase
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return false;
+				string errorMessage = "Exception in DataBaseHandler -> RemoveProjectSuggestion \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
             }
-        } // End of RemoveTask
+		} // End of RemoveProjectSuggestion
 
-        /* 
-		 * @param user - 
+		// TESTED 2016.05.07
+        /* The teamleader can accept the request, so the user requesting can be part of the project.
+		 * @param user - the user that is requesting
+		 * @return bool
 		 */
-        public bool AcceptUserProjectRequest(UserData user, ProjectData project)
+        public bool AcceptUserProjectRequest(UserData user)
         {
+			if (user == null) return false;
+			if (User.ActiveProject == DBDefaults.DefaultId) return false; // If freelancer
+
+			ProjectData myProject = GetCurrentProject ();
+			if (myProject.ProjectLead != User.ID) return false; // If not teamleader
+
             try
-            {
-                {
+            {	
+                { // Check if the user has requests
                     OpenConnection();
-                    string query = "SELECT * FROM projectrequests WHERE user_id = "
-                        + user.ID + " AND project_id = " + project.ID + ";";
+                    string query = "SELECT * FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
+					query = query.Replace ("@user_id", user.ID.ToString ());
+					query = query.Replace ("@project_id", myProject.ID.ToString ());
+
                     MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                     DataSet ds = new DataSet();
                     dataAdapter.Fill(ds, "projectrequests");
                     CloseConnection();
 
-                    if (ds.Tables["projectrequests"].Rows.Count == 0)
-                    {
-                        return false;
-                    }
-                };
-                // Delete join request
-                {
+                    if (ds.Tables["projectrequests"].Rows.Count == 0) return false;
+     
+                } // End of check
+                
+				{ // Delete join request
                     OpenConnection();
-                    string query = "DELETE FROM projectrequests WHERE user_id = "
-                        + user.ID + " AND project_id = " + project.ID + ";";
+					string query = "DELETE FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
+					query = query.Replace ("@user_id", user.ID.ToString ());
+					query = query.Replace ("@project_id", myProject.ID.ToString ());
                     MySqlCommand command = new MySqlCommand(query, connection);
 
                     command.ExecuteNonQuery();
                     command.Dispose();
                     CloseConnection();
-                };
+                } // End of delete
+
                 // Change activeproject
-                user.ActiveProject = project.ID;
-                this.UpdateUser(user);
+                user.ActiveProject = myProject.ID;
+                UpdateUser(user);
 
                 return true;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return false;
+				string errorMessage = "Exception in DataBaseHandler -> AcceptUserProjectRequest \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
             }
-        } // End of AcceptUserProjectRequest ()
+        } // End of AcceptUserProjectRequest 
 
+		// TESTED 2016.05.07
         /*
 		 * @param task - the task that is to be assigned
 		 * @param uesr - the user, the task that is to be assigned, is assigned to
@@ -737,50 +896,81 @@ namespace DataBase
 		 */
         public bool GrantTask(TaskData task, UserData user)
         {
+			if (task == null) return false;
+			if (user == null) return false;
+			if (task.ID == DBDefaults.DefaultId) return false;
+
+			bool hasRequest = false;
+
             try
             {
-                OpenConnection();
-                string query = "SELECT * FROM users WHERE ActiveTask = " + task.ID + ";";
-                MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
-                DataSet ds = new DataSet();
-                dataAdapter.Fill(ds, "users");
-                CloseConnection();
+				// Check if task is free
+				UserData tempUser = GetAllUsers ().Find (u => u.ActiveTask == task.ID);
+				if (tempUser != null) return false;
 
-                if (ds.Tables["users"].Rows.Count != 0)
-                {
-                    return false;
-                }
+				{ // Check if the user has requests
+					OpenConnection();
+					string query = "SELECT * FROM taskrequests WHERE user_id = @user_id AND task_id = @task_id;";
+					query = query.Replace ("@user_id", user.ID.ToString ());
+					query = query.Replace ("@task_id", task.ID.ToString ());
 
-                if (user.ActiveTask != DBDefaults.DefaultId) return false;
-                else {
-                    user.ActiveTask = task.ID;
-                    this.UpdateUser(user);
-                    return true;
-                }
+					MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+					DataSet ds = new DataSet();
+					dataAdapter.Fill(ds, "taskrequests");
+					CloseConnection();
+
+					if (ds.Tables["taskrequests"].Rows.Count == 0) hasRequest = true;
+
+				} // End of check
+
+
+				// If so delete request
+				if (hasRequest) {
+					OpenConnection();
+					string query = "DELETE FROM taskrequests WHERE user_id = @user_id AND task_id = @task_id;";
+					query = query.Replace ("@user_id", user.ID.ToString ());
+					query = query.Replace ("@task_id", task.ID.ToString ());
+					MySqlCommand command = new MySqlCommand(query, connection);
+
+					command.ExecuteNonQuery();
+					command.Dispose();
+					CloseConnection();
+				}
+
+				// Grant task to user
+				user.ActiveTask = task.ID;
+				UpdateUser(user);
+				return true;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return false;
+				string errorMessage = "Exception in DataBaseHandler -> GrantTask \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
             }
-        } // End of GrantTask ()
+        } // End of GrantTask 
 
-        // TODO getMode
-        public string getModeForUser(UserData user)
+		// TESTED 2016.05.07
+        /* @ return "error -> <message>", 
+         *          "freelancer", 
+         *          "teammember", 
+         *          "teamleader";
+         * 
+         */ 
+        public string GetModeForUser(UserData user)
         {
-            if (user.ActiveProject == 0)
-            {
-                return "freelancer";
-            }
-            else
-            {
-                List<ProjectData> pdl = GetActiveProjectsList();
-                foreach (ProjectData pd in pdl)
-                {
-                    if (pd.ProjectLead == user.ID)
-                        return "teamleader";
-                }
-                return "teammember";
+
+			if (user == null) return "error -> user is null!";
+
+            if (user.ActiveProject == 0) return "freelancer";
+            else {
+				ProjectData project = GetActiveProjectsList ().Find (p => p.ProjectLead == user.ID);
+				if (project == null)
+					return "teammember";
+				else {
+					Console.WriteLine (project.ID + ") Title: " + project.Title + " ProjectLead: " + project.ProjectLead);
+					return "teamleader";
+				}
             }
         }// End of GetMode
 
@@ -899,23 +1089,23 @@ namespace DataBase
 			return User.IsDefault()? false : true;
 		} // End of Login
 
+		// TESTED 2016.05.07
         // Used a lambda and I liked it.
         public ProjectData GetCurrentProject()
         {
-            List<ProjectData> projectsList = this.GetActiveProjectsList();
-            //return (ProjectData)projectsList.Where(p => p.ID == User.ActiveProject);
-            ProjectData tempProject = null;
-            foreach (ProjectData project in projectsList)
-            {
-                if (project.ID == User.ActiveProject) tempProject = project;
-            }
+			if (User == null) return new ProjectData ();
 
-            return tempProject;
+			ProjectData project = GetActiveProjectsList ().Find (p => p.ID == User.ActiveProject);
+			if (project == null)
+				return new ProjectData ();
+			else
+				return project;
         } // End of GetCurrentProject
 
+		// TESTED 2016.05.07
         public string GetMode()
         {
-            return getModeForUser(User);
+            return GetModeForUser(User);
         } // End of GetMode
 
 		// TESTED 2016.05.06

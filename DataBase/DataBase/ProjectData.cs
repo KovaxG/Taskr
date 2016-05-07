@@ -228,11 +228,11 @@ namespace DataBase
 			get {return _consumedFunds;}
 		}
 			
-	    private string _imageURL; // ImageURL
+	    private string _ImageURL; // ImageURL
         public string ImageURL
         {
-            set {_imageURL = value;}
-            get {return _imageURL;}
+            set {_ImageURL = value;}
+            get {return _ImageURL;}
         }
 
 		public static ProjectData Default = new ProjectData();
