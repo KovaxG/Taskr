@@ -538,6 +538,55 @@ namespace DataBase
 				return false;
             }
         } // End of UpdateProject
+
+		//TESTED 2016.05.07
+		/* Can Update only:
+		 * 
+		 * @param task - update task from table
+		 * @return bool - true if succes, false if failure
+		 */
+		public bool UpdateTask(TaskData task)
+		{
+			if (task == null) return false;
+
+			try
+			{
+				OpenConnection();
+				string query = "UPDATE tasks SET ParentId = @ParentId, Title = @Title, "
+					+ "ShortDescription = @ShortDescription, DetailedDescription = @DetailedDescription, ParentProject = @ParentProject, "
+					+ "DateCreated = @DateCreated, CreatedBy = @CreatedBy, DateCompleted = @DateCompleted, "
+					+ "CompletedBy = @CompletedBy, DeadLine = @DeadLine, Status = @Status, "
+					+ "Notes = @Notes, ImageURL = @ImageURL"
+					+ " WHERE Id = @task_id;";
+				MySqlCommand command = new MySqlCommand(query, connection);
+
+				command.Parameters.AddWithValue("@ParentId", task.ParentId);
+				command.Parameters.AddWithValue("@Title", task.Title);
+				command.Parameters.AddWithValue("@ShortDescription", task.ShortDescription);
+				command.Parameters.AddWithValue("@DetailedDescription", task.DetailedDescription);
+				command.Parameters.AddWithValue("@ParentProject", task.ParentProject);
+				command.Parameters.AddWithValue("@DateCreated", task.DateCreated.ToShortDateString ());
+				command.Parameters.AddWithValue("@CreatedBy", task.CreatedBy);
+				command.Parameters.AddWithValue("@DateCompleted", task.DateCompleted.ToShortDateString ());
+				command.Parameters.AddWithValue("@CompletedBy", task.CompletedBy);
+				command.Parameters.AddWithValue("@DeadLine", task.DeadLine.ToShortDateString ());
+				command.Parameters.AddWithValue("@Status", task.Status);
+				command.Parameters.AddWithValue("@Notes", task.Notes);
+				command.Parameters.AddWithValue("@ImageURL", task.ImageURL);
+				command.Parameters.AddWithValue("@task_id", task.ID);
+
+				command.ExecuteNonQuery();
+				command.Dispose();
+				CloseConnection();
+				return true;
+			}
+			catch (Exception e)
+			{
+				string errorMessage = "Exception in DataBaseHandler -> UpdateTask \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return false;
+			}
+		} // End of UpdateTask
 			
 		//TESTED 2016.05.06
         /* Can Update only:
