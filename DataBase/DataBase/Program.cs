@@ -51,12 +51,6 @@ namespace DataBase
 
 			viewAvailibleProjects ();
 
-			ProjectData uj = new ProjectData (db.User.ID);
-			uj.Title = "InsertTest";
-
-			db.InsertNewProject (uj);
-
-			viewAvailibleProjects ();
 
 
 		}
@@ -77,6 +71,7 @@ namespace DataBase
 				Console.WriteLine (ps.Title);
 			}
 			Console.WriteLine ("\n========================================");
+
 
 
 

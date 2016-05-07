@@ -236,7 +236,6 @@ namespace DataBase
 					DataSet ds = new DataSet();
 					dataAdapter.Fill(ds, "projects");
 					CloseConnection();
-						
 					if (ds.Tables["projects"].Rows.Count != 0) return false;
 
 				} // End of check
@@ -713,6 +712,7 @@ namespace DataBase
             {
 				// Add leavedata to project
 				ProjectData myProject = GetCurrentProject();
+				myProject.ProjectLead = DBDefaults.DefaultId;
 				myProject.DateTerminated = DateTime.Now;
 				myProject.TerminatedBy = User.ID;
 				myProject.TerminationReason = reason;
@@ -724,8 +724,9 @@ namespace DataBase
 				}
 
 				// Captain leaves last.
-				if (!LeaveProject()) return false;
+				User.ActiveProject = DBDefaults.DefaultId;
 				if (!UpdateProject(myProject)) return false;
+				
                 return true;
             }
             catch (Exception e)
