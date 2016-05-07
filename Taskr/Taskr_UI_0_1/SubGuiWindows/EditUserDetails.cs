@@ -28,7 +28,7 @@ namespace Taskr_UI_0_1
             }
             catch (FileNotFoundException)
             {
-                pictureAvatar.Load("resources/X.png");
+                pictureAvatar.Image=global::Taskr_UI_0_1.Properties.Resources.X_128;
             }
             textBoxDisplayName.Text = dh.User.DisplayName;
             textBoxEmail.Text = dh.User.Email;

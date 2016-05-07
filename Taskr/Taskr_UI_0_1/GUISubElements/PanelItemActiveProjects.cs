@@ -68,9 +68,8 @@ namespace Taskr_UI_0_1
             // 
             // pictureProject
             // 
-
             this.pictureProject.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureProject.ErrorImage = ((System.Drawing.Image)(resources.GetObject("resources/X.png")));
+            this.pictureProject.ErrorImage = global::Taskr_UI_0_1.Properties.Resources.X_128;
             this.pictureProject.Location = new System.Drawing.Point(15, 14);
             this.pictureProject.Name = "pictureProject";
             this.pictureProject.Size = new System.Drawing.Size(128, 128);

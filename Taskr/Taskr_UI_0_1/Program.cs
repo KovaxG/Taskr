@@ -22,11 +22,11 @@ namespace Taskr_UI_0_1
 
             //Application.Run(new LoginApp());
 
-            DatabaseHandler dh = new DatabaseHandler();
+            DatabaseHandler d = new DatabaseHandler();
             UserAppS ua;
-            LoginApp la = new LoginApp(dh);
-            dh.Login("Traian", "passwordtraian8");
-            ua = new UserAppS(dh);
+            LoginApp la = new LoginApp(d);
+            d.Login("Traian", "passwordtraian8");
+            ua = new UserAppS(d);
             ua.ShowDialog();
 
             /*try

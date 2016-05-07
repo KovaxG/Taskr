@@ -44,7 +44,7 @@ namespace Taskr_UI_0_1
             // 
 
             this.pictureTask.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureTask.ErrorImage = ((System.Drawing.Image)(resources.GetObject("X.png")));
+            this.pictureTask.ErrorImage = global::Taskr_UI_0_1.Properties.Resources.X_128;
             this.pictureTask.Location = new System.Drawing.Point(15, 14);
             this.pictureTask.Name = "pictureTask";
             this.pictureTask.Size = new System.Drawing.Size(128, 128);

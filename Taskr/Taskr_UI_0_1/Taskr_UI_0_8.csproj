@@ -72,16 +72,17 @@
     <Compile Include="Database\DataBaseDataType.cs" />
     <Compile Include="Database\DatabaseHandler.cs" />
     <Compile Include="Database\DBDefaults.cs" />
-    <Compile Include="EditUserDetails.cs">
+    <Compile Include="GUISubElements\PanelItemNoAvailableItems.cs" />
+    <Compile Include="SubGuiWindows\EditUserDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditUserDetails.Designer.cs">
+    <Compile Include="SubGuiWindows\EditUserDetails.Designer.cs">
       <DependentUpon>EditUserDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginApp.cs">
+    <Compile Include="GUIWindos\LoginApp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginApp.Designer.cs">
+    <Compile Include="GUIWindos\LoginApp.Designer.cs">
       <DependentUpon>LoginApp.cs</DependentUpon>
     </Compile>
     <Compile Include="GUISubElements\PanelItemProjectSuggestions.cs" />
@@ -92,10 +93,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GUISubElements\PanelItemActiveProjects.cs" />
     <Compile Include="DataTypes\TaskData.cs" />
-    <Compile Include="TaskView.cs">
+    <Compile Include="SubGuiWindows\TaskView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TaskView.Designer.cs">
+    <Compile Include="SubGuiWindows\TaskView.Designer.cs">
       <DependentUpon>TaskView.cs</DependentUpon>
     </Compile>
     <Compile Include="GUIWindos\TeamLeader.cs">
@@ -104,16 +105,16 @@
     <Compile Include="GUIWindos\TeamLeader.Designer.cs">
       <DependentUpon>TeamLeader.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIWindos\SubGuiWindows\DropTask.cs">
+    <Compile Include="SubGuiWindows\DropTask.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIWindos\SubGuiWindows\DropTask.Designer.cs">
+    <Compile Include="SubGuiWindows\DropTask.Designer.cs">
       <DependentUpon>DropTask.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIWindos\SubGuiWindows\ExtendTask.cs">
+    <Compile Include="SubGuiWindows\ExtendTask.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIWindos\SubGuiWindows\ExtendTask.Designer.cs">
+    <Compile Include="SubGuiWindows\ExtendTask.Designer.cs">
       <DependentUpon>ExtendTask.cs</DependentUpon>
     </Compile>
     <Compile Include="GUISubElements\PanelItem.cs" />
@@ -123,23 +124,23 @@
     <Compile Include="GUIWindos\TeamMember.Designer.cs">
       <DependentUpon>TeamMember.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIWindos\SubGuiWindows\UploadFiles.cs">
+    <Compile Include="SubGuiWindows\UploadFiles.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIWindos\SubGuiWindows\UploadFiles.Designer.cs">
+    <Compile Include="SubGuiWindows\UploadFiles.Designer.cs">
       <DependentUpon>UploadFiles.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIWindos\UserAppS.cs">
+    <Compile Include="GUIWindos\FreeLancer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIWindos\UserAppS.Designer.cs">
-      <DependentUpon>UserAppS.cs</DependentUpon>
+    <Compile Include="GUIWindos\FreeLancer.Designer.cs">
+      <DependentUpon>FreeLancer.cs</DependentUpon>
     </Compile>
     <Compile Include="DataTypes\UserData.cs" />
-    <EmbeddedResource Include="EditUserDetails.resx">
+    <EmbeddedResource Include="SubGuiWindows\EditUserDetails.resx">
       <DependentUpon>EditUserDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginApp.resx">
+    <EmbeddedResource Include="GUIWindos\LoginApp.resx">
       <DependentUpon>LoginApp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -152,29 +153,29 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TaskView.dje.resx">
+    <EmbeddedResource Include="SubGuiWindows\TaskView.dje.resx">
       <DependentUpon>TaskView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TaskView.resx">
+    <EmbeddedResource Include="SubGuiWindows\TaskView.resx">
       <DependentUpon>TaskView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIWindos\TeamLeader.resx">
       <DependentUpon>TeamLeader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUIWindos\SubGuiWindows\DropTask.resx">
+    <EmbeddedResource Include="SubGuiWindows\DropTask.resx">
       <DependentUpon>DropTask.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUIWindos\SubGuiWindows\ExtendTask.resx">
+    <EmbeddedResource Include="SubGuiWindows\ExtendTask.resx">
       <DependentUpon>ExtendTask.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIWindos\TeamMember.resx">
       <DependentUpon>TeamMember.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUIWindos\SubGuiWindows\UploadFiles.resx">
+    <EmbeddedResource Include="SubGuiWindows\UploadFiles.resx">
       <DependentUpon>UploadFiles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUIWindos\UserAppS.resx">
-      <DependentUpon>UserAppS.cs</DependentUpon>
+    <EmbeddedResource Include="GUIWindos\FreeLancer.resx">
+      <DependentUpon>FreeLancer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -196,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\logo.ico" />
+    <None Include="resources\X_128.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="temp\" />

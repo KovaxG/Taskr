@@ -25,7 +25,6 @@ namespace TeamMember
 
             //TaskData td = new TaskData();
             List<TaskData> tdl = d.GetTasksForProject(d.GetCurrentProject());
-            PanelItemTasks pit;
             if (tdl != null)
             {
                 foreach (TaskData td in tdl)
@@ -65,7 +64,7 @@ namespace TeamMember
         private void button3_Click(object sender, EventArgs e)
         {
             //check if DB actually returns what like in other places!!!!
-            if (d.DropTask())
+            if (d.LeaveProject())
             {
                 //d.RefreshUser(d.User);
                 this.Close();

@@ -40,13 +40,13 @@ namespace Taskr_UI_0_1
        {
            pictureAvatar.Load(d.User.AvatarURL);
        }
-       catch (FileNotFoundException)
+       catch// (FileNotFoundException)
        {
-           pictureAvatar.Load("resources/X.png");
+           pictureAvatar.Image= global::Taskr_UI_0_1.Properties.Resources.X_128;
        }
        labelUsername.Size = new System.Drawing.Size(pictureAvatar.Size.Width, 16);
-            labelUsername.Text = d.User.DisplayName; //does not change size in current Build
-            //should include if freelancer/teammbember/etc
+       labelUsername.Text = d.User.DisplayName; //does not change size in current Build
+
     }
 
     public void reInitializeContents()
@@ -67,7 +67,6 @@ namespace Taskr_UI_0_1
                     PanelItemActiveProjects ppi;
                     /*d.resetProjectIterator();
                     pd = d.getNextProjectData();*/
-
                     if (pdl != null)
                     {
                         foreach (ProjectData pd in pdl)
@@ -119,11 +118,14 @@ namespace Taskr_UI_0_1
                 //MessageBox.Show("Disposeding "+ cc.ToString());
                 cc.Dispose();
             }
+            this.flowLayoutPanelActiveProjects.Controls.Clear();
+
             foreach (System.Windows.Forms.Control cc in this.flowLayoutPanelProjectSuggestions.Controls)
             {
                 //MessageBox.Show("Disposeding " + cc.ToString());
                 cc.Dispose();
             }
+            this.flowLayoutPanelProjectSuggestions.Controls.Clear();
 
             ///should remove this for some reason
             GC.Collect();
@@ -152,6 +154,7 @@ namespace Taskr_UI_0_1
         private void buttonLogout_Click(object sender, EventArgs e)
         {
             //d.logOut();
+            this.Close();
             this.Dispose();
         }
 
@@ -167,7 +170,7 @@ namespace Taskr_UI_0_1
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                ImageProjectLogo.Load(openFileDialog1.FileName);
+                pictureBoxProjectImage.Load(openFileDialog1.FileName);
             }
         }*/
         
@@ -214,6 +217,24 @@ namespace Taskr_UI_0_1
             {
                 MessageBox.Show("Could not create Project");
             }
+        }
+
+        private void textBoxImageURL_LostFocus(object sender, EventArgs e)
+        {
+            try
+            {
+                this.pictureBoxProjectImage.Load(textBoxImageURL.Text);
+            }
+            catch
+            {
+                this.pictureBoxProjectImage.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
+            }
+            
+        }
+
+        private void buttonRefresh_Click(object sender, EventArgs e)
+        {
+            reInitializeContents();
         }
     }
 }

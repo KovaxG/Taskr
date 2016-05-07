@@ -47,7 +47,7 @@ namespace TeamMember
 
             this.picture.Size = new System.Drawing.Size((int)(width / 4), height);
             this.picture.Location = new System.Drawing.Point(3, 3);
-            this.picture.Load("resources/X.png");
+            this.picture.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
             this.picture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picture.Visible = true;
