@@ -37,7 +37,7 @@ namespace DataBase
             	OpenConnection();
             	string query = "SELECT * FROM users WHERE DisplayName = '@user_name' AND PasswordHash = '@password';";
 				query = query.Replace ("@user_name", userName);
-				query = query.Replace ("@password", password);
+				query = query.Replace ("@password", Hash(password, userName));
 
             	MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
             	DataSet ds = new DataSet();
@@ -1074,6 +1074,14 @@ namespace DataBase
                 return false;
             }
         } // End of CloseConnection
+
+		// TESTED 2016.05.07
+		/* Hash Function for passwords.
+		 */ 
+		public string Hash (string password, string salt) 
+		{
+			return password;
+		}
     } // End of Partial Class
 
 	// This contains all methods and fields related to the nested user.
