@@ -1,17 +1,16 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using DataBase;
 using Taskr_UI_0_1.SubGuiWindows;
 
-namespace Taskr_UI_0_1
+namespace Taskr_UI_0_1.GUISubElements
 {
-    class PanelItemTasksFromLeader : Panel
+    class PanelItemTeamMemberFromLeader : System.Windows.Forms.Panel
     {
+        
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.PictureBox pictureTask;
@@ -22,17 +21,17 @@ namespace Taskr_UI_0_1
         private const int textWidth = 580;
 
         private DatabaseHandler d;
-        private TaskData td;
-        private TeamLeader teamLeader;
+        private ProjectData projectData;
+        private UserData userData;
 
-        public PanelItemTasksFromLeader(DatabaseHandler d,TaskData td, TeamLeader teamLeader)
+        public PanelItemTeamMemberFromLeader(DatabaseHandler d, UserData userData, TeamLeader teamLeader)
         {
             //
             //for resourecs
             //
             this.d = d;
-            this.td = td;
-            this.teamLeader = teamLeader;
+            this.projectData = projectData;
+            this.userData = userData;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FreeLancer));
             //
             //initialize component classes
@@ -41,7 +40,7 @@ namespace Taskr_UI_0_1
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.buttonEditTask = new System.Windows.Forms.Button();
-            this.buttonAssignMember= new System.Windows.Forms.Button();
+            this.buttonAssignMember = new System.Windows.Forms.Button();
             this.SuspendLayout();
 
             // 
@@ -70,7 +69,7 @@ namespace Taskr_UI_0_1
             this.pictureTask.TabStop = false;
             try
             {
-                this.pictureTask.Load(td.ImageURL);
+                this.pictureTask.Load(this.userData.AvatarURL);
                 zero = 150;
             }
             catch
@@ -89,9 +88,9 @@ namespace Taskr_UI_0_1
             this.textBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTitle.Location = new System.Drawing.Point(zero, 14);
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Text = td.Title;
+            this.textBoxTitle.Text = this.userData.DisplayName;
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(textWidth-zero, 34);
+            this.textBoxTitle.Size = new System.Drawing.Size(textWidth - zero, 34);
             this.textBoxTitle.TabIndex = 4;
             // 
             // textBoxDescription
@@ -101,7 +100,7 @@ namespace Taskr_UI_0_1
             this.textBoxDescription.Location = new System.Drawing.Point(zero, 55);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Text = td.ShortDescription;
+            this.textBoxDescription.Text = this.userData.Notes;
             this.textBoxDescription.ReadOnly = true;
             this.textBoxDescription.Size = new System.Drawing.Size(textWidth - zero, 87);
             this.textBoxDescription.TabIndex = 5;
@@ -109,7 +108,7 @@ namespace Taskr_UI_0_1
             //
             //edit button
             //
-            this.buttonEditTask.Location = new System.Drawing.Point(textWidth+10, 15);
+            this.buttonEditTask.Location = new System.Drawing.Point(textWidth + 10, 15);
             this.buttonEditTask.Name = "buttonEditTask";
             this.buttonEditTask.Size = new System.Drawing.Size(120, 35);
             this.buttonEditTask.TabIndex = 2;
@@ -136,7 +135,7 @@ namespace Taskr_UI_0_1
 
         private void buttonEditTask_Click(object sender, EventArgs e)
         {
-            new EditTaskDetails(d,td,teamLeader).Show();
+            //new EditTaskDetails(d, td, teamLeader).Show();
         }
 
     }

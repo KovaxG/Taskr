@@ -59,7 +59,10 @@ namespace Taskr_UI_0_1
             this.labelTaskTitle = new System.Windows.Forms.Label();
             this.textBoxTaskTitle = new System.Windows.Forms.TextBox();
             this.tabPageProjectSuggestions = new System.Windows.Forms.TabPage();
-            this.flowLayoutPanelProjectSuggestions = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanelTeamMembers = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelNoTeamMember = new System.Windows.Forms.Panel();
+            this.buttonInviteMember = new System.Windows.Forms.Button();
+            this.labelNoTeamMembers = new System.Windows.Forms.Label();
             this.tabEditProject = new System.Windows.Forms.TabPage();
             this.LabelProjectSInfo = new System.Windows.Forms.Panel();
             this.buttonAbolishProject = new System.Windows.Forms.Button();
@@ -81,6 +84,7 @@ namespace Taskr_UI_0_1
             this.LabelProjectTitle = new System.Windows.Forms.Label();
             this.TextBoxProjectTitle = new System.Windows.Forms.TextBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.buttonRefreshAll = new System.Windows.Forms.Button();
             this.panelSide.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).BeginInit();
             this.tabControlVarious.SuspendLayout();
@@ -91,6 +95,8 @@ namespace Taskr_UI_0_1
             this.panelCreateTask.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTaskImage)).BeginInit();
             this.tabPageProjectSuggestions.SuspendLayout();
+            this.flowLayoutPanelTeamMembers.SuspendLayout();
+            this.panelNoTeamMember.SuspendLayout();
             this.tabEditProject.SuspendLayout();
             this.LabelProjectSInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProjectImage)).BeginInit();
@@ -172,6 +178,7 @@ namespace Taskr_UI_0_1
             this.tabControlVarious.SelectedIndex = 0;
             this.tabControlVarious.Size = new System.Drawing.Size(760, 606);
             this.tabControlVarious.TabIndex = 6;
+            this.tabControlVarious.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControlVarious_SelectedIndexChanged);
             // 
             // tabActiveTasks
             // 
@@ -382,7 +389,7 @@ namespace Taskr_UI_0_1
             // 
             // tabPageProjectSuggestions
             // 
-            this.tabPageProjectSuggestions.Controls.Add(this.flowLayoutPanelProjectSuggestions);
+            this.tabPageProjectSuggestions.Controls.Add(this.flowLayoutPanelTeamMembers);
             this.tabPageProjectSuggestions.Location = new System.Drawing.Point(4, 31);
             this.tabPageProjectSuggestions.Name = "tabPageProjectSuggestions";
             this.tabPageProjectSuggestions.Padding = new System.Windows.Forms.Padding(3);
@@ -391,17 +398,49 @@ namespace Taskr_UI_0_1
             this.tabPageProjectSuggestions.Text = "Team Members";
             this.tabPageProjectSuggestions.UseVisualStyleBackColor = true;
             // 
-            // flowLayoutPanelProjectSuggestions
+            // flowLayoutPanelTeamMembers
             // 
-            this.flowLayoutPanelProjectSuggestions.AutoScroll = true;
-            this.flowLayoutPanelProjectSuggestions.BackColor = System.Drawing.Color.Gainsboro;
-            this.flowLayoutPanelProjectSuggestions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelProjectSuggestions.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanelProjectSuggestions.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanelProjectSuggestions.Name = "flowLayoutPanelProjectSuggestions";
-            this.flowLayoutPanelProjectSuggestions.Size = new System.Drawing.Size(746, 565);
-            this.flowLayoutPanelProjectSuggestions.TabIndex = 0;
-            this.flowLayoutPanelProjectSuggestions.WrapContents = false;
+            this.flowLayoutPanelTeamMembers.AutoScroll = true;
+            this.flowLayoutPanelTeamMembers.BackColor = System.Drawing.Color.Gainsboro;
+            this.flowLayoutPanelTeamMembers.Controls.Add(this.panelNoTeamMember);
+            this.flowLayoutPanelTeamMembers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelTeamMembers.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanelTeamMembers.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanelTeamMembers.Name = "flowLayoutPanelTeamMembers";
+            this.flowLayoutPanelTeamMembers.Size = new System.Drawing.Size(746, 565);
+            this.flowLayoutPanelTeamMembers.TabIndex = 0;
+            this.flowLayoutPanelTeamMembers.WrapContents = false;
+            // 
+            // panelNoTeamMember
+            // 
+            this.panelNoTeamMember.Controls.Add(this.buttonInviteMember);
+            this.panelNoTeamMember.Controls.Add(this.labelNoTeamMembers);
+            this.panelNoTeamMember.Enabled = false;
+            this.panelNoTeamMember.Location = new System.Drawing.Point(3, 3);
+            this.panelNoTeamMember.Name = "panelNoTeamMember";
+            this.panelNoTeamMember.Size = new System.Drawing.Size(740, 159);
+            this.panelNoTeamMember.TabIndex = 1;
+            this.panelNoTeamMember.Visible = false;
+            // 
+            // buttonInviteMember
+            // 
+            this.buttonInviteMember.Enabled = false;
+            this.buttonInviteMember.Location = new System.Drawing.Point(224, 61);
+            this.buttonInviteMember.Name = "buttonInviteMember";
+            this.buttonInviteMember.Size = new System.Drawing.Size(261, 57);
+            this.buttonInviteMember.TabIndex = 2;
+            this.buttonInviteMember.Text = "Send Invite";
+            this.buttonInviteMember.UseVisualStyleBackColor = true;
+            this.buttonInviteMember.Visible = false;
+            // 
+            // labelNoTeamMembers
+            // 
+            this.labelNoTeamMembers.AutoSize = true;
+            this.labelNoTeamMembers.Location = new System.Drawing.Point(149, 16);
+            this.labelNoTeamMembers.Name = "labelNoTeamMembers";
+            this.labelNoTeamMembers.Size = new System.Drawing.Size(408, 24);
+            this.labelNoTeamMembers.TabIndex = 1;
+            this.labelNoTeamMembers.Text = "Currently you are the sole member of your team";
             // 
             // tabEditProject
             // 
@@ -618,11 +657,22 @@ namespace Taskr_UI_0_1
             this.checkedListBox1.Size = new System.Drawing.Size(8, 4);
             this.checkedListBox1.TabIndex = 9;
             // 
+            // buttonRefreshAll
+            // 
+            this.buttonRefreshAll.Location = new System.Drawing.Point(795, 12);
+            this.buttonRefreshAll.Name = "buttonRefreshAll";
+            this.buttonRefreshAll.Size = new System.Drawing.Size(185, 38);
+            this.buttonRefreshAll.TabIndex = 7;
+            this.buttonRefreshAll.Text = "Refresh All";
+            this.buttonRefreshAll.UseVisualStyleBackColor = true;
+            this.buttonRefreshAll.Click += new System.EventHandler(this.buttonRefreshAll_Click);
+            // 
             // TeamLeader
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1002, 654);
+            this.Controls.Add(this.buttonRefreshAll);
             this.Controls.Add(this.tabControlVarious);
             this.Controls.Add(this.panelSide);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -643,6 +693,9 @@ namespace Taskr_UI_0_1
             this.panelCreateTask.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTaskImage)).EndInit();
             this.tabPageProjectSuggestions.ResumeLayout(false);
+            this.flowLayoutPanelTeamMembers.ResumeLayout(false);
+            this.panelNoTeamMember.ResumeLayout(false);
+            this.panelNoTeamMember.PerformLayout();
             this.tabEditProject.ResumeLayout(false);
             this.LabelProjectSInfo.ResumeLayout(false);
             this.LabelProjectSInfo.PerformLayout();
@@ -662,7 +715,7 @@ namespace Taskr_UI_0_1
         private System.Windows.Forms.TabPage tabActiveTasks;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTasks;
         private System.Windows.Forms.TabPage tabPageProjectSuggestions;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelProjectSuggestions;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTeamMembers;
         private System.Windows.Forms.TabPage tabCreateTask;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.TabPage tabEditProject;
@@ -703,5 +756,9 @@ namespace Taskr_UI_0_1
         private System.Windows.Forms.TextBox textBoxTaskTitle;
         private System.Windows.Forms.DateTimePicker dateTimePickerDeadLine;
         private Button buttonAbolishProject;
+        private Button buttonRefreshAll;
+        private Panel panelNoTeamMember;
+        private Button buttonInviteMember;
+        private Label labelNoTeamMembers;
     }
 }

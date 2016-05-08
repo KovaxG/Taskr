@@ -42,6 +42,7 @@
             this.labelTaskShortDescription = new System.Windows.Forms.Label();
             this.labelTaskTitle = new System.Windows.Forms.Label();
             this.textBoxTaskTitle = new System.Windows.Forms.TextBox();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.panelCreateTask.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTaskImage)).BeginInit();
             this.SuspendLayout();
@@ -50,6 +51,7 @@
             // 
             this.panelCreateTask.AutoScroll = true;
             this.panelCreateTask.BackColor = System.Drawing.Color.Gainsboro;
+            this.panelCreateTask.Controls.Add(this.buttonCancel);
             this.panelCreateTask.Controls.Add(this.dateTimePickerDeadLine);
             this.panelCreateTask.Controls.Add(this.pictureBoxTaskImage);
             this.panelCreateTask.Controls.Add(this.textBoxTaskImageURL);
@@ -112,7 +114,7 @@
             // 
             // buttonUpdateTask
             // 
-            this.buttonUpdateTask.Location = new System.Drawing.Point(274, 583);
+            this.buttonUpdateTask.Location = new System.Drawing.Point(193, 583);
             this.buttonUpdateTask.Name = "buttonUpdateTask";
             this.buttonUpdateTask.Size = new System.Drawing.Size(238, 51);
             this.buttonUpdateTask.TabIndex = 0;
@@ -196,6 +198,16 @@
             this.textBoxTaskTitle.TabIndex = 12;
             this.textBoxTaskTitle.TextChanged += new System.EventHandler(this.TextBoxTaskTitle_TextChanged);
             // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(482, 583);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(227, 51);
+            this.buttonCancel.TabIndex = 31;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
             // EditTaskDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -227,5 +239,6 @@
         private System.Windows.Forms.Label labelTaskShortDescription;
         private System.Windows.Forms.Label labelTaskTitle;
         private System.Windows.Forms.TextBox textBoxTaskTitle;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }

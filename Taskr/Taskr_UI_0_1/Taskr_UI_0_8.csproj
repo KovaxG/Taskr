@@ -76,6 +76,9 @@
     <Compile Include="GUISubElements\PanelItemTaskFromLeader.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GUISubElements\PanelItemTeamMemberFromLeader.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SubGuiWindows\EditTaskDetails.cs">
       <SubType>Form</SubType>
     </Compile>

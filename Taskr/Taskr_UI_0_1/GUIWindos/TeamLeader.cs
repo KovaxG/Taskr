@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataBase;
+using Taskr_UI_0_1.GUISubElements;
 
 namespace Taskr_UI_0_1
 {
@@ -17,18 +18,17 @@ namespace Taskr_UI_0_1
     {
         private DatabaseHandler d;
         private ProjectData projectData;
-        private List<TaskData> tdl;
         public TeamLeader(DatabaseHandler d)
         {
             this.d = d;
             projectData = d.GetCurrentProject();
-            tdl = d.GetTasksForProject(projectData);
             InitializeComponent();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             InitializeTaskList();
+            InitializeTeamMemberList();
             InitializeProjectDetails();
             LoadAvatarArea();
         }
@@ -48,7 +48,7 @@ namespace Taskr_UI_0_1
 
         }
 
-        private void InitializeTaskList()
+        public void InitializeTaskList()
         {
             if (flowLayoutPanelTasks.Controls.Count != 0)
             {
@@ -61,11 +61,13 @@ namespace Taskr_UI_0_1
                 this.flowLayoutPanelTasks.Controls.Clear();
             }
 
-            if (tdl.Any())
+
+            List<TaskData> taskDataList = d.GetTasksForProject(projectData);
+            if (taskDataList.Any())
             {
-                foreach (TaskData td in tdl)
+                foreach (TaskData td in taskDataList)
                 {
-                    PanelItemTasksFromLeader item = new PanelItemTasksFromLeader(d,td);
+                    PanelItemTasksFromLeader item = new PanelItemTasksFromLeader(d,td,this);
                     switch (td.Status)
                     {
                         case ("Completed"):
@@ -93,19 +95,18 @@ namespace Taskr_UI_0_1
                 panelNoItems.Visible = true;
                 panelNoItems.Enabled = true;
             }
-            /*
-            List<TaskData> tdl = d.GetTasksForProject(projectData);
-            PanelItemTasks pit;
-            if (tdl != null)
-            {
-                foreach (TaskData td in tdl)
-                {
-                    pit = new PanelItemTasks(td);
-                    this.flowLayoutPanelProjectSuggestions.Controls.Add(pit);
-                }
-            }*/
+
         }
 
+        private void InitializeTeamMemberList()
+        {
+            List<UserData> userDataList= d.GetAllUsersRequestingForProject(projectData);
+            foreach (UserData userData in userDataList)
+            {
+                
+                flowLayoutPanelTeamMembers.Controls.Add(new PanelItemTeamMemberFromLeader(d,userData,this));   
+            }
+        }
         private void InitializeProjectDetails()
         {
             this.TextBoxProjectTitle.Text = projectData.Title;
@@ -383,7 +384,7 @@ namespace Taskr_UI_0_1
                         "Task too long");
                     return;
                 }
-                TaskData TaskData = new TaskData();
+                TaskData TaskData = new TaskData(d.User.ID);
                 TaskData.Title = this.textBoxTaskTitle.Text;
                 TaskData.ShortDescription = this.textBoxTaskShortDescription.Text;
                 TaskData.DetailedDescription = this.textBoxTaskLongDescription.Text;
@@ -394,6 +395,13 @@ namespace Taskr_UI_0_1
                 if (d.InsertNewTask(TaskData))
                 {
                     MessageBox.Show("New Task Successfully Created. \nIt will appear in the task list", "Success!");
+                    textBoxTaskTitle.Text = "";
+                    textBoxTaskShortDescription.Text = "";
+                    textBoxTaskLongDescription.Text = "";
+                    textBoxTaskImageURL.Text = "";
+                    this.pictureBoxProjectImage.Image = global::Taskr_UI_0_1.Properties.Resources.X;
+
+                    dateTimePickerDeadLine.Value = DateTime.Now;
                     InitializeTaskList();
                 }
                 else
@@ -416,5 +424,27 @@ namespace Taskr_UI_0_1
             textBoxTaskTitle.Focus();
             textBoxTaskTitle.Select();
         }
+
+        private void buttonRefreshAll_Click(object sender, EventArgs e)
+        {
+            InitializeTaskList();
+            InitializeProjectDetails();
+        }
+
+        private void tabControlVarious_SelectedIndexChanged(object sender, TabControlEventArgs e)
+        {
+            switch (e.TabPageIndex)
+            {
+                case 0:
+                    InitializeTaskList();
+                    break;
+                case 2:
+                    InitializeTeamMemberList();
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }

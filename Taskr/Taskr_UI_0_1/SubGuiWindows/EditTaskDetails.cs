@@ -15,12 +15,14 @@ namespace Taskr_UI_0_1.SubGuiWindows
     {
         private TaskData taskData;
         private DatabaseHandler d;
-        public EditTaskDetails(DatabaseHandler d, TaskData taskData)
+        private TeamLeader teamLeader;
+        public EditTaskDetails(DatabaseHandler d, TaskData taskData,TeamLeader teamLeader)
         {
             this.d = d;
             this.taskData = taskData;
+            this.teamLeader = teamLeader;
 
-            
+
             InitializeComponent();
             InitializeFields();
         }
@@ -143,19 +145,19 @@ namespace Taskr_UI_0_1.SubGuiWindows
                         "Task too long");
                     return;
                 }
-                TaskData TaskData = new TaskData();
-                TaskData.Title = this.textBoxTaskTitle.Text;
-                TaskData.ShortDescription = this.textBoxTaskShortDescription.Text;
-                TaskData.DetailedDescription = this.textBoxTaskLongDescription.Text;
-                TaskData.ImageURL = this.textBoxTaskImageURL.Text;
-                TaskData.DeadLine = this.dateTimePickerDeadLine.Value;
-                TaskData.ParentProject = d.GetCurrentProject().ID;
+                taskData.Title = this.textBoxTaskTitle.Text;
+                taskData.ShortDescription = this.textBoxTaskShortDescription.Text;
+                taskData.DetailedDescription = this.textBoxTaskLongDescription.Text;
+                taskData.ImageURL = this.textBoxTaskImageURL.Text;
+                taskData.DeadLine = this.dateTimePickerDeadLine.Value;
+                taskData.ParentProject = d.GetCurrentProject().ID;
 
                 TaskData backupTaskData = new TaskData(taskData);
-                if (d.InsertNewTask(TaskData))
+                if (d.UpdateTask(taskData))
                 {
                     MessageBox.Show("New Task Successfully Modified.", "Success!");
                     this.Close();
+                    teamLeader.InitializeTaskList();
                     this.Dispose();
                 }
                 else
@@ -166,5 +168,10 @@ namespace Taskr_UI_0_1.SubGuiWindows
             }
         }
 
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+        }
     }
 }
