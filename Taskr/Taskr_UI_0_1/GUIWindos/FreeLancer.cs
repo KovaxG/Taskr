@@ -14,11 +14,11 @@ using MySql.Data.MySqlClient.Properties;
 
 namespace Taskr_UI_0_1
 {
-    public partial class UserAppS : Form
+    public partial class FreeLancer : Form
     {
         DatabaseHandler d;
 
-        public UserAppS(DatabaseHandler d)
+        public FreeLancer(DatabaseHandler d)
         {
             this.d = d;
             InitializeComponent();
@@ -115,14 +115,12 @@ namespace Taskr_UI_0_1
         {
             foreach (System.Windows.Forms.Control cc in this.flowLayoutPanelActiveProjects.Controls)
             {
-                //MessageBox.Show("Disposeding "+ cc.ToString());
                 cc.Dispose();
             }
             this.flowLayoutPanelActiveProjects.Controls.Clear();
 
             foreach (System.Windows.Forms.Control cc in this.flowLayoutPanelProjectSuggestions.Controls)
             {
-                //MessageBox.Show("Disposeding " + cc.ToString());
                 cc.Dispose();
             }
             this.flowLayoutPanelProjectSuggestions.Controls.Clear();
@@ -199,7 +197,7 @@ namespace Taskr_UI_0_1
                     "Description too short");
                 return;
             }
-            ProjectData projectData=new ProjectData();
+            ProjectData projectData=new ProjectData(d.User.ID);
             projectData.Title = this.TextBoxProjectTitle.Text;
             projectData.ShortDescription = this.TextBoxProjectShortDetails.Text;
             projectData.DetailedDescription = this.TextBoxProjectLongDetails.Text;
@@ -207,6 +205,7 @@ namespace Taskr_UI_0_1
             projectData.ImageURL = this.textBoxImageURL.Text;
             projectData.AvailibleFunds = this.labelAvailableFunds.Text;
             projectData.CurrentYield = this.textBoxCurrentYield.Text;
+            
 
             if (d.InsertNewProject(projectData))
             {

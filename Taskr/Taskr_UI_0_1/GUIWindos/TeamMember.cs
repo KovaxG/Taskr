@@ -69,7 +69,7 @@ namespace TeamMember
                 //d.RefreshUser(d.User);
                 this.Close();
                 this.Dispose();
-                new UserAppS(d).ShowDialog();
+                new FreeLancer(d).ShowDialog();
             }
             else
             {

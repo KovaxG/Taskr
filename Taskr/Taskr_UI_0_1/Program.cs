@@ -23,17 +23,17 @@ namespace Taskr_UI_0_1
             //Application.Run(new LoginApp());
 
             DatabaseHandler d = new DatabaseHandler();
-            UserAppS ua;
+            FreeLancer ua;
             LoginApp la = new LoginApp(d);
-            d.Login("Traian", "passwordtraian8");
-            ua = new UserAppS(d);
+            d.Login("Dani", "passworddaniel7");
+            ua = new FreeLancer(d);
             ua.ShowDialog();
 
             /*try
             {
                 if (la.ShowDialog() == DialogResult.OK)
                 {
-                    ua = new UserAppS(dh);
+                    ua = new FreeLancer(dh);
                     ua.ShowDialog();
                 }
             }

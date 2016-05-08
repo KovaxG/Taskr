@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -49,17 +50,48 @@ namespace Taskr_UI_0_1
 
         private void InitializeTaskList()
         {
-            if (tdl != null)
+            if (flowLayoutPanelTasks.Controls.Count != 0)
+            {
+                /*
+                this disposes of panelNoItems aswell
+                foreach (System.Windows.Forms.Control cc in this.flowLayoutPanelTasks.Controls)
+                {
+                    cc.Dispose();
+                }*/
+                this.flowLayoutPanelTasks.Controls.Clear();
+            }
+
+            if (tdl.Any())
             {
                 foreach (TaskData td in tdl)
                 {
-                    PanelItemTasks item = new PanelItemTasks(td);
+                    PanelItemTasksFromLeader item = new PanelItemTasksFromLeader(d,td);
+                    switch (td.Status)
+                    {
+                        case ("Completed"):
+                            item.BackColor = Color.BurlyWood;
+                            break;
+                        case ("Failed"):
+                            item.BackColor = Color.DarkRed;
+                            break;
+                        case ("Idle"):
+                            item.BackColor = Color.Gainsboro;
+                            break;
+                        case ("Tackling"):
+                            item.BackColor = Color.DarkGreen;
+                            break;
+                        default://Unhandled value
+                            item.BackColor = Color.Aqua;
+                            break;
+                    }
                     this.flowLayoutPanelTasks.Controls.Add(item);
                 }
             }
             else
             {
-                
+                this.flowLayoutPanelTasks.Controls.Add(panelNoItems);
+                panelNoItems.Visible = true;
+                panelNoItems.Enabled = true;
             }
             /*
             List<TaskData> tdl = d.GetTasksForProject(projectData);
@@ -269,18 +301,22 @@ namespace Taskr_UI_0_1
             }
         }
 
-        private void buttonAbandonProject_Click(object sender, EventArgs e)
+        private void buttonAbolishProject_Click(object sender, EventArgs e)
         {
          
             if (d.AbolishProject("Just Couase"))
             {
                 MessageBox.Show("Project Successfully abolished");
                 
-                UserAppS u = new UserAppS(d);
+                FreeLancer u = new FreeLancer(d);
 
                 this.Close();
                 this.Dispose();
                 u.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Could not abolish project", "Error");
             }
         }
 
@@ -358,7 +394,7 @@ namespace Taskr_UI_0_1
                 if (d.InsertNewTask(TaskData))
                 {
                     MessageBox.Show("New Task Successfully Created. \nIt will appear in the task list", "Success!");
-                    //reInitializeContents();
+                    InitializeTaskList();
                 }
                 else
                 {
@@ -370,12 +406,13 @@ namespace Taskr_UI_0_1
         private void buttonCreateItem_Click(object sender, EventArgs e)
         {
             //can't get this to work
-            tabControlVarious.Focus();
+            tabControlVarious.SelectedTab = tabCreateTask;
+            /*tabControlVarious.Focus();
             tabControlVarious.Select();
             tabCreateTask.Focus();
             tabCreateTask.Select();
             panelCreateTask.Focus();
-            panelCreateTask.Select();
+            panelCreateTask.Select();*/
             textBoxTaskTitle.Focus();
             textBoxTaskTitle.Select();
         }

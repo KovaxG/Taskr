@@ -15,7 +15,7 @@ namespace Taskr_UI_0_1
     {
         DatabaseHandler d;
 
-        //UserAppS u;
+        //FreeLancer u;
         public LoginApp(DatabaseHandler d)
         {
             this.d = d;

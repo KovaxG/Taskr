@@ -117,14 +117,22 @@ CREATE TABLE `database`.`tasks` (
 
 -- These two tables will store the requests from users to join a project
 -- or accept a task.
+<<<<<<< HEAD
 CREATE TABLE `database`.`projectrequests` (
+=======
+CREATE TABLE `test`.`projectrequests` (
+>>>>>>> df5f7c781a7c7ad2e1ba3d89bf13f82b96639b3d
   `Id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `project_id` INT NOT NULL,
   PRIMARY KEY (`Id`)
 );
 
+<<<<<<< HEAD
 CREATE TABLE `database`.`taskrequests` (
+=======
+CREATE TABLE `test`.`taskrequests` (
+>>>>>>> df5f7c781a7c7ad2e1ba3d89bf13f82b96639b3d
   `Id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `task_id` INT NOT NULL,

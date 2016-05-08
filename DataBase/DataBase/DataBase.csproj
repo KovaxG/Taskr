@@ -38,13 +38,27 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserData.cs" />
-    <Compile Include="DataBaseHandler.cs" />
-    <Compile Include="ProjectData.cs" />
-    <Compile Include="ProjectSuggestionData.cs" />
-    <Compile Include="TaskData.cs" />
-    <Compile Include="DataBaseDataType.cs" />
-    <Compile Include="DBDefaults.cs" />
+    <Compile Include="..\..\Taskr\Taskr_UI_0_1\Database\DatabaseHandler.cs">
+      <Link>DatabaseHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Taskr\Taskr_UI_0_1\Database\DataBaseDataType.cs">
+      <Link>DataBaseDataType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Taskr\Taskr_UI_0_1\Database\DBDefaults.cs">
+      <Link>DBDefaults.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Taskr\Taskr_UI_0_1\DataTypes\ProjectData.cs">
+      <Link>ProjectData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Taskr\Taskr_UI_0_1\DataTypes\ProjectSuggestionData.cs">
+      <Link>ProjectSuggestionData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Taskr\Taskr_UI_0_1\DataTypes\TaskData.cs">
+      <Link>TaskData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Taskr\Taskr_UI_0_1\DataTypes\UserData.cs">
+      <Link>UserData.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

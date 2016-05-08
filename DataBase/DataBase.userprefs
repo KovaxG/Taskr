@@ -1,8 +1,9 @@
 ﻿<Properties StartupItem="DataBase\DataBase.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="DataBase\Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\Taskr\Taskr_UI_0_1\Database\DatabaseHandler.cs">
     <Files>
-      <File FileName="DataBase\Program.cs" Line="49" Column="3" />
+      <File FileName="DataBase\Program.cs" Line="76" Column="76" />
+      <File FileName="..\Taskr\Taskr_UI_0_1\Database\DatabaseHandler.cs" Line="551" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

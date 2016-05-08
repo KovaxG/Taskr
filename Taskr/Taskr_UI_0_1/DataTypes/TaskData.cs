@@ -27,7 +27,25 @@ namespace DataBase
 			// Nothing to do here
 		}
 
-		public TaskData (int creatorId)
+	    public TaskData(TaskData taskData)
+        {
+	        _id = taskData.ID;
+	        ParentId = taskData.ParentId;
+	        Title = taskData.Title;
+	        ShortDescription = taskData.ShortDescription;
+	        DetailedDescription = taskData.DetailedDescription;
+	        ParentProject = taskData.ParentProject;
+	        DateCreated = taskData.DateCreated;
+	        CreatedBy = taskData.CreatedBy;
+	        DateCompleted = taskData.DateCompleted;
+	        CompletedBy = taskData.CompletedBy;
+	        DeadLine = taskData.DeadLine;
+	        Status = taskData.Status;
+	        ImageURL = taskData.ImageURL;
+	        Notes = taskData.Notes;
+	    }
+
+	    public TaskData (int creatorId)
 		{
 			ParentId = DBDefaults.DefaultId;
 			Title = DBDefaults.DefaultText;
@@ -40,6 +58,7 @@ namespace DataBase
 			CompletedBy = DBDefaults.DefaultId;
 			DeadLine = DBDefaults.DefaultDate;
 			Status = DBDefaults.DefaultText;
+			ImageURL = DBDefaults.DefaultText;
 			Notes = DBDefaults.DefaultText;
 		}
 
