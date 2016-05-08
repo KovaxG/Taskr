@@ -29,7 +29,7 @@ namespace Login
             textBoxEmail.Text = db.getEmailUser(employee_id);
             textBoxPhoneNumber.Text = db.getPhoneNumberUser(employee_id);
             dateTimePicker.Value = db.getJoinDateUser(employee_id);
-            textBoxAddedBy.Text = db.getAddedByUser(employee_id).ToString();
+            textBoxAddedBy.Text = db.getDisplayNameSecretary(Int32.Parse(db.getAddedByUser(employee_id))).ToString();
             textBoxActiveProject.Text = db.getActiveProjectUser(employee_id).ToString();
             setStatus();
             textBoxPersonalNotes.Text = db.getPersonalNotesUser(employee_id);
@@ -46,7 +46,7 @@ namespace Login
             textBoxEmail.Text = db.getEmailUser(employee_id);
             textBoxPhoneNumber.Text = db.getPhoneNumberUser(employee_id);
             dateTimePicker.Value = db.getJoinDateUser(employee_id);
-            textBoxAddedBy.Text = db.getAddedByUser(employee_id).ToString();
+            textBoxAddedBy.Text = db.getDisplayNameSecretary(Int32.Parse(db.getAddedByUser(employee_id))).ToString();
             textBoxActiveProject.Text = db.getActiveProjectUser(employee_id).ToString();
             setStatus();
             textBoxPersonalNotes.Text = db.getPersonalNotesUser(employee_id);
@@ -239,6 +239,7 @@ namespace Login
             comboBoxStatus.Items.Add("Day off");
             comboBoxStatus.Items.Add("Holiday");
             comboBoxStatus.Items.Add("Sick");
+            comboBoxStatus.Items.Add("Not Available");
             comboBoxStatus.Text = db.getStatusUser(employee_id);
         }
     }

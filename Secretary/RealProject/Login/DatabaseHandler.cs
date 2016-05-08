@@ -18,7 +18,7 @@ namespace Login
         private string password;
 
         // Default values
-        const string DEFAULT_TEXT = "...";
+        const string DEFAULT_TEXT = "-";
 	    const int DEFAULT_ID   = 0;
         DateTime DEFAULT_DATE = new DateTime(1970,1,1,0,0,0);
         
@@ -33,7 +33,7 @@ namespace Login
         private void Initialize()
         {
             server = "localhost";
-            database = "test";
+            database = "database";
             uid = "root";
             password = "root";
             string connectionString;
