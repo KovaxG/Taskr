@@ -24,15 +24,42 @@ namespace Taskr_UI_0_1
         private DatabaseHandler d;
         private TaskData td;
         private TeamLeader teamLeader;
+        private UserData teamMember;
+        private AsignTaskWindows asignTaskWindows;
 
-        public PanelItemTasksFromLeader(DatabaseHandler d,TaskData td, TeamLeader teamLeader)
+        public PanelItemTasksFromLeader(DatabaseHandler d, TaskData td, TeamLeader teamLeader)
+        {
+            
+            this.d = d;
+            this.td = td;
+            this.teamLeader = teamLeader;
+            InitializeComponents();
+        }
+
+        /// <summary>
+        /// This is meant to be used for task selection
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="td"></param>
+        /// <param name="teamLeader">for refresh calls</param>
+        /// <param name="teamMember">the user to asign the task to</param>
+        public PanelItemTasksFromLeader(DatabaseHandler d, TaskData td, TeamLeader teamLeader, UserData teamMember,AsignTaskWindows asignTaskWindows)
+        {
+
+            this.d = d;
+            this.td = td;
+            this.teamLeader = teamLeader;
+            this.teamMember = teamMember;
+            this.asignTaskWindows = asignTaskWindows;
+
+            InitializeComponents();
+            EnableTaskAssignmentMode();
+        }
+        private void InitializeComponents()
         {
             //
             //for resourecs
             //
-            this.d = d;
-            this.td = td;
-            this.teamLeader = teamLeader;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FreeLancer));
             //
             //initialize component classes
@@ -144,6 +171,38 @@ namespace Taskr_UI_0_1
             teamLeader.TabControlVarious.SelectedTab = teamLeader.tabTeamMembers;
             teamLeader.TabControlVarious.SelectedTab.Focus();
             teamLeader.TabControlVarious.SelectedTab.Select();
+        }
+
+        public void EnableTaskAssignmentMode()
+        {
+            buttonEditTask.Visible = false;
+            buttonEditTask.Enabled = false;
+            buttonAssignMember.Visible = false;
+            buttonAssignMember.Enabled = false;
+            this.Size = new System.Drawing.Size(600, 157);
+            this.Click+=new System.EventHandler(Panel_Click);
+        }
+
+        public void Panel_Click(object sender, EventArgs e)
+        {
+            /*int activeTask = teamMember.ActiveTask;
+            teamMember.ActiveTask = td.ID;
+            if (d.UpdateUser(teamMember))
+            {
+                MessageBox.Show(td.Title + " assigned to " + teamMember.DisplayName, "Assigment successful");
+
+            }
+            else
+            {
+                MessageBox.Show("Failed to assigned task", "Error");
+                teamMember.ActiveTask = activeTask;
+            }*/
+            
+            asignTaskWindows.DialogResult = DialogResult.OK;
+            asignTaskWindows.Close();
+            asignTaskWindows.Dispose();
+            teamLeader.InitializeTaskList();
+            teamLeader.InitializeTeamMemberList();
         }
     }
 }

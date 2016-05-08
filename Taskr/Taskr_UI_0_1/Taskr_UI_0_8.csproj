@@ -76,8 +76,17 @@
     <Compile Include="GUISubElements\PanelItemTaskFromLeader.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GUISubElements\PanelItemTaskFromSelector.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GUISubElements\PanelItemTeamMemberFromLeader.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubGuiWindows\AsignTaskWindows.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubGuiWindows\AsignTaskWindows.Designer.cs">
+      <DependentUpon>AsignTaskWindows.cs</DependentUpon>
     </Compile>
     <Compile Include="SubGuiWindows\EditTaskDetails.cs">
       <SubType>Form</SubType>
@@ -155,6 +164,12 @@
       <DependentUpon>FreeLancer.cs</DependentUpon>
     </Compile>
     <Compile Include="DataTypes\UserData.cs" />
+    <EmbeddedResource Include="GUISubElements\PanelItemTaskFromSelector.resx">
+      <DependentUpon>PanelItemTaskFromSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubGuiWindows\AsignTaskWindows.resx">
+      <DependentUpon>AsignTaskWindows.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubGuiWindows\EditTaskDetails.resx">
       <DependentUpon>EditTaskDetails.cs</DependentUpon>
     </EmbeddedResource>

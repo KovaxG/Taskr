@@ -98,7 +98,7 @@ namespace Taskr_UI_0_1
 
         }
 
-        private void InitializeTeamMemberList()
+        public void InitializeTeamMemberList()
         {
             if (flowLayoutPanelTeamMembers.Controls.Count != 0)
             {
@@ -112,7 +112,7 @@ namespace Taskr_UI_0_1
                 foreach (UserData userData in userDataList)
                 {
 
-                    flowLayoutPanelTeamMembers.Controls.Add(new PanelItemTeamMemberFromLeader(d, userData, this));
+                    flowLayoutPanelTeamMembers.Controls.Add(new PanelItemTeamMemberFromLeader(d, userData,projectData, this));
                 }
             }
             else

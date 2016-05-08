@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataBase;
+using Taskr_UI_0_1.SubGuiWindows;
 
 namespace Taskr_UI_0_1
 {
@@ -17,7 +18,8 @@ namespace Taskr_UI_0_1
         string tempURI;
         private DatabaseHandler dh;
         private UserData userData;
-
+        private TeamLeader teamLeader;
+        private ProjectData projectData;
 
         public EditUserData(DatabaseHandler d)
         {
@@ -46,10 +48,12 @@ namespace Taskr_UI_0_1
         /// </summary>
         /// <param name="d"></param>
         /// <param name="userData">This doesn't allow modification of one's details</param>
-        public EditUserData(DatabaseHandler d,UserData userData)
+        public EditUserData(DatabaseHandler d,UserData userData, TeamLeader teamLeader, ProjectData projectData)
         {
             this.Text = userData.DisplayName + "Details";
             this.userData = userData;
+            this.teamLeader = teamLeader;
+            this.projectData = projectData;
 
             InitializeComponent();
             dh = d;
@@ -180,7 +184,12 @@ namespace Taskr_UI_0_1
 
         private void buttonAsignTask_Click(object sender, EventArgs e)
         {
-            
+            AsignTaskWindows asignTaskWindows=new AsignTaskWindows(dh,teamLeader,projectData,userData);
+            if (asignTaskWindows.ShowDialog()== DialogResult.OK)
+            {
+                this.Close();
+                this.Dispose();
+            }
         }
 
         private void buttonKick_Click(object sender, EventArgs e)

@@ -25,7 +25,7 @@ namespace Taskr_UI_0_1.GUISubElements
         private TeamLeader teamLeader;
         private UserData userData;
 
-        public PanelItemTeamMemberFromLeader(DatabaseHandler d, UserData userData, TeamLeader teamLeader)
+        public PanelItemTeamMemberFromLeader(DatabaseHandler d, UserData userData, ProjectData projectData, TeamLeader teamLeader)
         {
             //
             //for resourecs
@@ -126,7 +126,7 @@ namespace Taskr_UI_0_1.GUISubElements
             this.buttonAssignTask.Name = "buttonAssignTask";
             this.buttonAssignTask.Size = new System.Drawing.Size(120, 35);
             this.buttonAssignTask.TabIndex = 2;
-            this.buttonAssignTask.Text = "Assign Member";
+            this.buttonAssignTask.Text = "Assign Task";
             this.buttonAssignTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAssignTask.UseVisualStyleBackColor = true;
             this.buttonAssignTask.Click += new System.EventHandler(this.buttonAssignTask_Click);
@@ -137,13 +137,13 @@ namespace Taskr_UI_0_1.GUISubElements
 
         private void buttonMoreInfo_Click(object sender, EventArgs e)
         {
-            EditUserData editor=new EditUserData(d,userData);
+            EditUserData editor=new EditUserData(d,userData,teamLeader,projectData);
             editor.Show();
         }
 
         private void buttonAssignTask_Click(object sender, EventArgs e)
         {
-            
+            new AsignTaskWindows(d,teamLeader,projectData,userData).ShowDialog();
         }
 
 
