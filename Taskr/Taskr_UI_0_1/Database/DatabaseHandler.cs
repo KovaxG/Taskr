@@ -214,6 +214,22 @@ namespace DataBase
             }
 		}// End of GetProjectSuggestionsList
 
+		// TESTED 2016.05.08
+		/* Returns a list of users that are in a given project.
+		 */
+		public List<UserData> GetUsersForProject (ProjectData project) {
+			Console.WriteLine ("Pushing function");
+
+			List<UserData> list = new List<UserData> ();
+
+			if (project == null) return list;
+
+			list = (List<UserData>)GetAllUsers ().FindAll (u => u.ActiveProject == project.ID);
+			if (list == null) return new List<UserData> (); // This should never happen
+
+			return list;
+		} // End of GetUsersForProject
+
 
        	// TESTED 2016.05.06
         /*

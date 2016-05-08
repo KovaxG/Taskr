@@ -73,12 +73,12 @@ namespace DataBase
 			Console.WriteLine ("\n========================================");
 
 
-			ProjectData project = db.GetActiveProjectsList ().Find (p => p.ID == 1);
-			TaskData task = db.GetTasksForProject (project).First();
+			ProjectData project = db.GetActiveProjectsList ().Find (p => p.ID == 3);
+			//TaskData task = db.GetTasksForProject (project).First();
 		
-			task.ShortDescription = "Bla bla bla";
-
-			Console.WriteLine (db.UpdateTask (task));
+			List<UserData> list = db.GetUsersForProject (project);
+			foreach (UserData user in list)
+				Console.WriteLine (user.DisplayName);
 
 			//db.ProjectJoinRequest (projectList.Find(p => p.ID == 1));
 			//db.CancelProjectJoinRequest (projectList.Find(p => p.ID == 8));
