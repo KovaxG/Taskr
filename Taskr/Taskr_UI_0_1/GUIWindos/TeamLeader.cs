@@ -100,11 +100,26 @@ namespace Taskr_UI_0_1
 
         private void InitializeTeamMemberList()
         {
-            List<UserData> userDataList= d.GetAllUsersRequestingForProject(projectData);
-            foreach (UserData userData in userDataList)
+            if (flowLayoutPanelTeamMembers.Controls.Count != 0)
             {
-                
-                flowLayoutPanelTeamMembers.Controls.Add(new PanelItemTeamMemberFromLeader(d,userData,this));   
+                flowLayoutPanelTeamMembers.Controls.Clear();
+            }
+
+            List<UserData> userDataList= d.GetUsersForProject(projectData);
+            
+            if (userDataList.Any())
+            {
+                foreach (UserData userData in userDataList)
+                {
+
+                    flowLayoutPanelTeamMembers.Controls.Add(new PanelItemTeamMemberFromLeader(d, userData, this));
+                }
+            }
+            else
+            {
+                this.flowLayoutPanelTeamMembers.Controls.Add(panelNoTeamMember);
+                panelNoTeamMember.Visible = true;
+                panelNoTeamMember.Enabled = true;
             }
         }
         private void InitializeProjectDetails()

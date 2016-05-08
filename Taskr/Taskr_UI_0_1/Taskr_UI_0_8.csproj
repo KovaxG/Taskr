@@ -85,11 +85,11 @@
     <Compile Include="SubGuiWindows\EditTaskDetails.Designer.cs">
       <DependentUpon>EditTaskDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubGuiWindows\EditUserDetails.cs">
+    <Compile Include="SubGuiWindows\EditUserData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubGuiWindows\EditUserDetails.Designer.cs">
-      <DependentUpon>EditUserDetails.cs</DependentUpon>
+    <Compile Include="SubGuiWindows\EditUserData.Designer.cs">
+      <DependentUpon>EditUserData.cs</DependentUpon>
     </Compile>
     <Compile Include="GUIWindos\LoginApp.cs">
       <SubType>Form</SubType>
@@ -158,8 +158,8 @@
     <EmbeddedResource Include="SubGuiWindows\EditTaskDetails.resx">
       <DependentUpon>EditTaskDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubGuiWindows\EditUserDetails.resx">
-      <DependentUpon>EditUserDetails.cs</DependentUpon>
+    <EmbeddedResource Include="SubGuiWindows\EditUserData.resx">
+      <DependentUpon>EditUserData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIWindos\LoginApp.resx">
       <DependentUpon>LoginApp.cs</DependentUpon>

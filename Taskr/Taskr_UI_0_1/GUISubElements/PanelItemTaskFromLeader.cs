@@ -128,7 +128,7 @@ namespace Taskr_UI_0_1
             this.buttonAssignMember.Text = "Assign Member";
             this.buttonAssignMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAssignMember.UseVisualStyleBackColor = true;
-            //     this.buttonAssignMember.Click += new System.EventHandler(this.buttonAssignMember_Click);
+            this.buttonAssignMember.Click += new System.EventHandler(this.buttonAssignMember_Click);
 
             this.ResumeLayout();
             this.PerformLayout();
@@ -139,5 +139,11 @@ namespace Taskr_UI_0_1
             new EditTaskDetails(d,td,teamLeader).Show();
         }
 
+        private void buttonAssignMember_Click(object sender, EventArgs e)
+        {
+            teamLeader.TabControlVarious.SelectedTab = teamLeader.tabTeamMembers;
+            teamLeader.TabControlVarious.SelectedTab.Focus();
+            teamLeader.TabControlVarious.SelectedTab.Select();
+        }
     }
 }

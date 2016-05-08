@@ -58,7 +58,7 @@ namespace Taskr_UI_0_1
             this.labelTaskShortDescription = new System.Windows.Forms.Label();
             this.labelTaskTitle = new System.Windows.Forms.Label();
             this.textBoxTaskTitle = new System.Windows.Forms.TextBox();
-            this.tabPageProjectSuggestions = new System.Windows.Forms.TabPage();
+            this.tabTeamMembers = new System.Windows.Forms.TabPage();
             this.flowLayoutPanelTeamMembers = new System.Windows.Forms.FlowLayoutPanel();
             this.panelNoTeamMember = new System.Windows.Forms.Panel();
             this.buttonInviteMember = new System.Windows.Forms.Button();
@@ -94,7 +94,7 @@ namespace Taskr_UI_0_1
             this.tabCreateTask.SuspendLayout();
             this.panelCreateTask.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTaskImage)).BeginInit();
-            this.tabPageProjectSuggestions.SuspendLayout();
+            this.tabTeamMembers.SuspendLayout();
             this.flowLayoutPanelTeamMembers.SuspendLayout();
             this.panelNoTeamMember.SuspendLayout();
             this.tabEditProject.SuspendLayout();
@@ -170,7 +170,7 @@ namespace Taskr_UI_0_1
             // 
             this.tabControlVarious.Controls.Add(this.tabActiveTasks);
             this.tabControlVarious.Controls.Add(this.tabCreateTask);
-            this.tabControlVarious.Controls.Add(this.tabPageProjectSuggestions);
+            this.tabControlVarious.Controls.Add(this.tabTeamMembers);
             this.tabControlVarious.Controls.Add(this.tabEditProject);
             this.tabControlVarious.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlVarious.Location = new System.Drawing.Point(230, 36);
@@ -387,16 +387,16 @@ namespace Taskr_UI_0_1
             this.textBoxTaskTitle.Size = new System.Drawing.Size(312, 28);
             this.textBoxTaskTitle.TabIndex = 12;
             // 
-            // tabPageProjectSuggestions
+            // tabTeamMembers
             // 
-            this.tabPageProjectSuggestions.Controls.Add(this.flowLayoutPanelTeamMembers);
-            this.tabPageProjectSuggestions.Location = new System.Drawing.Point(4, 31);
-            this.tabPageProjectSuggestions.Name = "tabPageProjectSuggestions";
-            this.tabPageProjectSuggestions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProjectSuggestions.Size = new System.Drawing.Size(752, 571);
-            this.tabPageProjectSuggestions.TabIndex = 1;
-            this.tabPageProjectSuggestions.Text = "Team Members";
-            this.tabPageProjectSuggestions.UseVisualStyleBackColor = true;
+            this.tabTeamMembers.Controls.Add(this.flowLayoutPanelTeamMembers);
+            this.tabTeamMembers.Location = new System.Drawing.Point(4, 31);
+            this.tabTeamMembers.Name = "tabTeamMembers";
+            this.tabTeamMembers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTeamMembers.Size = new System.Drawing.Size(752, 571);
+            this.tabTeamMembers.TabIndex = 1;
+            this.tabTeamMembers.Text = "Team Members";
+            this.tabTeamMembers.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanelTeamMembers
             // 
@@ -692,7 +692,7 @@ namespace Taskr_UI_0_1
             this.panelCreateTask.ResumeLayout(false);
             this.panelCreateTask.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTaskImage)).EndInit();
-            this.tabPageProjectSuggestions.ResumeLayout(false);
+            this.tabTeamMembers.ResumeLayout(false);
             this.flowLayoutPanelTeamMembers.ResumeLayout(false);
             this.panelNoTeamMember.ResumeLayout(false);
             this.panelNoTeamMember.PerformLayout();
@@ -714,7 +714,7 @@ namespace Taskr_UI_0_1
         private System.Windows.Forms.TabControl tabControlVarious;
         private System.Windows.Forms.TabPage tabActiveTasks;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTasks;
-        private System.Windows.Forms.TabPage tabPageProjectSuggestions;
+        public System.Windows.Forms.TabPage tabTeamMembers;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTeamMembers;
         private System.Windows.Forms.TabPage tabCreateTask;
         private System.Windows.Forms.Label labelStatus;
@@ -760,5 +760,12 @@ namespace Taskr_UI_0_1
         private Panel panelNoTeamMember;
         private Button buttonInviteMember;
         private Label labelNoTeamMembers;
+
+
+        public System.Windows.Forms.TabControl TabControlVarious
+        {
+            set { tabControlVarious = value; }
+            get { return tabControlVarious; }
+        }
     }
 }

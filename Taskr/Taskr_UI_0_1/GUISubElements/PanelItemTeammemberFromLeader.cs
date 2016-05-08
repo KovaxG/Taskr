@@ -14,14 +14,15 @@ namespace Taskr_UI_0_1.GUISubElements
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.PictureBox pictureTask;
-        private System.Windows.Forms.Button buttonEditTask;
-        private System.Windows.Forms.Button buttonAssignMember;
+        private System.Windows.Forms.Button buttonMoreInfo;
+        private System.Windows.Forms.Button buttonAssignTask;
 
         private int zero = 0;
         private const int textWidth = 580;
 
         private DatabaseHandler d;
         private ProjectData projectData;
+        private TeamLeader teamLeader;
         private UserData userData;
 
         public PanelItemTeamMemberFromLeader(DatabaseHandler d, UserData userData, TeamLeader teamLeader)
@@ -31,6 +32,7 @@ namespace Taskr_UI_0_1.GUISubElements
             //
             this.d = d;
             this.projectData = projectData;
+            this.teamLeader = teamLeader;
             this.userData = userData;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FreeLancer));
             //
@@ -39,8 +41,8 @@ namespace Taskr_UI_0_1.GUISubElements
             this.pictureTask = new System.Windows.Forms.PictureBox();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.buttonEditTask = new System.Windows.Forms.Button();
-            this.buttonAssignMember = new System.Windows.Forms.Button();
+            this.buttonMoreInfo = new System.Windows.Forms.Button();
+            this.buttonAssignTask = new System.Windows.Forms.Button();
             this.SuspendLayout();
 
             // 
@@ -50,8 +52,8 @@ namespace Taskr_UI_0_1.GUISubElements
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.pictureTask);
-            this.Controls.Add(this.buttonEditTask);
-            this.Controls.Add(this.buttonAssignMember);
+            this.Controls.Add(this.buttonMoreInfo);
+            this.Controls.Add(this.buttonAssignTask);
             this.Location = new System.Drawing.Point(3, 3);
             this.Name = "panel";
             this.Size = new System.Drawing.Size(720, 157);
@@ -106,37 +108,44 @@ namespace Taskr_UI_0_1.GUISubElements
             this.textBoxDescription.TabIndex = 5;
 
             //
-            //edit button
+            //View Details
             //
-            this.buttonEditTask.Location = new System.Drawing.Point(textWidth + 10, 15);
-            this.buttonEditTask.Name = "buttonEditTask";
-            this.buttonEditTask.Size = new System.Drawing.Size(120, 35);
-            this.buttonEditTask.TabIndex = 2;
-            this.buttonEditTask.Text = "Edit Task";
-            this.buttonEditTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEditTask.UseVisualStyleBackColor = true;
-            this.buttonEditTask.Click += new System.EventHandler(this.buttonEditTask_Click);
+            this.buttonMoreInfo.Location = new System.Drawing.Point(textWidth + 10, 15);
+            this.buttonMoreInfo.Name = "buttonMoreInfo";
+            this.buttonMoreInfo.Size = new System.Drawing.Size(120, 35);
+            this.buttonMoreInfo.TabIndex = 2;
+            this.buttonMoreInfo.Text = "More Info";
+            this.buttonMoreInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonMoreInfo.UseVisualStyleBackColor = true;
+            this.buttonMoreInfo.Click += new System.EventHandler(this.buttonMoreInfo_Click);
 
             //
             //assign
             //
-            this.buttonAssignMember.Location = new System.Drawing.Point(textWidth + 10, 60);
-            this.buttonAssignMember.Name = "buttonAssignMember";
-            this.buttonAssignMember.Size = new System.Drawing.Size(120, 35);
-            this.buttonAssignMember.TabIndex = 2;
-            this.buttonAssignMember.Text = "Assign Member";
-            this.buttonAssignMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAssignMember.UseVisualStyleBackColor = true;
-            //     this.buttonAssignMember.Click += new System.EventHandler(this.buttonAssignMember_Click);
+            this.buttonAssignTask.Location = new System.Drawing.Point(textWidth + 10, 60);
+            this.buttonAssignTask.Name = "buttonAssignTask";
+            this.buttonAssignTask.Size = new System.Drawing.Size(120, 35);
+            this.buttonAssignTask.TabIndex = 2;
+            this.buttonAssignTask.Text = "Assign Member";
+            this.buttonAssignTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAssignTask.UseVisualStyleBackColor = true;
+            this.buttonAssignTask.Click += new System.EventHandler(this.buttonAssignTask_Click);
 
             this.ResumeLayout();
             this.PerformLayout();
         }
 
-        private void buttonEditTask_Click(object sender, EventArgs e)
+        private void buttonMoreInfo_Click(object sender, EventArgs e)
         {
-            //new EditTaskDetails(d, td, teamLeader).Show();
+            EditUserData editor=new EditUserData(d,userData);
+            editor.Show();
         }
+
+        private void buttonAssignTask_Click(object sender, EventArgs e)
+        {
+            
+        }
+
 
     }
 }

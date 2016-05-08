@@ -34,7 +34,7 @@
             this.labelnotes = new System.Windows.Forms.Label();
             this.pictureAvatar = new System.Windows.Forms.PictureBox();
             this.buttonUpload = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelPassword = new System.Windows.Forms.Label();
             this.textBoxDisplayName = new System.Windows.Forms.TextBox();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.textBoxpassword = new System.Windows.Forms.TextBox();
@@ -45,6 +45,8 @@
             this.buttonAccept = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
+            this.buttonAsignTask = new System.Windows.Forms.Button();
+            this.buttonKick = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,7 +95,7 @@
             this.pictureAvatar.Location = new System.Drawing.Point(73, 12);
             this.pictureAvatar.Name = "pictureAvatar";
             this.pictureAvatar.Size = new System.Drawing.Size(128, 128);
-            this.pictureAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureAvatar.TabIndex = 5;
             this.pictureAvatar.TabStop = false;
             // 
@@ -106,17 +108,17 @@
             this.buttonUpload.TabIndex = 6;
             this.buttonUpload.Text = "Upload New Image";
             this.buttonUpload.UseVisualStyleBackColor = true;
-            this.buttonUpload.Click += new System.EventHandler(this.button1_Click);
+            this.buttonUpload.Click += new System.EventHandler(this.buttonUpload_Click);
             // 
-            // label1
+            // labelPassword
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(70, 230);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 24);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Password";
+            this.labelPassword.AutoSize = true;
+            this.labelPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPassword.Location = new System.Drawing.Point(70, 230);
+            this.labelPassword.Name = "labelPassword";
+            this.labelPassword.Size = new System.Drawing.Size(92, 24);
+            this.labelPassword.TabIndex = 7;
+            this.labelPassword.Text = "Password";
             // 
             // textBoxDisplayName
             // 
@@ -205,6 +207,30 @@
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
+            // buttonAsignTask
+            // 
+            this.buttonAsignTask.Enabled = false;
+            this.buttonAsignTask.Location = new System.Drawing.Point(70, 550);
+            this.buttonAsignTask.Name = "buttonAsignTask";
+            this.buttonAsignTask.Size = new System.Drawing.Size(150, 40);
+            this.buttonAsignTask.TabIndex = 19;
+            this.buttonAsignTask.Text = "Asign Task";
+            this.buttonAsignTask.UseVisualStyleBackColor = true;
+            this.buttonAsignTask.Visible = false;
+            this.buttonAsignTask.Click += new System.EventHandler(this.buttonAsignTask_Click);
+            // 
+            // buttonKick
+            // 
+            this.buttonKick.Enabled = false;
+            this.buttonKick.Location = new System.Drawing.Point(228, 550);
+            this.buttonKick.Name = "buttonKick";
+            this.buttonKick.Size = new System.Drawing.Size(150, 40);
+            this.buttonKick.TabIndex = 20;
+            this.buttonKick.Text = "Kick";
+            this.buttonKick.UseVisualStyleBackColor = true;
+            this.buttonKick.Visible = false;
+            this.buttonKick.Click += new System.EventHandler(this.buttonKick_Click);
+            // 
             // EditUserData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -220,16 +246,18 @@
             this.Controls.Add(this.textBoxpassword);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.textBoxDisplayName);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.buttonUpload);
             this.Controls.Add(this.pictureAvatar);
             this.Controls.Add(this.labelnotes);
             this.Controls.Add(this.labelemail);
             this.Controls.Add(this.labelHandleName);
             this.Controls.Add(this.labelPhone);
+            this.Controls.Add(this.buttonAsignTask);
+            this.Controls.Add(this.buttonKick);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "EditUserData";
-            this.Text = "EditUserData";
+            this.Text = "Edit Personal Data";
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -244,7 +272,7 @@
         private System.Windows.Forms.Label labelnotes;
         private System.Windows.Forms.PictureBox pictureAvatar;
         private System.Windows.Forms.Button buttonUpload;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelPassword;
         private System.Windows.Forms.TextBox textBoxDisplayName;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.TextBox textBoxpassword;
@@ -255,5 +283,7 @@
         private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.Button buttonAsignTask;
+        private System.Windows.Forms.Button buttonKick;
     }
 }
