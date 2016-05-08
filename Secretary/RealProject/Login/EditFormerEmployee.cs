@@ -12,7 +12,7 @@ namespace Login
 {
     public partial class EditFormerEmployee : Form
     {
-        int formermployee_id;
+        int formeremployee_id;
         DatabaseHandler db = new DatabaseHandler();
         VerifyText verify_text = new VerifyText();
 
@@ -20,22 +20,22 @@ namespace Login
         public EditFormerEmployee(int id)
         {
             InitializeComponent();
-            formermployee_id = id;
+            formeremployee_id = id;
             setAvatarImage();
             setStatus();
-            textBoxId.Text = formermployee_id.ToString();
-            textBoxFirstName.Text = db.getFirstNameUser(formermployee_id);
-            textBoxLastName.Text = db.getLastNameUser(formermployee_id);
-            textBoxDisplayName.Text = db.getDisplayNameUser(formermployee_id);
-            textBoxEmail.Text = db.getEmailUser(formermployee_id);
-            textBoxPhoneNumber.Text = db.getPhoneNumberUser(formermployee_id);
-            dateTimePicker.Value = db.getJoinDateUser(formermployee_id);
-            textBoxAddedBy.Text = db.getAddedByUser(formermployee_id).ToString();
-            textBoxPersonalNotes.Text = db.getPersonalNotesUser(formermployee_id);
-            dateTimePicker2.Value = db.getLeaveDateUser(formermployee_id);
-            textBoxReasonForLeaving.Text = db.getReasonForLeavingUser(formermployee_id);
-            textBoxRejoinDesirability.Text = db.getRejoinDesirabilityUser(formermployee_id);
-            textBoxObservations.Text = db.getObservationsUser(formermployee_id);
+            textBoxId.Text = formeremployee_id.ToString();
+            textBoxFirstName.Text = db.getFirstNameUser(formeremployee_id);
+            textBoxLastName.Text = db.getLastNameUser(formeremployee_id);
+            textBoxDisplayName.Text = db.getDisplayNameUser(formeremployee_id);
+            textBoxEmail.Text = db.getEmailUser(formeremployee_id);
+            textBoxPhoneNumber.Text = db.getPhoneNumberUser(formeremployee_id);
+            dateTimePicker.Value = db.getJoinDateUser(formeremployee_id);
+            textBoxAddedBy.Text = db.getDisplayNameSecretary(Int32.Parse(db.getAddedByUser(formeremployee_id))).ToString();
+            textBoxPersonalNotes.Text = db.getPersonalNotesUser(formeremployee_id);
+            dateTimePicker2.Value = db.getLeaveDateUser(formeremployee_id);
+            textBoxReasonForLeaving.Text = db.getReasonForLeavingUser(formeremployee_id);
+            textBoxRejoinDesirability.Text = db.getRejoinDesirabilityUser(formeremployee_id);
+            textBoxObservations.Text = db.getObservationsUser(formeremployee_id);
         }
         
         // Reset button
@@ -43,19 +43,19 @@ namespace Login
         {
             setAvatarImage();
             setStatus();
-            textBoxId.Text = formermployee_id.ToString();
-            textBoxFirstName.Text = db.getFirstNameUser(formermployee_id);
-            textBoxLastName.Text = db.getLastNameUser(formermployee_id);
-            textBoxDisplayName.Text = db.getDisplayNameUser(formermployee_id);
-            textBoxEmail.Text = db.getEmailUser(formermployee_id);
-            textBoxPhoneNumber.Text = db.getPhoneNumberUser(formermployee_id);
-            dateTimePicker.Value = db.getJoinDateUser(formermployee_id);
-            textBoxAddedBy.Text = db.getAddedByUser(formermployee_id).ToString();
-            textBoxPersonalNotes.Text = db.getPersonalNotesUser(formermployee_id);
-            dateTimePicker2.Value = db.getLeaveDateUser(formermployee_id);
-            textBoxReasonForLeaving.Text = db.getReasonForLeavingUser(formermployee_id);
-            textBoxRejoinDesirability.Text = db.getRejoinDesirabilityUser(formermployee_id);
-            textBoxObservations.Text = db.getObservationsUser(formermployee_id);
+            textBoxId.Text = formeremployee_id.ToString();
+            textBoxFirstName.Text = db.getFirstNameUser(formeremployee_id);
+            textBoxLastName.Text = db.getLastNameUser(formeremployee_id);
+            textBoxDisplayName.Text = db.getDisplayNameUser(formeremployee_id);
+            textBoxEmail.Text = db.getEmailUser(formeremployee_id);
+            textBoxPhoneNumber.Text = db.getPhoneNumberUser(formeremployee_id);
+            dateTimePicker.Value = db.getJoinDateUser(formeremployee_id);
+            textBoxAddedBy.Text = db.getDisplayNameSecretary(Int32.Parse(db.getAddedByUser(formeremployee_id))).ToString();
+            textBoxPersonalNotes.Text = db.getPersonalNotesUser(formeremployee_id);
+            dateTimePicker2.Value = db.getLeaveDateUser(formeremployee_id);
+            textBoxReasonForLeaving.Text = db.getReasonForLeavingUser(formeremployee_id);
+            textBoxRejoinDesirability.Text = db.getRejoinDesirabilityUser(formeremployee_id);
+            textBoxObservations.Text = db.getObservationsUser(formeremployee_id);
         }
 
         // Cancel button
@@ -119,7 +119,7 @@ namespace Login
             }
             else
             {
-                if (!db.checkUniqueDisplayNameUser(displayname,formermployee_id))
+                if (!db.checkUniqueDisplayNameUser(displayname,formeremployee_id))
                 {
                     labelDisplayname.Show();
                     labelDisplayname.Text = "This Displayname is already taken, please type another";
@@ -142,7 +142,7 @@ namespace Login
             }
             else
             {
-                if (!db.checkUniqueEmailUser(email,formermployee_id))
+                if (!db.checkUniqueEmailUser(email,formeremployee_id))
                 {
                     labelEmail.Show();
                     labelEmail.Text = "This Email is already taken, please type another.";
@@ -250,25 +250,25 @@ namespace Login
             // If all data is correct
             if(ok == true)
             {
-                db.updateFirstNameUser(formermployee_id, firstname);
-                db.updateLastNameUser(formermployee_id, lastname);
-                db.updateDisplayNameUser(formermployee_id, displayname);
+                db.updateFirstNameUser(formeremployee_id, firstname);
+                db.updateLastNameUser(formeremployee_id, lastname);
+                db.updateDisplayNameUser(formeremployee_id, displayname);
                 if (ok_pass == true)
                 {
-                    string hashed_password = Hash.hash(password, formermployee_id, 16);
-                    db.updatePasswordUser(formermployee_id, hashed_password);
+                    string hashed_password = Hash.hash(password, formeremployee_id, 16);
+                    db.updatePasswordUser(formeremployee_id, hashed_password);
                 }
-                db.updateEmailUser(formermployee_id, email);
-                db.updatePhoneNumberUser(formermployee_id, phonenumber);
-                db.updateJoinDateUser(formermployee_id, joindate);
+                db.updateEmailUser(formeremployee_id, email);
+                db.updatePhoneNumberUser(formeremployee_id, phonenumber);
+                db.updateJoinDateUser(formeremployee_id, joindate);
                 string s;
                 s = comboBoxStatus.SelectedItem.ToString();
-                db.updateStatusUser(formermployee_id, s);
-                db.updatePersonalNotesUser(formermployee_id, personalnotes);
-                db.updateLeaveDateUser(formermployee_id, leavedate);
-                db.updateReasonForLeavingUser(formermployee_id, reasonforleaving);
-                db.updateRejoinDesirabilityUser(formermployee_id, rejoindesirability);
-                db.updateObservationsUser(formermployee_id, observations);
+                db.updateStatusUser(formeremployee_id, s);
+                db.updatePersonalNotesUser(formeremployee_id, personalnotes);
+                db.updateLeaveDateUser(formeremployee_id, leavedate);
+                db.updateReasonForLeavingUser(formeremployee_id, reasonforleaving);
+                db.updateRejoinDesirabilityUser(formeremployee_id, rejoindesirability);
+                db.updateObservationsUser(formeremployee_id, observations);
                 MessageBox.Show("Successfully updated!");
                 this.Close();
             }
@@ -279,7 +279,7 @@ namespace Login
         private void setAvatarImage()
         {
             // Get and set photo
-            pictureAvatar.ImageLocation = db.getAvatarLinkUser(formermployee_id).ToString();
+            pictureAvatar.ImageLocation = db.getAvatarLinkUser(formeremployee_id).ToString();
         }
 
         // Set status
@@ -292,7 +292,8 @@ namespace Login
             comboBoxStatus.Items.Add("Day off");
             comboBoxStatus.Items.Add("Holiday");
             comboBoxStatus.Items.Add("Sick");
-            comboBoxStatus.Text = db.getStatusUser(formermployee_id);
+            comboBoxStatus.Items.Add("Not Available");
+            comboBoxStatus.Text = db.getStatusUser(formeremployee_id);
         }
     }
 }

@@ -290,6 +290,7 @@ namespace Login
             comboBoxStatus.Items.Add("Day off");
             comboBoxStatus.Items.Add("Holiday");
             comboBoxStatus.Items.Add("Sick");
+            comboBoxStatus.Items.Add("Not Available");
             comboBoxStatus.Text = db.getStatusSecretary(formersecretary_id);
         }
 
