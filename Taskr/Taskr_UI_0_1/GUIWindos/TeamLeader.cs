@@ -28,10 +28,11 @@ namespace Taskr_UI_0_1
 
         protected override void OnLoad(EventArgs e)
         {
+            LoadAvatarArea();
             InitializeTaskList();
             InitializeTeamMemberList();
             InitializeProjectDetails();
-            LoadAvatarArea();
+            InitializeJoinRequests();
         }
 
         private void LoadAvatarArea()
@@ -44,6 +45,7 @@ namespace Taskr_UI_0_1
             {
                 pictureAvatar.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
             }
+            labelProjectTitleMainScreen.Text = projectData.Title;
             labelUsername.Size = new System.Drawing.Size(pictureAvatar.Size.Width, 16);
             labelUsername.Text = d.User.DisplayName; //does not change size in current Build
 
@@ -121,6 +123,30 @@ namespace Taskr_UI_0_1
                 this.flowLayoutPanelTeamMembers.Controls.Add(panelNoTeamMember);
                 panelNoTeamMember.Visible = true;
                 panelNoTeamMember.Enabled = true;
+            }
+        }
+
+        public void InitializeJoinRequests()
+        {
+            if (flowLayoutPanelJoinRequests.Controls.Count != 0)
+            {
+                flowLayoutPanelJoinRequests.Controls.Clear();
+            }
+
+            List<UserData> userDataList = d.GetAllUsersRequestingForProject(projectData);
+
+            if (userDataList.Any())
+            {
+                foreach (UserData userData in userDataList)
+                {
+                    flowLayoutPanelJoinRequests.Controls.Add(new PanelItemJoinRequestee(d, userData, projectData, this));
+                }
+            }
+            else
+            {
+                this.flowLayoutPanelJoinRequests.Controls.Add(panelNoJoinRequests);
+                flowLayoutPanelJoinRequests.Visible = true;
+                flowLayoutPanelJoinRequests.Enabled = true;
             }
         }
         private void InitializeProjectDetails()
@@ -324,7 +350,7 @@ namespace Taskr_UI_0_1
             AbolishProject abolishProject = new AbolishProject(projectData);
             if (abolishProject.ShowDialog(out reason) == DialogResult.OK)
             {
-                MessageBox.Show("Project Successfully abolished with reason " + reason);
+                MessageBox.Show("Project Successfully abolished with reason \"" + reason +"\"");
 
                 if (d.AbolishProject(reason))
                 {
@@ -461,10 +487,17 @@ namespace Taskr_UI_0_1
                 case 2:
                     InitializeTeamMemberList();
                     break;
+                case 3:
+                    InitializeJoinRequests();
+                    break;
                 default:
                     break;
             }
         }
 
+        private void buttonViewJoinRequests_Click(object sender, EventArgs e)
+        {
+            tabControlVarious.SelectedTab = tabJoinRequests;
+        }
     }
 }

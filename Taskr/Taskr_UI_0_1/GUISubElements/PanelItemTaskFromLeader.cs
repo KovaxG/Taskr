@@ -22,16 +22,16 @@ namespace Taskr_UI_0_1
         private const int textWidth = 580;
 
         private DatabaseHandler d;
-        private TaskData td;
+        private TaskData taskData;
         private TeamLeader teamLeader;
         private UserData teamMember;
         private AsignTaskWindows asignTaskWindows;
 
-        public PanelItemTasksFromLeader(DatabaseHandler d, TaskData td, TeamLeader teamLeader)
+        public PanelItemTasksFromLeader(DatabaseHandler d, TaskData taskData, TeamLeader teamLeader)
         {
             
             this.d = d;
-            this.td = td;
+            this.taskData = taskData;
             this.teamLeader = teamLeader;
             InitializeComponents();
         }
@@ -43,11 +43,11 @@ namespace Taskr_UI_0_1
         /// <param name="td"></param>
         /// <param name="teamLeader">for refresh calls</param>
         /// <param name="teamMember">the user to asign the task to</param>
-        public PanelItemTasksFromLeader(DatabaseHandler d, TaskData td, TeamLeader teamLeader, UserData teamMember,AsignTaskWindows asignTaskWindows)
+        public PanelItemTasksFromLeader(DatabaseHandler d, TaskData taskData, TeamLeader teamLeader, UserData teamMember,AsignTaskWindows asignTaskWindows)
         {
 
             this.d = d;
-            this.td = td;
+            this.taskData = taskData;
             this.teamLeader = teamLeader;
             this.teamMember = teamMember;
             this.asignTaskWindows = asignTaskWindows;
@@ -97,7 +97,7 @@ namespace Taskr_UI_0_1
             this.pictureTask.TabStop = false;
             try
             {
-                this.pictureTask.Load(td.ImageURL);
+                this.pictureTask.Load(taskData.ImageURL);
                 zero = 150;
             }
             catch
@@ -116,7 +116,7 @@ namespace Taskr_UI_0_1
             this.textBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTitle.Location = new System.Drawing.Point(zero, 14);
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Text = td.Title;
+            this.textBoxTitle.Text = taskData.Title;
             this.textBoxTitle.ReadOnly = true;
             this.textBoxTitle.Size = new System.Drawing.Size(textWidth-zero, 34);
             this.textBoxTitle.TabIndex = 4;
@@ -128,7 +128,7 @@ namespace Taskr_UI_0_1
             this.textBoxDescription.Location = new System.Drawing.Point(zero, 55);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Text = td.ShortDescription;
+            this.textBoxDescription.Text = taskData.ShortDescription;
             this.textBoxDescription.ReadOnly = true;
             this.textBoxDescription.Size = new System.Drawing.Size(textWidth - zero, 87);
             this.textBoxDescription.TabIndex = 5;
@@ -163,7 +163,7 @@ namespace Taskr_UI_0_1
 
         private void buttonEditTask_Click(object sender, EventArgs e)
         {
-            new EditTaskDetails(d,td,teamLeader).Show();
+            new EditTaskDetails(d, taskData, teamLeader).Show();
         }
 
         private void buttonAssignMember_Click(object sender, EventArgs e)
@@ -185,18 +185,18 @@ namespace Taskr_UI_0_1
 
         public void Panel_Click(object sender, EventArgs e)
         {
-            /*int activeTask = teamMember.ActiveTask;
-            teamMember.ActiveTask = td.ID;
-            if (d.UpdateUser(teamMember))
+            int activeTask = teamMember.ActiveTask;
+            teamMember.ActiveTask = taskData.ID;
+            if (d.GrantTask(taskData, teamMember))
             {
-                MessageBox.Show(td.Title + " assigned to " + teamMember.DisplayName, "Assigment successful");
+                MessageBox.Show(taskData.Title + " assigned to " + teamMember.DisplayName, "Assigment successful");
 
             }
             else
             {
                 MessageBox.Show("Failed to assigned task", "Error");
                 teamMember.ActiveTask = activeTask;
-            }*/
+            }
            
             asignTaskWindows.DialogResult = DialogResult.OK;
             asignTaskWindows.Close();

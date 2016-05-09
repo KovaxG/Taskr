@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelCreateTask = new System.Windows.Forms.Panel();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.dateTimePickerDeadLine = new System.Windows.Forms.DateTimePicker();
             this.pictureBoxTaskImage = new System.Windows.Forms.PictureBox();
             this.textBoxTaskImageURL = new System.Windows.Forms.TextBox();
@@ -42,7 +43,6 @@
             this.labelTaskShortDescription = new System.Windows.Forms.Label();
             this.labelTaskTitle = new System.Windows.Forms.Label();
             this.textBoxTaskTitle = new System.Windows.Forms.TextBox();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.panelCreateTask.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTaskImage)).BeginInit();
             this.SuspendLayout();
@@ -69,6 +69,16 @@
             this.panelCreateTask.Name = "panelCreateTask";
             this.panelCreateTask.Size = new System.Drawing.Size(745, 669);
             this.panelCreateTask.TabIndex = 14;
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(482, 583);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(227, 51);
+            this.buttonCancel.TabIndex = 31;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // dateTimePickerDeadLine
             // 
@@ -198,16 +208,6 @@
             this.textBoxTaskTitle.TabIndex = 12;
             this.textBoxTaskTitle.TextChanged += new System.EventHandler(this.TextBoxTaskTitle_TextChanged);
             // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Location = new System.Drawing.Point(482, 583);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(227, 51);
-            this.buttonCancel.TabIndex = 31;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
             // EditTaskDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -215,7 +215,7 @@
             this.ClientSize = new System.Drawing.Size(751, 675);
             this.Controls.Add(this.panelCreateTask);
             this.Name = "EditTaskDetails";
-            this.Text = "EditTaskDetails";
+            this.Text = "Edit Task Details";
             this.panelCreateTask.ResumeLayout(false);
             this.panelCreateTask.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTaskImage)).EndInit();

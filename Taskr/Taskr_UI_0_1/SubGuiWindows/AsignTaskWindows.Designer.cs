@@ -38,9 +38,9 @@
             this.flowLayoutPanelTasks.BackColor = System.Drawing.Color.Gainsboro;
             this.flowLayoutPanelTasks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelTasks.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanelTasks.Location = new System.Drawing.Point(5, 5);
+            this.flowLayoutPanelTasks.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanelTasks.Name = "flowLayoutPanelTasks";
-            this.flowLayoutPanelTasks.Size = new System.Drawing.Size(845, 630);
+            this.flowLayoutPanelTasks.Size = new System.Drawing.Size(844, 630);
             this.flowLayoutPanelTasks.TabIndex = 1;
             this.flowLayoutPanelTasks.WrapContents = false;
             // 
@@ -51,7 +51,7 @@
             this.ClientSize = new System.Drawing.Size(844, 630);
             this.Controls.Add(this.flowLayoutPanelTasks);
             this.Name = "AsignTaskWindows";
-            this.Text = "AsignTaskWindows";
+            this.Text = "Task Assigner";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -72,6 +72,9 @@
     <Compile Include="Database\DataBaseDataType.cs" />
     <Compile Include="Database\DatabaseHandler.cs" />
     <Compile Include="Database\DBDefaults.cs" />
+    <Compile Include="GUISubElements\PanelItemJoinRequestee.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GUISubElements\PanelItemNoAvailableItems.cs" />
     <Compile Include="GUISubElements\PanelItemTaskFromLeader.cs">
       <SubType>Component</SubType>
@@ -80,6 +83,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GUISubElements\PanelItemTeamMemberFromLeader.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUISubElements\PanelItemUser.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SubGuiWindows\AbolishProject.cs">

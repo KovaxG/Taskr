@@ -32,6 +32,7 @@ namespace Taskr_UI_0_1
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeamLeader));
             this.panelSide = new System.Windows.Forms.Panel();
+            this.labelProjectTitleMainScreen = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
             this.pictureAvatar = new System.Windows.Forms.PictureBox();
             this.buttonLogout = new System.Windows.Forms.Button();
@@ -61,8 +62,8 @@ namespace Taskr_UI_0_1
             this.tabTeamMembers = new System.Windows.Forms.TabPage();
             this.flowLayoutPanelTeamMembers = new System.Windows.Forms.FlowLayoutPanel();
             this.panelNoTeamMember = new System.Windows.Forms.Panel();
-            this.buttonInviteMember = new System.Windows.Forms.Button();
             this.labelNoTeamMembers = new System.Windows.Forms.Label();
+            this.tabJoinRequests = new System.Windows.Forms.TabPage();
             this.tabEditProject = new System.Windows.Forms.TabPage();
             this.LabelProjectSInfo = new System.Windows.Forms.Panel();
             this.buttonAbolishProject = new System.Windows.Forms.Button();
@@ -85,6 +86,11 @@ namespace Taskr_UI_0_1
             this.TextBoxProjectTitle = new System.Windows.Forms.TextBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.buttonRefreshAll = new System.Windows.Forms.Button();
+            this.flowLayoutPanelJoinRequests = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelNoJoinRequests = new System.Windows.Forms.Panel();
+            this.labelNoJoinRequests = new System.Windows.Forms.Label();
+            this.buttonInviteMember = new System.Windows.Forms.Button();
+            this.buttonViewJoinRequests = new System.Windows.Forms.Button();
             this.panelSide.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).BeginInit();
             this.tabControlVarious.SuspendLayout();
@@ -97,14 +103,18 @@ namespace Taskr_UI_0_1
             this.tabTeamMembers.SuspendLayout();
             this.flowLayoutPanelTeamMembers.SuspendLayout();
             this.panelNoTeamMember.SuspendLayout();
+            this.tabJoinRequests.SuspendLayout();
             this.tabEditProject.SuspendLayout();
             this.LabelProjectSInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProjectImage)).BeginInit();
+            this.flowLayoutPanelJoinRequests.SuspendLayout();
+            this.panelNoJoinRequests.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSide
             // 
             this.panelSide.BackColor = System.Drawing.Color.Gainsboro;
+            this.panelSide.Controls.Add(this.labelProjectTitleMainScreen);
             this.panelSide.Controls.Add(this.labelStatus);
             this.panelSide.Controls.Add(this.pictureAvatar);
             this.panelSide.Controls.Add(this.buttonLogout);
@@ -115,15 +125,26 @@ namespace Taskr_UI_0_1
             this.panelSide.Size = new System.Drawing.Size(200, 630);
             this.panelSide.TabIndex = 5;
             // 
+            // labelProjectTitleMainScreen
+            // 
+            this.labelProjectTitleMainScreen.AutoSize = true;
+            this.labelProjectTitleMainScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProjectTitleMainScreen.Location = new System.Drawing.Point(16, 258);
+            this.labelProjectTitleMainScreen.MinimumSize = new System.Drawing.Size(170, 40);
+            this.labelProjectTitleMainScreen.Name = "labelProjectTitleMainScreen";
+            this.labelProjectTitleMainScreen.Size = new System.Drawing.Size(170, 40);
+            this.labelProjectTitleMainScreen.TabIndex = 5;
+            this.labelProjectTitleMainScreen.Text = "<title>";
+            // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
             this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelStatus.Location = new System.Drawing.Point(16, 229);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(89, 17);
+            this.labelStatus.Size = new System.Drawing.Size(104, 17);
             this.labelStatus.TabIndex = 4;
-            this.labelStatus.Text = "TeamLeader";
+            this.labelStatus.Text = "Team leader of";
             // 
             // pictureAvatar
             // 
@@ -158,7 +179,7 @@ namespace Taskr_UI_0_1
             // buttonEditProfile
             // 
             this.buttonEditProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEditProfile.Location = new System.Drawing.Point(14, 280);
+            this.buttonEditProfile.Location = new System.Drawing.Point(14, 310);
             this.buttonEditProfile.Name = "buttonEditProfile";
             this.buttonEditProfile.Size = new System.Drawing.Size(128, 45);
             this.buttonEditProfile.TabIndex = 2;
@@ -171,6 +192,7 @@ namespace Taskr_UI_0_1
             this.tabControlVarious.Controls.Add(this.tabActiveTasks);
             this.tabControlVarious.Controls.Add(this.tabCreateTask);
             this.tabControlVarious.Controls.Add(this.tabTeamMembers);
+            this.tabControlVarious.Controls.Add(this.tabJoinRequests);
             this.tabControlVarious.Controls.Add(this.tabEditProject);
             this.tabControlVarious.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlVarious.Location = new System.Drawing.Point(230, 36);
@@ -413,7 +435,7 @@ namespace Taskr_UI_0_1
             // 
             // panelNoTeamMember
             // 
-            this.panelNoTeamMember.Controls.Add(this.buttonInviteMember);
+            this.panelNoTeamMember.Controls.Add(this.buttonViewJoinRequests);
             this.panelNoTeamMember.Controls.Add(this.labelNoTeamMembers);
             this.panelNoTeamMember.Enabled = false;
             this.panelNoTeamMember.Location = new System.Drawing.Point(3, 3);
@@ -421,17 +443,6 @@ namespace Taskr_UI_0_1
             this.panelNoTeamMember.Size = new System.Drawing.Size(740, 159);
             this.panelNoTeamMember.TabIndex = 1;
             this.panelNoTeamMember.Visible = false;
-            // 
-            // buttonInviteMember
-            // 
-            this.buttonInviteMember.Enabled = false;
-            this.buttonInviteMember.Location = new System.Drawing.Point(224, 61);
-            this.buttonInviteMember.Name = "buttonInviteMember";
-            this.buttonInviteMember.Size = new System.Drawing.Size(261, 57);
-            this.buttonInviteMember.TabIndex = 2;
-            this.buttonInviteMember.Text = "Send Invite";
-            this.buttonInviteMember.UseVisualStyleBackColor = true;
-            this.buttonInviteMember.Visible = false;
             // 
             // labelNoTeamMembers
             // 
@@ -441,6 +452,17 @@ namespace Taskr_UI_0_1
             this.labelNoTeamMembers.Size = new System.Drawing.Size(408, 24);
             this.labelNoTeamMembers.TabIndex = 1;
             this.labelNoTeamMembers.Text = "Currently you are the sole member of your team";
+            // 
+            // tabJoinRequests
+            // 
+            this.tabJoinRequests.Controls.Add(this.flowLayoutPanelJoinRequests);
+            this.tabJoinRequests.Location = new System.Drawing.Point(4, 31);
+            this.tabJoinRequests.Name = "tabJoinRequests";
+            this.tabJoinRequests.Padding = new System.Windows.Forms.Padding(3);
+            this.tabJoinRequests.Size = new System.Drawing.Size(752, 571);
+            this.tabJoinRequests.TabIndex = 4;
+            this.tabJoinRequests.Text = "Join Requests";
+            this.tabJoinRequests.UseVisualStyleBackColor = true;
             // 
             // tabEditProject
             // 
@@ -659,13 +681,69 @@ namespace Taskr_UI_0_1
             // 
             // buttonRefreshAll
             // 
-            this.buttonRefreshAll.Location = new System.Drawing.Point(795, 12);
+            this.buttonRefreshAll.Location = new System.Drawing.Point(840, 12);
             this.buttonRefreshAll.Name = "buttonRefreshAll";
-            this.buttonRefreshAll.Size = new System.Drawing.Size(185, 38);
+            this.buttonRefreshAll.Size = new System.Drawing.Size(150, 38);
             this.buttonRefreshAll.TabIndex = 7;
             this.buttonRefreshAll.Text = "Refresh All";
             this.buttonRefreshAll.UseVisualStyleBackColor = true;
             this.buttonRefreshAll.Click += new System.EventHandler(this.buttonRefreshAll_Click);
+            // 
+            // flowLayoutPanelJoinRequests
+            // 
+            this.flowLayoutPanelJoinRequests.AutoScroll = true;
+            this.flowLayoutPanelJoinRequests.BackColor = System.Drawing.Color.Gainsboro;
+            this.flowLayoutPanelJoinRequests.Controls.Add(this.panelNoJoinRequests);
+            this.flowLayoutPanelJoinRequests.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelJoinRequests.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanelJoinRequests.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanelJoinRequests.Name = "flowLayoutPanelJoinRequests";
+            this.flowLayoutPanelJoinRequests.Size = new System.Drawing.Size(746, 565);
+            this.flowLayoutPanelJoinRequests.TabIndex = 1;
+            this.flowLayoutPanelJoinRequests.WrapContents = false;
+            // 
+            // panelNoJoinRequests
+            // 
+            this.panelNoJoinRequests.Controls.Add(this.buttonInviteMember);
+            this.panelNoJoinRequests.Controls.Add(this.labelNoJoinRequests);
+            this.panelNoJoinRequests.Enabled = false;
+            this.panelNoJoinRequests.Location = new System.Drawing.Point(3, 3);
+            this.panelNoJoinRequests.Name = "panelNoJoinRequests";
+            this.panelNoJoinRequests.Size = new System.Drawing.Size(740, 159);
+            this.panelNoJoinRequests.TabIndex = 1;
+            this.panelNoJoinRequests.Visible = false;
+            // 
+            // labelNoJoinRequests
+            // 
+            this.labelNoJoinRequests.AutoSize = true;
+            this.labelNoJoinRequests.Location = new System.Drawing.Point(188, 16);
+            this.labelNoJoinRequests.Name = "labelNoJoinRequests";
+            this.labelNoJoinRequests.Size = new System.Drawing.Size(341, 24);
+            this.labelNoJoinRequests.TabIndex = 1;
+            this.labelNoJoinRequests.Text = "Nobody has tried to join your project yet";
+            // 
+            // buttonInviteMember
+            // 
+            this.buttonInviteMember.Enabled = false;
+            this.buttonInviteMember.Location = new System.Drawing.Point(228, 60);
+            this.buttonInviteMember.Name = "buttonInviteMember";
+            this.buttonInviteMember.Size = new System.Drawing.Size(261, 57);
+            this.buttonInviteMember.TabIndex = 3;
+            this.buttonInviteMember.Text = "Send Invite";
+            this.buttonInviteMember.UseVisualStyleBackColor = true;
+            this.buttonInviteMember.Visible = false;
+            // 
+            // buttonViewJoinRequests
+            // 
+            this.buttonViewJoinRequests.Enabled = false;
+            this.buttonViewJoinRequests.Location = new System.Drawing.Point(228, 59);
+            this.buttonViewJoinRequests.Name = "buttonViewJoinRequests";
+            this.buttonViewJoinRequests.Size = new System.Drawing.Size(261, 57);
+            this.buttonViewJoinRequests.TabIndex = 3;
+            this.buttonViewJoinRequests.Text = "View Join Requests";
+            this.buttonViewJoinRequests.UseVisualStyleBackColor = true;
+            this.buttonViewJoinRequests.Visible = false;
+            this.buttonViewJoinRequests.Click += new System.EventHandler(this.buttonViewJoinRequests_Click);
             // 
             // TeamLeader
             // 
@@ -678,7 +756,7 @@ namespace Taskr_UI_0_1
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TeamLeader";
-            this.Text = "FreeLancer";
+            this.Text = "Taskr";
             this.panelSide.ResumeLayout(false);
             this.panelSide.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).EndInit();
@@ -696,10 +774,14 @@ namespace Taskr_UI_0_1
             this.flowLayoutPanelTeamMembers.ResumeLayout(false);
             this.panelNoTeamMember.ResumeLayout(false);
             this.panelNoTeamMember.PerformLayout();
+            this.tabJoinRequests.ResumeLayout(false);
             this.tabEditProject.ResumeLayout(false);
             this.LabelProjectSInfo.ResumeLayout(false);
             this.LabelProjectSInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProjectImage)).EndInit();
+            this.flowLayoutPanelJoinRequests.ResumeLayout(false);
+            this.panelNoJoinRequests.ResumeLayout(false);
+            this.panelNoJoinRequests.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -758,9 +840,14 @@ namespace Taskr_UI_0_1
         private Button buttonAbolishProject;
         private Button buttonRefreshAll;
         private Panel panelNoTeamMember;
-        private Button buttonInviteMember;
         private Label labelNoTeamMembers;
-
+        private Label labelProjectTitleMainScreen;
+        private TabPage tabJoinRequests;
+        private Button buttonViewJoinRequests;
+        private FlowLayoutPanel flowLayoutPanelJoinRequests;
+        private Panel panelNoJoinRequests;
+        private Button buttonInviteMember;
+        private Label labelNoJoinRequests;
 
         public System.Windows.Forms.TabControl TabControlVarious
         {

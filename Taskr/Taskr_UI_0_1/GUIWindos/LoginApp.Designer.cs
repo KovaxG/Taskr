@@ -97,7 +97,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginApp";
-            this.Text = "Form1";
+            this.Text = "taskr login";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LoginApp_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
