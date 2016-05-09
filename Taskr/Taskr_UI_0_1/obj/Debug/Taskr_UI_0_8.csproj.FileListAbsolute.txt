@@ -55,3 +55,4 @@ C:\C#\Projects\Githubbed Project\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.FreeL
 C:\C#\Projects\Githubbed Project\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.SubGuiWindows.EditTaskDetails.resources
 C:\C#\Projects\Githubbed Project\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.GUISubElements.PanelItemTaskFromSelector.resources
 C:\C#\Projects\Githubbed Project\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.SubGuiWindows.AsignTaskWindows.resources
+C:\C#\Projects\Githubbed Project\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.SubGuiWindows.AbolishProject.resources

@@ -96,7 +96,7 @@ namespace Taskr_UI_0_1
         {
             if (textBoxpassword.Text.Equals(textBoxConfirmPassword.Text))
             {
-                userData.Password = textBoxpassword.Text;
+                string userPassword = textBoxpassword.Text;
                 MessageBox.Show("Change Successful");
                 userData.DisplayName = textBoxDisplayName.Text;
                 userData.Email = textBoxEmail.Text;
@@ -104,7 +104,7 @@ namespace Taskr_UI_0_1
                 userData.Notes = textBoxPersonalNotes.Text;
                 userData.AvatarURL = tempURI;
 
-                if (dh.UpdateThisUser())
+                if (dh.UpdateThisUser() && dh.UpdateThisUserPassword (userPassword))
                 {
                     this.DialogResult = DialogResult.OK;
                     this.Close();

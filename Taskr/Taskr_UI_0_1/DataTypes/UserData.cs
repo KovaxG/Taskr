@@ -11,6 +11,7 @@
  * Added extra field to users table, column nr 11, ActiveTask.
  * 
  * 2016.05.06 - Done, final modifications made. Pls don't touch anymore.
+ * 2016.06.09 - Commented password fields, now it's done, promise.
  */
 
 using DataBase;
@@ -40,7 +41,7 @@ namespace DataBase
 			DisplayName = DBDefaults.DefaultText;
 			AvatarURL = DBDefaults.DefaultText;
 			Email = DBDefaults.DefaultText;
-			Password = DBDefaults.DefaultText;
+			//Password = DBDefaults.DefaultText;
 			PhoneNumber = DBDefaults.DefaultText;
 			JoinDate = DBDefaults.DefaultDate;
 			AddedById = secretaryId;
@@ -69,7 +70,7 @@ namespace DataBase
 			DisplayName        =                row.ItemArray.GetValue (3).ToString ();
 			AvatarURL          =                row.ItemArray.GetValue (4).ToString ();
 			Email              =                row.ItemArray.GetValue (5).ToString ();
-			Password           =                row.ItemArray.GetValue (6).ToString ();
+			//Password           =                row.ItemArray.GetValue (6).ToString ();
 			PhoneNumber        =                row.ItemArray.GetValue (7).ToString ();
 			JoinDate           = DateTime.Parse(row.ItemArray.GetValue (8).ToString ());
 			AddedById          =      int.Parse(row.ItemArray.GetValue (9).ToString ());
@@ -136,13 +137,13 @@ namespace DataBase
 			set {_email = value;}
 			get {return _email;}
 		}
-
+        /*
 		private string _password; // Password
 		public string Password {
 			set {_password = value;}
 			get {return _password;}
 		}
-
+        */
 		private string _phoneNumber; // Phone Number
 		public string PhoneNumber {
 			set {_phoneNumber = value;}

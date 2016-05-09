@@ -131,7 +131,7 @@ namespace Taskr_UI_0_1
             this.pictureAvatar.Location = new System.Drawing.Point(19, 24);
             this.pictureAvatar.Name = "pictureAvatar";
             this.pictureAvatar.Size = new System.Drawing.Size(128, 128);
-            this.pictureAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureAvatar.TabIndex = 0;
             this.pictureAvatar.TabStop = false;
             // 

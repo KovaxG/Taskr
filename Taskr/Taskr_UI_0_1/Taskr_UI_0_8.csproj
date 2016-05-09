@@ -82,6 +82,12 @@
     <Compile Include="GUISubElements\PanelItemTeamMemberFromLeader.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SubGuiWindows\AbolishProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubGuiWindows\AbolishProject.Designer.cs">
+      <DependentUpon>AbolishProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubGuiWindows\AsignTaskWindows.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     <Compile Include="DataTypes\UserData.cs" />
     <EmbeddedResource Include="GUISubElements\PanelItemTaskFromSelector.resx">
       <DependentUpon>PanelItemTaskFromSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubGuiWindows\AbolishProject.resx">
+      <DependentUpon>AbolishProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubGuiWindows\AsignTaskWindows.resx">
       <DependentUpon>AsignTaskWindows.cs</DependentUpon>

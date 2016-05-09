@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataBase;
 using Taskr_UI_0_1.GUISubElements;
+using Taskr_UI_0_1.SubGuiWindows;
 
 namespace Taskr_UI_0_1
 {
@@ -319,20 +320,24 @@ namespace Taskr_UI_0_1
 
         private void buttonAbolishProject_Click(object sender, EventArgs e)
         {
-         
-            if (d.AbolishProject("Just Couase"))
+            string reason = "";
+            AbolishProject abolishProject = new AbolishProject(projectData);
+            if (abolishProject.ShowDialog(out reason) == DialogResult.OK)
             {
-                MessageBox.Show("Project Successfully abolished");
-                
-                FreeLancer u = new FreeLancer(d);
+                MessageBox.Show("Project Successfully abolished with reason " + reason);
 
-                this.Close();
-                this.Dispose();
-                u.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Could not abolish project", "Error");
+                if (d.AbolishProject(reason))
+                {
+                    FreeLancer u = new FreeLancer(d);
+
+                    this.Close();
+                    this.Dispose();
+                    u.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Could not abolish project", "Error");
+                }
             }
         }
 
@@ -395,7 +400,7 @@ namespace Taskr_UI_0_1
                 if (this.dateTimePickerDeadLine.Value.Subtract(DateTime.Now).TotalDays >90)
                 {
                     MessageBox.Show(
-                        "You cannot create a task longer than 3 months!\nTry splitting it into shorter segments",
+                        "You cannot create a task longer than 3 months!\nTry splitting it into shorter segments. I am a fascist and I dictate the lenth of tasks.",
                         "Task too long");
                     return;
                 }

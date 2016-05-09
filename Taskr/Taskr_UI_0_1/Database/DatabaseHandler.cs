@@ -58,7 +58,7 @@ namespace DataBase
 			}
 			catch (Exception e) 
 			{
-				string errorMessage = "Exception in DataBaseHandler -> VerifyLogin |\n\n" + e.ToString ();
+				string errorMessage = "Exception in DataBaseHandler -> VerifyLogin \n\n" + e.ToString ();
 				DisplayMessage (errorMessage);
 				return new UserData();
 			}
@@ -618,7 +618,7 @@ namespace DataBase
             {
                 OpenConnection();
                 string query = "UPDATE users SET DisplayName = @DisplayName, AvatarLink = @AvatarLink, "
-                    + "Email = @Email, PasswordHash = @PasswordHash, PhoneNumber = @PhoneNumber, "
+                    + "Email = @Email, PhoneNumber = @PhoneNumber, "
                     + "ActiveProject = @ActiveProject, ActiveTask = @ActiveTask,"
                     + "WorkStatus = @WorkStatus, PersonalNotes = @PersonalNotes WHERE Id = @user_id;";
                 MySqlCommand command = new MySqlCommand(query, connection);
@@ -626,7 +626,6 @@ namespace DataBase
                 command.Parameters.AddWithValue("@DisplayName", user.DisplayName);
                 command.Parameters.AddWithValue("@AvatarLink", user.AvatarURL);
                 command.Parameters.AddWithValue("@Email", user.Email);
-                command.Parameters.AddWithValue("@PasswordHash", user.Password);
                 command.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
                 command.Parameters.AddWithValue("@ActiveProject", user.ActiveProject);
                 command.Parameters.AddWithValue("@ActiveTask", user.ActiveTask);
@@ -647,7 +646,39 @@ namespace DataBase
             }
 		} // End of UpdateUser 
 
-		// TESTED 2016.05.06
+        //TESTED 2016.05.09
+        /* Can Update only:
+		 * @param password - the new password of the user
+		 * @return bool - true if succes, false if failure
+		 */
+        public bool UpdateThisUserPassword(string newPassword)
+        {
+            if (newPassword == null) return false;
+            if (newPassword.Equals("")) return false;
+
+            try
+            {
+                OpenConnection();
+                string query = "UPDATE users SET Password = @Password WHERE Id = @user_id;";
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                command.Parameters.AddWithValue("@Password", Hash(password, ""));
+                command.Parameters.AddWithValue("@user_id", User.ID);
+
+                command.ExecuteNonQuery();
+                command.Dispose();
+                CloseConnection();
+                return true;
+            }
+            catch (Exception e)
+            {
+                string errorMessage = "Exception in DataBaseHandler -> UpdateThisUserPassword \n\n" + e.ToString();
+                DisplayMessage(errorMessage);
+                return false;
+            }
+        } // End of UpdateUser 
+
+        // TESTED 2016.05.06
         /*
 		 * @param project - get all the users requesting for project
 		 * @return List<UserData> - all the users
@@ -771,6 +802,7 @@ namespace DataBase
         public bool AbolishProject(string reason)
         {
 			if (reason == null) return false;
+            if (reason.Equals("")) reason = DBDefaults.DefaultText;
 			if (User.ActiveProject == DBDefaults.DefaultId) return false;
 
             try
@@ -787,6 +819,9 @@ namespace DataBase
 					user.ActiveProject = DBDefaults.DefaultId;
 					UpdateUser(user);
 				}
+
+                // Drop every request to that project
+                //TODO not really doable, need to implement CancelProjectRequest
 
 				// Captain leaves last.
 				User.ActiveProject = DBDefaults.DefaultId;
@@ -1082,8 +1117,8 @@ namespace DataBase
 		 */ 
 		private void DisplayMessage (string message) 
 		{
-			//MessageBox.Show(message); // Uncomment this
-			Console.WriteLine(message); // Comment this
+			MessageBox.Show(message); // Uncomment this
+			//Console.WriteLine(message); // Comment this
 		} // End of DisplayMessage
 
 		// TESTED 2016.05.06
@@ -1239,5 +1274,24 @@ namespace DataBase
 			User.ActiveProject = DBDefaults.DefaultId;
 			return this.UpdateUser(User);
 		} // End of LeaveProject
+
+        // 
+        /* Returns the active task
+         * This should work
+         */
+        public TaskData GetActiveTask()
+        {
+            // Does the user actually have an activeTask?
+            if (User.ActiveTask == DBDefaults.DefaultId) return new TaskData();
+
+            // Does the user have an active project?
+            if (User.ActiveProject == DBDefaults.DefaultId) return new TaskData();
+
+            // Get task
+            ProjectData myProject = GetCurrentProject();
+            TaskData task = GetTasksForProject(myProject).Find(t => t.ID == User.ActiveTask);
+            return task;
+        }
+
     } // End of EmbeddedUser stuff
 }
