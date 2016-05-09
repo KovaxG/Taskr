@@ -1081,6 +1081,25 @@ namespace DataBase
             }
         }// End of GetMode
 
+        // NOT TESTED
+        public bool KickUserFromProject(UserData user)
+        {
+            if (user == null) return false;
+            if (user.Equals(UserData.Default)) return false;
+            if (!GetMode().Equals( "teamleader")) return false;
+            if (user.ActiveProject == GetCurrentProject().ID) return false;
+
+            // You cannot kick yourself
+            if (!GetModeForUser(user).Equals("teamleader")) return false;
+            
+            // If user has a task, drop task first
+            if (user.ActiveTask != DBDefaults.DefaultId) user.ActiveTask = DBDefaults.DefaultId;
+
+            // Kick the user finally
+            user.ActiveTask = DBDefaults.DefaultId;
+            return true;
+        }
+
     } // End of Partial Class
 
     public partial class DatabaseHandler // Connection and other stuff related to basic operations
@@ -1275,7 +1294,7 @@ namespace DataBase
 			return this.UpdateUser(User);
 		} // End of LeaveProject
 
-        // 
+        // NOT TESTED
         /* Returns the active task
          * This should work
          */
@@ -1291,7 +1310,6 @@ namespace DataBase
             ProjectData myProject = GetCurrentProject();
             TaskData task = GetTasksForProject(myProject).Find(t => t.ID == User.ActiveTask);
             return task;
-        }
-
+        } // End of GetActiveTask
     } // End of EmbeddedUser stuff
 }
