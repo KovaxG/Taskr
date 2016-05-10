@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DataBase;
 using Taskr_UI_0_1.SubGuiWindows;
@@ -15,6 +16,7 @@ namespace Taskr_UI_0_1.GUISubElements
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.PictureBox pictureTask;
         private System.Windows.Forms.Button buttonMoreInfo;
+        private System.Windows.Forms.Label labelStatus;
 
         protected int zero = 0;
         protected const int textWidth = 580;
@@ -41,6 +43,7 @@ namespace Taskr_UI_0_1.GUISubElements
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.buttonMoreInfo = new System.Windows.Forms.Button();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
 
             // 
@@ -51,6 +54,7 @@ namespace Taskr_UI_0_1.GUISubElements
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.pictureTask);
             this.Controls.Add(this.buttonMoreInfo);
+            this.Controls.Add(this.labelStatus);
             this.Location = new System.Drawing.Point(3, 3);
             this.Name = "panel";
             this.Size = new System.Drawing.Size(720, 157);
@@ -68,7 +72,7 @@ namespace Taskr_UI_0_1.GUISubElements
             this.pictureTask.TabStop = false;
             try
             {
-                this.pictureTask.Load(this.userData.AvatarURL);
+                new Thread(() => pictureTask.Load(this.userData.AvatarURL)).Start(); 
                 zero = 150;
             }
             catch
@@ -116,6 +120,16 @@ namespace Taskr_UI_0_1.GUISubElements
             this.buttonMoreInfo.UseVisualStyleBackColor = true;
             this.buttonMoreInfo.Click += new System.EventHandler(this.buttonMoreInfo_Click);
 
+            //
+            //Label Status
+            //
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStatus.Location = new System.Drawing.Point(textWidth + 25, 110);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(50, 20);
+            this.labelStatus.TabIndex = 4;
+            this.labelStatus.Text = userData.WorkStatus;
 
 
             this.ResumeLayout();

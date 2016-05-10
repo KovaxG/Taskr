@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataBase;
@@ -64,7 +65,7 @@ namespace Taskr_UI_0_1
             this.pictureProject.TabStop = false;
             try
             {
-                this.pictureProject.Load(psd.ImageURL);
+                new Thread(() => this.pictureProject.Load(psd.ImageURL)).Start();
             }
             catch
             {

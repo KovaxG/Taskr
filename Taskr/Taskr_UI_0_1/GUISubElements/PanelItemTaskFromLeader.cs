@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataBase;
@@ -15,17 +16,13 @@ namespace Taskr_UI_0_1
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.PictureBox pictureTask;
-        private System.Windows.Forms.Button buttonEditTask;
-        private System.Windows.Forms.Button buttonAssignMember;
 
-        private int zero = 0;
-        private const int textWidth = 580;
+        protected int zero = 0;
+        protected const int textWidth = 580;
 
-        private DatabaseHandler d;
-        private TaskData taskData;
-        private TeamLeader teamLeader;
-        private UserData teamMember;
-        private AsignTaskWindows asignTaskWindows;
+        protected DatabaseHandler d;
+        protected TaskData taskData;
+        protected TeamLeader teamLeader;
 
         public PanelItemTasksFromLeader(DatabaseHandler d, TaskData taskData, TeamLeader teamLeader)
         {
@@ -36,26 +33,8 @@ namespace Taskr_UI_0_1
             InitializeComponents();
         }
 
-        /// <summary>
-        /// This is meant to be used for task selection
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="td"></param>
-        /// <param name="teamLeader">for refresh calls</param>
-        /// <param name="teamMember">the user to asign the task to</param>
-        public PanelItemTasksFromLeader(DatabaseHandler d, TaskData taskData, TeamLeader teamLeader, UserData teamMember,AsignTaskWindows asignTaskWindows)
-        {
 
-            this.d = d;
-            this.taskData = taskData;
-            this.teamLeader = teamLeader;
-            this.teamMember = teamMember;
-            this.asignTaskWindows = asignTaskWindows;
-
-            InitializeComponents();
-            EnableTaskAssignmentMode();
-        }
-        private void InitializeComponents()
+        protected void InitializeComponents()
         {
             //
             //for resourecs
@@ -67,8 +46,6 @@ namespace Taskr_UI_0_1
             this.pictureTask = new System.Windows.Forms.PictureBox();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.buttonEditTask = new System.Windows.Forms.Button();
-            this.buttonAssignMember= new System.Windows.Forms.Button();
             this.SuspendLayout();
 
             // 
@@ -78,8 +55,6 @@ namespace Taskr_UI_0_1
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.pictureTask);
-            this.Controls.Add(this.buttonEditTask);
-            this.Controls.Add(this.buttonAssignMember);
             this.Location = new System.Drawing.Point(3, 3);
             this.Name = "panel";
             this.Size = new System.Drawing.Size(720, 157);
@@ -97,7 +72,7 @@ namespace Taskr_UI_0_1
             this.pictureTask.TabStop = false;
             try
             {
-                this.pictureTask.Load(taskData.ImageURL);
+                new Thread(()=> this.pictureTask.Load(taskData.ImageURL)).Start();
                 zero = 150;
             }
             catch
@@ -133,76 +108,16 @@ namespace Taskr_UI_0_1
             this.textBoxDescription.Size = new System.Drawing.Size(textWidth - zero, 87);
             this.textBoxDescription.TabIndex = 5;
 
-            //
-            //edit button
-            //
-            this.buttonEditTask.Location = new System.Drawing.Point(textWidth+10, 15);
-            this.buttonEditTask.Name = "buttonEditTask";
-            this.buttonEditTask.Size = new System.Drawing.Size(120, 35);
-            this.buttonEditTask.TabIndex = 2;
-            this.buttonEditTask.Text = "Edit Task";
-            this.buttonEditTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEditTask.UseVisualStyleBackColor = true;
-            this.buttonEditTask.Click += new System.EventHandler(this.buttonEditTask_Click);
 
-            //
-            //assign
-            //
-            this.buttonAssignMember.Location = new System.Drawing.Point(textWidth + 10, 60);
-            this.buttonAssignMember.Name = "buttonAssignMember";
-            this.buttonAssignMember.Size = new System.Drawing.Size(120, 35);
-            this.buttonAssignMember.TabIndex = 2;
-            this.buttonAssignMember.Text = "Assign Member";
-            this.buttonAssignMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAssignMember.UseVisualStyleBackColor = true;
-            this.buttonAssignMember.Click += new System.EventHandler(this.buttonAssignMember_Click);
 
             this.ResumeLayout();
             this.PerformLayout();
         }
 
-        private void buttonEditTask_Click(object sender, EventArgs e)
-        {
-            new EditTaskDetails(d, taskData, teamLeader).Show();
-        }
 
-        private void buttonAssignMember_Click(object sender, EventArgs e)
-        {
-            teamLeader.TabControlVarious.SelectedTab = teamLeader.tabTeamMembers;
-            teamLeader.TabControlVarious.SelectedTab.Focus();
-            teamLeader.TabControlVarious.SelectedTab.Select();
-        }
 
-        public void EnableTaskAssignmentMode()
-        {
-            buttonEditTask.Visible = false;
-            buttonEditTask.Enabled = false;
-            buttonAssignMember.Visible = false;
-            buttonAssignMember.Enabled = false;
-            this.Size = new System.Drawing.Size(600, 157);
-            this.Click+=new System.EventHandler(Panel_Click);
-        }
 
-        public void Panel_Click(object sender, EventArgs e)
-        {
-            int activeTask = teamMember.ActiveTask;
-            teamMember.ActiveTask = taskData.ID;
-            if (d.GrantTask(taskData, teamMember))
-            {
-                MessageBox.Show(taskData.Title + " assigned to " + teamMember.DisplayName, "Assigment successful");
 
-            }
-            else
-            {
-                MessageBox.Show("Failed to assigned task", "Error");
-                teamMember.ActiveTask = activeTask;
-            }
-           
-            asignTaskWindows.DialogResult = DialogResult.OK;
-            asignTaskWindows.Close();
-            asignTaskWindows.Dispose();
-            teamLeader.InitializeTaskList();
-            teamLeader.InitializeTeamMemberList();
-        }
+
     }
 }

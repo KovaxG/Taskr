@@ -72,6 +72,9 @@
     <Compile Include="Database\DataBaseDataType.cs" />
     <Compile Include="Database\DatabaseHandler.cs" />
     <Compile Include="Database\DBDefaults.cs" />
+    <Compile Include="GUISubElements\PanelItemTaskFromLeaderTaskList.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GUISubElements\PanelItemJoinRequestee.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -79,7 +82,7 @@
     <Compile Include="GUISubElements\PanelItemTaskFromLeader.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GUISubElements\PanelItemTaskFromSelector.cs">
+    <Compile Include="GUISubElements\PanelItemTasksFromSelector.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GUISubElements\PanelItemTeamMemberFromLeader.cs">
@@ -176,8 +179,8 @@
       <DependentUpon>FreeLancer.cs</DependentUpon>
     </Compile>
     <Compile Include="DataTypes\UserData.cs" />
-    <EmbeddedResource Include="GUISubElements\PanelItemTaskFromSelector.resx">
-      <DependentUpon>PanelItemTaskFromSelector.cs</DependentUpon>
+    <EmbeddedResource Include="GUISubElements\PanelItemTasksFromSelector.resx">
+      <DependentUpon>PanelItemTasksFromSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubGuiWindows\AbolishProject.resx">
       <DependentUpon>AbolishProject.cs</DependentUpon>

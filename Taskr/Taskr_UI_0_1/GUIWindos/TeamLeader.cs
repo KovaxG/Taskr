@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataBase;
@@ -70,7 +71,7 @@ namespace Taskr_UI_0_1
             {
                 foreach (TaskData td in taskDataList)
                 {
-                    PanelItemTasksFromLeader item = new PanelItemTasksFromLeader(d,td,this);
+                    PanelItemTasksFromLeader item = new PanelItemTaskFromLeaderTaskList(d, td, this);
                     switch (td.Status)
                     {
                         case ("Completed"):
@@ -82,7 +83,7 @@ namespace Taskr_UI_0_1
                         case ("Idle"):
                             item.BackColor = Color.Gainsboro;
                             break;
-                        case ("Tackling"):
+                        case ("Worked on")://"Tackling"
                             item.BackColor = Color.DarkGreen;
                             break;
                         default://Unhandled value
@@ -160,7 +161,7 @@ namespace Taskr_UI_0_1
             this.textBoxModificationLog.Text = projectData.LogURL;
             try
             {
-                this.pictureBoxProjectImage.Load(projectData.ImageURL);
+                new Thread(() => this.pictureBoxProjectImage.Load(projectData.ImageURL)).Start();
             }
             catch
             {
@@ -254,7 +255,7 @@ namespace Taskr_UI_0_1
         {
             try
             {
-                this.pictureBoxProjectImage.Load(textBoxProjectImageURL.Text);
+                new Thread(() => this.pictureBoxProjectImage.Load(textBoxProjectImageURL.Text)).Start();
             }
             catch
             {
@@ -395,7 +396,7 @@ namespace Taskr_UI_0_1
         {
             try
             {
-                this.pictureBoxTaskImage.Load(textBoxTaskImageURL.Text);
+                new Thread(() => this.pictureBoxTaskImage.Load(textBoxTaskImageURL.Text)).Start();
             }
             catch
             {

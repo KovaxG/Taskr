@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataBase;
+using Taskr_UI_0_1.GUISubElements;
 
 namespace Taskr_UI_0_1.SubGuiWindows
 {
@@ -22,7 +23,7 @@ namespace Taskr_UI_0_1.SubGuiWindows
             {
                 if (taskData.CompletedBy == 0)
                 {
-                    this.flowLayoutPanelTasks.Controls.Add(new PanelItemTasksFromLeader(d,taskData,teamLeader,userData,this));
+                    this.flowLayoutPanelTasks.Controls.Add(new PanelItemTasksFromSelector(d,taskData,teamLeader,userData,this));
                 }
             }
         }
