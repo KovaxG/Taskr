@@ -16,6 +16,12 @@ namespace DataBase
 
 		public static void Main (string[] args)
 		{
+			DateTime date1 = new DateTime (1994, 03, 28);
+			DateTime date2 = new DateTime (2016, 05, 10);
+
+			if (date1.Subtract (date2).TotalHours < 0)
+				Console.WriteLine ("YESSSSSSSS" + date1.Subtract (date2).TotalHours);
+
 			MainClass main = new MainClass ();
 			main.run ();
 

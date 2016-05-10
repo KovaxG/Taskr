@@ -1152,6 +1152,86 @@ namespace DataBase
 			return GetAllUsers ().Find (u => u.ActiveTask == task.ID);
 		} // GetUserWorkingOnTask
 
+		/// <summary>
+		/// NOT TESTED
+		/// The status of the task:
+		/// 1 - Completed (CompletedBy != 0) 
+		/// 2 - Overdue (Deadline-current time<0 && CompletedBy==0)
+		/// 3 - Tackling (Completed by==0 && (COUNT Users.ActiveTask==Task.ID)==1)
+		/// 4 - Requested (Completed by==0 && (COUNT taskrequests.Task_ID==Task.ID)>0)
+		/// 5 - Idle (Completed by==0 && (COUNT Users.ActiveTask==Task.ID)==0)
+		/// - Error (Someting unexpected happened)
+		/// </summary>
+		/// <returns>The status.</returns>
+		/// <param name="task">Task.</param>
+		public string TaskStatus(TaskData task) 
+		{
+			// Sanity check
+			if (task == null) return "Error";
+
+			// Completed
+			if (task.CompletedBy != DBDefaults.DefaultId) return "Completed";
+
+			// Overdue
+			if (task.DeadLine.Subtract(DateTime.Now).TotalHours < 0) return "Overdue";
+
+			// Tackling else Idle or Requested
+			if (GetAllUsers ().Find (u => u.ActiveProject == task.ID) != null) return "Tackling";
+			else {
+				// Has at least 1 user requesting it.
+				foreach (UserData user in GetAllUsers()) {
+					var allRequestedTasks = GetRequestedTasksForUser (user);
+					if (allRequestedTasks.Find(t => t.ID == task.ID) != null) return "Requested";
+				}
+				return "Idle";
+			}
+		} // End of TaskStatus
+
+		/// <summary>
+		/// Gets the requested tasks for user.
+		/// </summary>
+		/// <returns>The requested tasks for user.</returns>
+		/// <param name="user">User.</param>
+		public List<TaskData> GetRequestedTasksForUser(UserData user) {
+
+			List<TaskData> list = new List<TaskData> ();
+
+			// Sanity check
+			// TODO throws new Exception("The user has no active project!");
+			if (user == null) return list;
+			if (user.ActiveProject == DBDefaults.DefaultId) return list;
+
+			try
+			{
+				OpenConnection();
+				string query = "SELECT task_id FROM taskrequests WHERE user_id = @user_id;";
+				query = query.Replace ("@user_id", user.ID.ToString ());
+
+				MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+				DataSet ds = new DataSet();
+				dataAdapter.Fill(ds, "taskrequests");
+				CloseConnection();
+
+				//TODO throw new Exception("There are no task requests.");
+				if (ds.Tables["taskrequests"].Rows.Count == 0) return list;
+
+				foreach (DataRow row in ds.Tables["taskrequests"].Rows)
+				{
+					int task_id = int.Parse(row.ItemArray.GetValue(0).ToString ());
+					TaskData task = GetTasksForProject(GetCurrentProject()).Find (t => t.ID == task_id);
+					list.Add(task);
+				}
+
+				return list;
+			}
+			catch (Exception e)
+			{
+				string errorMessage = "Exception in DataBaseHandler -> GetRequestedTasks \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return list;
+			}
+		} // End of GetRequestedTasks
+
     } // End of Partial Class
 
     public partial class DatabaseHandler // Connection and other stuff related to basic operations
@@ -1163,8 +1243,9 @@ namespace DataBase
         private string password;
 
 		// TESTED 2016.05.06
-        /* Create connectionstring and connection
-         */ 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataBase.DatabaseHandler"/> class.
+        /// </summary>
         public DatabaseHandler()
         {
             server = "localhost";
@@ -1180,30 +1261,37 @@ namespace DataBase
 
             connection = new MySqlConnection(connectionString);
         } // End of Constructor
-
-		// TESTED 2016.05.06
-		/* This is the display function, when testing one can use the console, or if the
-		 * program is live, one can change it to MessageBox for the gui. This will affect all
-		 * errormessages.
-		 */ 
+			
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// This is the display function, when testing one can use the console, or if the
+		/// program is live, one can change it to MessageBox for the gui. This will affect all
+		/// errormessages.
+		/// </summary>
+		/// <param name="message">Message.</param>
 		private void DisplayMessage (string message) 
 		{
 			//MessageBox.Show(message); // Uncomment this
 			Console.WriteLine(message); // Comment this
 		} // End of DisplayMessage
-
-		// TESTED 2016.05.06
-		/* This function returns true if the databasehandler can make a connection to the 
-		 * database, and return false if not.
-		 */ 
+			
+		/// <summary>
+		/// // TESTED 2016.05.06
+		/// This function returns true if the databasehandler can make a connection to the 
+		/// database, and return false if not.
+		/// </summary>
 		public bool Test ()
 		{
 			bool succes = OpenConnection ();
 			CloseConnection ();
 			return succes;
 		} // End of Test
-
-		// TESTED 2016.05.06
+			
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// Opens the connection.
+		/// </summary>
+		/// <returns><c>true</c>, if connection was opened, <c>false</c> otherwise.</returns>
         private bool OpenConnection()
         {
             try
@@ -1230,8 +1318,12 @@ namespace DataBase
                 return false;
             }
         } // End of OpenConnection()
-
-		// TESTED 2016.05.06
+			
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// Closes the connection.
+		/// </summary>
+		/// <returns><c>true</c>, if connection was closed, <c>false</c> otherwise.</returns>
         private bool CloseConnection()
         {
             try
@@ -1245,10 +1337,14 @@ namespace DataBase
                 return false;
             }
         } // End of CloseConnection
-
-		// TESTED 2016.05.07
-		/* Hash Function for passwords.
-		 */ 
+			
+		/// <summary>
+		/// NOT IMPLEMENTED
+		/// Determines whether this instance hash  password salt. (Auto-Generated :)))
+		/// </summary>
+		/// <returns><c>true</c> if this instance hash password salt; otherwise, <c>false</c>.</returns>
+		/// <param name="password">Password.</param>
+		/// <param name="salt">Salt.</param>
 		public string Hash (string password, string salt) 
 		{
 			return password;
@@ -1380,43 +1476,9 @@ namespace DataBase
 		/// Gets the requested tasks.
 		/// </summary>
 		/// <returns>The requested tasks.</returns>
-		public List<TaskData> GetRequestedTasks() {
+		public List<TaskData> GetRequestedTasks () {
+			return GetRequestedTasksForUser (User);
+		}
 
-			List<TaskData> list = new List<TaskData> ();
-
-			// Sanity check
-			// TODO throws new Exception("The user has no active project!");
-			if (User.ActiveProject == DBDefaults.DefaultId) return list;
-
-			try
-			{
-				OpenConnection();
-				string query = "SELECT task_id FROM taskrequests WHERE user_id = @user_id;";
-				query = query.Replace ("@user_id", User.ID.ToString ());
-
-				MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
-				DataSet ds = new DataSet();
-				dataAdapter.Fill(ds, "taskrequests");
-				CloseConnection();
-
-				//TODO throw new Exception("There are no task requests.");
-				if (ds.Tables["taskrequests"].Rows.Count == 0) return list;
-
-				foreach (DataRow row in ds.Tables["taskrequests"].Rows)
-				{
-					int task_id = int.Parse(row.ItemArray.GetValue(0).ToString ());
-					TaskData task = GetTasksForProject(GetCurrentProject()).Find (t => t.ID == task_id);
-					list.Add(task);
-				}
-
-				return list;
-			}
-			catch (Exception e)
-			{
-				string errorMessage = "Exception in DataBaseHandler -> GetRequestedTasks \n\n" + e.ToString ();
-				DisplayMessage (errorMessage);
-				return list;
-			}
-		} // End of GetRequestedTasks
     } // End of EmbeddedUser stuff
 }
