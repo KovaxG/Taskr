@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AsignTaskWindows));
             this.flowLayoutPanelTasks = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
@@ -50,6 +51,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 630);
             this.Controls.Add(this.flowLayoutPanelTasks);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AsignTaskWindows";
             this.Text = "Task Assigner";
             this.ResumeLayout(false);

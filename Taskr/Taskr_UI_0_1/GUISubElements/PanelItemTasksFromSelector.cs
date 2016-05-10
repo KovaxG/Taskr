@@ -35,6 +35,9 @@ namespace Taskr_UI_0_1.GUISubElements
         {
             this.Size = new System.Drawing.Size(600, 157);
             this.Click += new System.EventHandler(Panel_Click);
+            this.pictureTask.Click += new System.EventHandler(Panel_Click);
+            this.textBoxTitle.Click += new System.EventHandler(Panel_Click);
+            this.textBoxDescription.Click += new System.EventHandler(Panel_Click);
         }
 
         public void Panel_Click(object sender, EventArgs e)

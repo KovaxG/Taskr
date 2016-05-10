@@ -51,13 +51,19 @@ namespace Taskr_UI_0_1
             this.pictureTask.Size = new System.Drawing.Size(128, 128);
             this.pictureTask.TabIndex = 0;
             this.pictureTask.TabStop = false;
-            try {
-                new Thread(() => this.pictureTask.Load(td.ImageURL)).Start();
-            }
-            catch
+
+
+            new Thread(() =>
             {
-                this.pictureTask.Image = this.pictureTask.ErrorImage;
-            }
+                try
+                {
+                    this.pictureTask.Load(td.ImageURL);
+                }
+                catch
+                {
+                    this.pictureTask.Image = this.pictureTask.ErrorImage;
+                }
+            }).Start();
 
             // 
             // textBoxTitle

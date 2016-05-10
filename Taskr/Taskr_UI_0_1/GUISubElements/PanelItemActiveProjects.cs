@@ -79,13 +79,19 @@ namespace Taskr_UI_0_1
             this.pictureProject.Size = new System.Drawing.Size(128, 128);
             this.pictureProject.TabIndex = 0;
             this.pictureProject.TabStop = false;
-            try {
-                new Thread(()=>this.pictureProject.Load(pd.ImageURL)).Start();
-            }
-            catch
+
+            new Thread(() =>
             {
-                this.pictureProject.Image = this.pictureProject.ErrorImage;
-            }
+                try
+                {
+                    this.pictureProject.Load(pd.ImageURL);
+                }
+                catch
+                {
+                    this.pictureProject.Image = this.pictureProject.ErrorImage;
+                }
+            }).Start();
+
             // 
             // buttonJoinProjects
             // 

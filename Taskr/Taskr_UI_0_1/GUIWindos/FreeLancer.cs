@@ -221,15 +221,18 @@ namespace Taskr_UI_0_1
 
         private void textBoxImageURL_LostFocus(object sender, EventArgs e)
         {
-            try
-            {
-                new Thread(() => this.pictureBoxProjectImage.Load(textBoxImageURL.Text)).Start();
-            }
-            catch
-            {
-                this.pictureBoxProjectImage.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
-            }
             
+            new Thread(() =>
+            {
+                try
+                {
+                    this.pictureBoxProjectImage.Load(textBoxImageURL.Text);
+                }
+                catch
+                {
+                    this.pictureBoxProjectImage.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
+                }
+            }).Start();
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)

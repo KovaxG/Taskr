@@ -21,7 +21,7 @@ namespace Taskr_UI_0_1.SubGuiWindows
             List<TaskData> taskDataList = d.GetTasksForProject(projectData);
             foreach (TaskData taskData in taskDataList)
             {
-                if (taskData.CompletedBy == 0)
+                if (taskData.CompletedBy == 0 && d.GetUserWorkingOnTask(taskData)!=null)
                 {
                     this.flowLayoutPanelTasks.Controls.Add(new PanelItemTasksFromSelector(d,taskData,teamLeader,userData,this));
                 }

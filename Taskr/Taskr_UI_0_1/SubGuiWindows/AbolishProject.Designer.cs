@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AbolishProject));
             this.labelTitleAbolish = new System.Windows.Forms.Label();
             this.labelThisWillRemove = new System.Windows.Forms.Label();
             this.labelCannotUndo = new System.Windows.Forms.Label();
@@ -129,6 +130,7 @@
             this.Controls.Add(this.labelCannotUndo);
             this.Controls.Add(this.labelThisWillRemove);
             this.Controls.Add(this.labelTitleAbolish);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AbolishProject";
             this.Text = "Abolish Project <title>";
             this.ResumeLayout(false);

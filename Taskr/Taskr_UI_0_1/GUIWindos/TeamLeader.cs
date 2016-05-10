@@ -72,24 +72,6 @@ namespace Taskr_UI_0_1
                 foreach (TaskData td in taskDataList)
                 {
                     PanelItemTasksFromLeader item = new PanelItemTaskFromLeaderTaskList(d, td, this);
-                    switch (td.Status)
-                    {
-                        case ("Completed"):
-                            item.BackColor = Color.BurlyWood;
-                            break;
-                        case ("Failed"):
-                            item.BackColor = Color.DarkRed;
-                            break;
-                        case ("Idle"):
-                            item.BackColor = Color.Gainsboro;
-                            break;
-                        case ("Worked on")://"Tackling"
-                            item.BackColor = Color.DarkGreen;
-                            break;
-                        default://Unhandled value
-                            item.BackColor = Color.Aqua;
-                            break;
-                    }
                     this.flowLayoutPanelTasks.Controls.Add(item);
                 }
             }
@@ -115,8 +97,18 @@ namespace Taskr_UI_0_1
             {
                 foreach (UserData userData in userDataList)
                 {
-
-                    flowLayoutPanelTeamMembers.Controls.Add(new PanelItemTeamMemberFromLeader(d, userData,projectData, this));
+                    if (userData.ActiveTask == 0)
+                    {
+                        var panelItem=new PanelItemTeamMemberFromLeader(d, userData, projectData, this);
+                        flowLayoutPanelTeamMembers.Controls.Add(panelItem);
+                    }
+                }
+                foreach (UserData userData in userDataList)
+                {
+                    if (userData.ActiveTask != 0)
+                    {
+                        flowLayoutPanelTeamMembers.Controls.Add(new PanelItemTeamMemberFromLeader(d, userData, projectData, this));
+                    }
                 }
             }
             else
@@ -159,14 +151,18 @@ namespace Taskr_UI_0_1
             this.textBoxCurrentYield.Text = projectData.CurrentYield;
             this.textBoxAvailableFunds.Text = projectData.AvailibleFunds;
             this.textBoxModificationLog.Text = projectData.LogURL;
-            try
+
+            new Thread(() =>
             {
-                new Thread(() => this.pictureBoxProjectImage.Load(projectData.ImageURL)).Start();
-            }
-            catch
-            {
-                this.pictureBoxProjectImage.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
-            }
+                try
+                {
+                    this.pictureBoxProjectImage.Load(projectData.ImageURL);
+                }
+                catch
+                {
+                    this.pictureBoxProjectImage.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
+                }
+            }).Start();
         }
         
         
@@ -253,14 +249,17 @@ namespace Taskr_UI_0_1
 
         private void textBoxProjectImageURL_LostFocus(object sender, EventArgs e)
         {
-            try
+            new Thread(() =>
             {
-                new Thread(() => this.pictureBoxProjectImage.Load(textBoxProjectImageURL.Text)).Start();
-            }
-            catch
-            {
-                this.pictureBoxProjectImage.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
-            }
+                try
+                {
+                    this.pictureBoxProjectImage.Load(textBoxProjectImageURL.Text);
+                }
+                catch
+                {
+                    this.pictureBoxProjectImage.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
+                }
+            }).Start();
         }
 
         private void textBoxCurrentYield_TextChanged(object sender, EventArgs e)
@@ -394,14 +393,17 @@ namespace Taskr_UI_0_1
 
         private void textBoxTaskImageURL_LostFocus(object sender, EventArgs e)
         {
-            try
+            new Thread(() =>
             {
-                new Thread(() => this.pictureBoxTaskImage.Load(textBoxTaskImageURL.Text)).Start();
-            }
-            catch
-            {
-                this.pictureBoxTaskImage.Image = global::Taskr_UI_0_1.Properties.Resources.X;
-            }
+                try
+                {
+                    this.pictureBoxTaskImage.Load(textBoxTaskImageURL.Text);
+                }
+                catch
+                {
+                    this.pictureBoxTaskImage.Image = global::Taskr_UI_0_1.Properties.Resources.X;
+                }
+            }).Start();
         }
         private void buttonCreateTask_Click(object sender, EventArgs e)
         {
@@ -476,6 +478,8 @@ namespace Taskr_UI_0_1
         {
             InitializeTaskList();
             InitializeProjectDetails();
+            InitializeTeamMemberList();
+            InitializeJoinRequests();
         }
 
         private void tabControlVarious_SelectedIndexChanged(object sender, TabControlEventArgs e)

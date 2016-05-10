@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataBase;
@@ -15,7 +16,7 @@ namespace Taskr_UI_0_1
 {
     public partial class EditUserData : Form
     {
-        string tempURI;
+        //string tempURI;
         private DatabaseHandler dh;
         private UserData userData;
         private TeamLeader teamLeader;
@@ -27,16 +28,17 @@ namespace Taskr_UI_0_1
             dh = d;
             userData = d.User;
 
-            tempURI = userData.AvatarURL;
+            
             try
             {
-                pictureAvatar.Load(tempURI);
+                pictureAvatar.Load(userData.AvatarURL);
             }
             catch (FileNotFoundException)
             {
                 pictureAvatar.Image=global::Taskr_UI_0_1.Properties.Resources.X_128;
             }
             textBoxDisplayName.Text = userData.DisplayName;
+            textBoxAvatarURL.Text = userData.AvatarURL;
             textBoxEmail.Text = userData.Email;
             textBoxPhoneNumber.Text = userData.PhoneNumber;
             textBoxPersonalNotes.Text = userData.Notes;
@@ -57,24 +59,28 @@ namespace Taskr_UI_0_1
 
             InitializeComponent();
             dh = d;
-            tempURI = userData.AvatarURL;
             try
             {
-                pictureAvatar.Load(tempURI);
+                pictureAvatar.Load(userData.AvatarURL);
             }
             catch (FileNotFoundException)
             {
                 pictureAvatar.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
             }
             textBoxDisplayName.Text = userData.DisplayName;
+            textBoxAvatarURL.Text = userData.AvatarURL;
             textBoxEmail.Text = userData.Email;
             textBoxPhoneNumber.Text = userData.PhoneNumber;
             textBoxPersonalNotes.Text = userData.Notes;
             DisableEditing();
-            EnableTaskAssignment();
+            if (userData.ActiveProject!=0)
+            {
+                EnableTaskAssignment();
+            }
+
         }
 
-        private void buttonUpload_Click(object sender, EventArgs e)
+        /*private void buttonUpload_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
@@ -90,6 +96,21 @@ namespace Taskr_UI_0_1
                 pictureAvatar.Load(tempURI);
             }
 
+        }*/
+
+        private void textBoxAvatarURL_LostFocus(object sender, EventArgs e)
+        {
+            new Thread(() =>
+            {
+                try
+                {
+                    this.pictureAvatar.Load(textBoxAvatarURL.Text);
+                }
+                catch
+                {
+                    this.pictureAvatar.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
+                }
+            }).Start();
         }
 
         private void buttonAccept_Click(object sender, EventArgs e)
@@ -102,7 +123,7 @@ namespace Taskr_UI_0_1
                 userData.Email = textBoxEmail.Text;
                 userData.PhoneNumber = textBoxPhoneNumber.Text;
                 userData.Notes = textBoxPersonalNotes.Text;
-                userData.AvatarURL = tempURI;
+                userData.AvatarURL = textBoxAvatarURL.Text;
 
                 if (dh.UpdateThisUser() && dh.UpdateThisUserPassword (userPassword))
                 {
@@ -124,8 +145,8 @@ namespace Taskr_UI_0_1
 
         private void buttonReset_Click(object sender, EventArgs e)
         {
-            tempURI = userData.AvatarURL;
-            pictureAvatar.Load(tempURI);
+            pictureAvatar.Load(userData.AvatarURL);
+            textBoxAvatarURL.Text = userData.AvatarURL;
             textBoxDisplayName.Text = userData.DisplayName;
             textBoxEmail.Text = userData.Email;
             textBoxPhoneNumber.Text = userData.PhoneNumber;
@@ -152,8 +173,9 @@ namespace Taskr_UI_0_1
 
         public void DisableEditing()
         {
-            buttonUpload.Visible = false;
-            buttonUpload.Enabled = false;
+            //buttonUpload.Visible = false;
+            //buttonUpload.Enabled = false;
+            textBoxAvatarURL.ReadOnly = true;
             textBoxDisplayName.ReadOnly = true;
             textBoxEmail.ReadOnly = true;
             textBoxPersonalNotes.ReadOnly = true;

@@ -33,7 +33,6 @@
             this.labelemail = new System.Windows.Forms.Label();
             this.labelnotes = new System.Windows.Forms.Label();
             this.pictureAvatar = new System.Windows.Forms.PictureBox();
-            this.buttonUpload = new System.Windows.Forms.Button();
             this.labelPassword = new System.Windows.Forms.Label();
             this.textBoxDisplayName = new System.Windows.Forms.TextBox();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
@@ -47,6 +46,8 @@
             this.buttonReset = new System.Windows.Forms.Button();
             this.buttonAsignTask = new System.Windows.Forms.Button();
             this.buttonKick = new System.Windows.Forms.Button();
+            this.labelImageURL = new System.Windows.Forms.Label();
+            this.textBoxAvatarURL = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,17 +99,6 @@
             this.pictureAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureAvatar.TabIndex = 5;
             this.pictureAvatar.TabStop = false;
-            // 
-            // buttonUpload
-            // 
-            this.buttonUpload.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonUpload.Location = new System.Drawing.Point(314, 59);
-            this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(220, 40);
-            this.buttonUpload.TabIndex = 6;
-            this.buttonUpload.Text = "Upload New Image";
-            this.buttonUpload.UseVisualStyleBackColor = true;
-            this.buttonUpload.Click += new System.EventHandler(this.buttonUpload_Click);
             // 
             // labelPassword
             // 
@@ -231,11 +221,31 @@
             this.buttonKick.Visible = false;
             this.buttonKick.Click += new System.EventHandler(this.buttonKick_Click);
             // 
+            // labelImageURL
+            // 
+            this.labelImageURL.AutoSize = true;
+            this.labelImageURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            this.labelImageURL.Location = new System.Drawing.Point(310, 52);
+            this.labelImageURL.Name = "labelImageURL";
+            this.labelImageURL.Size = new System.Drawing.Size(180, 24);
+            this.labelImageURL.TabIndex = 21;
+            this.labelImageURL.Text = "URL of Avatar Image";
+            // 
+            // textBoxAvatarURL
+            // 
+            this.textBoxAvatarURL.Location = new System.Drawing.Point(314, 93);
+            this.textBoxAvatarURL.Name = "textBoxAvatarURL";
+            this.textBoxAvatarURL.Size = new System.Drawing.Size(220, 22);
+            this.textBoxAvatarURL.TabIndex = 22;
+            this.textBoxAvatarURL.LostFocus+=new System.EventHandler(textBoxAvatarURL_LostFocus);
+            // 
             // EditUserData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(591, 624);
+            this.Controls.Add(this.textBoxAvatarURL);
+            this.Controls.Add(this.labelImageURL);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAccept);
@@ -247,7 +257,6 @@
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.textBoxDisplayName);
             this.Controls.Add(this.labelPassword);
-            this.Controls.Add(this.buttonUpload);
             this.Controls.Add(this.pictureAvatar);
             this.Controls.Add(this.labelnotes);
             this.Controls.Add(this.labelemail);
@@ -271,7 +280,6 @@
         private System.Windows.Forms.Label labelemail;
         private System.Windows.Forms.Label labelnotes;
         private System.Windows.Forms.PictureBox pictureAvatar;
-        private System.Windows.Forms.Button buttonUpload;
         private System.Windows.Forms.Label labelPassword;
         private System.Windows.Forms.TextBox textBoxDisplayName;
         private System.Windows.Forms.TextBox textBoxEmail;
@@ -285,5 +293,7 @@
         private System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.Button buttonAsignTask;
         private System.Windows.Forms.Button buttonKick;
+        private System.Windows.Forms.Label labelImageURL;
+        private System.Windows.Forms.TextBox textBoxAvatarURL;
     }
 }

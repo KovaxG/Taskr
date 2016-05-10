@@ -13,11 +13,11 @@ namespace Taskr_UI_0_1
 {
     class PanelItemTasksFromLeader : Panel
     {
-        private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.TextBox textBoxTitle;
-        private System.Windows.Forms.PictureBox pictureTask;
+        protected System.Windows.Forms.TextBox textBoxDescription;
+        protected System.Windows.Forms.TextBox textBoxTitle;
+        protected System.Windows.Forms.PictureBox pictureTask;
 
-        protected int zero = 0;
+        protected int zero = 15;
         protected const int textWidth = 580;
 
         protected DatabaseHandler d;
@@ -70,7 +70,7 @@ namespace Taskr_UI_0_1
             this.pictureTask.Size = new System.Drawing.Size(128, 128);
             this.pictureTask.TabIndex = 0;
             this.pictureTask.TabStop = false;
-            try
+            /*try
             {
                 new Thread(()=> this.pictureTask.Load(taskData.ImageURL)).Start();
                 zero = 150;
@@ -81,7 +81,27 @@ namespace Taskr_UI_0_1
                 this.pictureTask.Enabled = false;
                 this.pictureTask.Visible = false;
                 zero = 15;
-            }
+            }*/
+            new Thread(() =>
+            {
+                try
+                {
+                    this.pictureTask.Load(taskData.ImageURL);
+                    zero = 150;
+
+                }
+                catch
+                {
+                    this.pictureTask.Enabled = false;
+                    this.pictureTask.Visible = false;
+                    zero = 15;
+                }
+                finally
+                {
+                    SetFinalSize();
+
+                }
+            }).Start();
 
             // 
             // textBoxTitle
@@ -89,35 +109,49 @@ namespace Taskr_UI_0_1
             this.textBoxTitle.Enabled = true;
             this.textBoxTitle.ReadOnly = true;
             this.textBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTitle.Location = new System.Drawing.Point(zero, 14);
+            
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Text = taskData.Title;
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(textWidth-zero, 34);
             this.textBoxTitle.TabIndex = 4;
             // 
             // textBoxDescription
             // 
             this.textBoxDescription.Enabled = true;
             this.textBoxDescription.ReadOnly = true;
-            this.textBoxDescription.Location = new System.Drawing.Point(zero, 55);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Text = taskData.ShortDescription;
             this.textBoxDescription.ReadOnly = true;
-            this.textBoxDescription.Size = new System.Drawing.Size(textWidth - zero, 87);
             this.textBoxDescription.TabIndex = 5;
 
+            SetFinalSize();
 
-
-            this.ResumeLayout();
-            this.PerformLayout();
         }
+        delegate void SetFinalSizeCallback();
+        private void SetFinalSize()
+        {
+            if (this.textBoxTitle.InvokeRequired || this.textBoxDescription.InvokeRequired)
+            {
+                SetFinalSizeCallback d = new SetFinalSizeCallback(SetFinalSize);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+
+                this.textBoxTitle.Size = new System.Drawing.Size(textWidth - zero, 34);
+                this.textBoxTitle.Location = new System.Drawing.Point(zero, 14);
+
+                this.textBoxDescription.Location = new System.Drawing.Point(zero, 55);
+                this.textBoxDescription.Size = new System.Drawing.Size(textWidth - zero, 87);
 
 
+                this.ResumeLayout();
+                this.PerformLayout();
+            }
 
-
-
+        }
+        
 
     }
 }

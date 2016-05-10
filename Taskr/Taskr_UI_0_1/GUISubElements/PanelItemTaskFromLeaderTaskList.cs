@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,26 @@ namespace Taskr_UI_0_1.GUISubElements
             this.Controls.Add(this.buttonAssignMember);
             this.Controls.Add(this.labelStatus);
 
+            switch (taskData.Status/*d.TaskStatus(taskData)*/)
+            {
+                case ("Completed"):
+                    this.BackColor = Color.BurlyWood;
+                    this.buttonAssignMember.Enabled = false;
+                    break;
+                case ("Overdue"):
+                    this.BackColor = Color.DarkRed;
+                    break;
+                case ("Idle"):
+                    this.BackColor = Color.Gainsboro;
+                    break;
+                case ("Worked on")://"Tackling"
+                    this.buttonAssignMember.Enabled = false;
+                    this.BackColor = Color.DarkGreen;
+                    break;
+                default://Unhandled value
+                    this.BackColor = Color.Aqua;
+                    break;
+            }
             //
             //edit button
             //
@@ -63,6 +84,10 @@ namespace Taskr_UI_0_1.GUISubElements
             this.labelStatus.Size = new System.Drawing.Size(50, 20);
             this.labelStatus.TabIndex = 4;
             this.labelStatus.Text = taskData.Status;
+            if (taskData.Status == "Worked on")
+            {
+                this.labelStatus.Text += "\nby "+d.GetUserWorkingOnTask(taskData).DisplayName;
+            }
 
         }
 

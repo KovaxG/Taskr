@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditTaskDetails));
             this.panelCreateTask = new System.Windows.Forms.Panel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.dateTimePickerDeadLine = new System.Windows.Forms.DateTimePicker();
@@ -214,6 +215,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 675);
             this.Controls.Add(this.panelCreateTask);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditTaskDetails";
             this.Text = "Edit Task Details";
             this.panelCreateTask.ResumeLayout(false);
