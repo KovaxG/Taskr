@@ -5,6 +5,9 @@
  * 
  * Now with embedded user... (-_-)
  * 
+ * When I made the tests, I included a TESTED yyyy.mm.dd in the description
+ * If there is no such text in the description, the function might not work!
+ * 
  */
 using System;
 using System.Collections.Generic;
@@ -23,38 +26,72 @@ namespace DataBase
 {
     public partial class DatabaseHandler
     {
-		// TESTED 2016.05.06
-        /*	@param userName - from login
-		 *  @param password - from login
-		 *  @return UserData - the data of the user with succesful login or DefaultUser
-		 */
+		/// <summary>
+		/// TESTED 2016.05.06 
+		/// This is used to log on with user credentials. (UserName, Password)
+		/// </summary>
+		/// <param name="userName">login username</param>
+		/// <param name="password">login password</param>
+		/// <returns>the data of the user if succes, the defaultUser if failed</returns>
 		public UserData VerifyLogin(string userName, string password)
         {
+			// Null Check
+			// TODO throw One of the parameters are null
 			if (userName == null) return new UserData();
 			if (password == null) return new UserData();
 
 			try {
-            	OpenConnection();
-            	string query = "SELECT * FROM users WHERE DisplayName = '@user_name' AND PasswordHash = '@password';";
-				query = query.Replace ("@user_name", userName);
-				query = query.Replace ("@password", Hash(password, userName));
+				
+				int userID = 0; // This will store the ID of the user
 
-            	MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
-            	DataSet ds = new DataSet();
-            	dataAdapter.Fill(ds, "users");
-            	CloseConnection();
-					
-				if (ds.Tables["users"].Rows.Count == 0) return new UserData();
-					
-				UserData user = new UserData();
-            	// foreach is not really necessary, because the querry can only return 1 row
-            	// but I decided to keep it anyway, might make it a bit readable.
-            	foreach (DataRow row in ds.Tables["users"].Rows)
-            	{
-            	    user.FillFromDataRow(row);
-            	}
-            	
-				return user;
+				{ // Check if user exists in database, if so get the ID for the hash
+					OpenConnection();
+					// TODO Should change in the future to:
+					// string query = "SELECT Id FROM users WHERE DisplayName = '@user_name';";
+					string query = "SELECT * FROM users WHERE DisplayName = '@user_name';";
+					query = query.Replace ("@user_name", userName);
+
+					MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+					DataSet ds = new DataSet();
+					dataAdapter.Fill(ds, "users");
+					CloseConnection();
+
+					// If there are no mathes, the login has failed
+					// TODO throw No such userName
+					if (ds.Tables["users"].Rows.Count == 0) return new UserData();
+
+					// If there is a user get the user.ID
+					UserData user = new UserData();
+					foreach (DataRow row in ds.Tables["users"].Rows)
+					{
+						user.FillFromDataRow(row);
+					}
+					userID = user.ID;
+
+				} // End of check
+				{ // Select all the data from the user
+            		OpenConnection();
+            		string query = "SELECT * FROM users WHERE DisplayName = '@user_name' AND PasswordHash = '@password';";
+					query = query.Replace ("@user_name", userName);
+					query = query.Replace ("@password", Hash(password, userID.ToString()));
+						
+            		MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+            		DataSet ds = new DataSet();
+            		dataAdapter.Fill(ds, "users");
+            		CloseConnection();
+					if (ds.Tables["users"].Rows.Count == 0) return new UserData();
+
+						
+					UserData user = new UserData();
+            		// foreach is not really necessary, because the querry can only return 1 row
+            		// but I decided to keep it anyway, might make it a bit readable.
+            		foreach (DataRow row in ds.Tables["users"].Rows)
+            		{
+            		    user.FillFromDataRow(row);
+            		}
+            		
+					return user;
+				} // End of the selection of the userData
 			}
 			catch (Exception e) 
 			{
@@ -1136,8 +1173,8 @@ namespace DataBase
 		 */ 
 		private void DisplayMessage (string message) 
 		{
-			MessageBox.Show(message); // Uncomment this
-			//Console.WriteLine(message); // Comment this
+			//MessageBox.Show(message); // Uncomment this
+			Console.WriteLine(message); // Comment this
 		} // End of DisplayMessage
 
 		// TESTED 2016.05.06
@@ -1213,18 +1250,23 @@ namespace DataBase
 			get {return _user;}
             set {_user = value;}
         }
-
-		// TESTED 2016.05.06
-		/* 
-		 * Call VerifyUser on the DataBase User
-		 */ 
+			
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// Login with the specified userName and password.
+		/// </summary>
+		/// <param name="userName">User name.</param>
+		/// <param name="password">Password.</param>
 		public bool Login (string userName, string password) {
 			User = VerifyLogin (userName, password);
-			return User.IsDefault()? false : true;
+			return !User.IsDefault ();
 		} // End of Login
-
-		// TESTED 2016.05.07
-        // Used a lambda and I liked it.
+			
+        /// <summary>
+		/// TESTED 2016.05.07
+        /// Gets the current project.
+        /// </summary>
+        /// <returns>The current project.</returns>
         public ProjectData GetCurrentProject()
         {
 			if (User == null) return new ProjectData ();
@@ -1236,37 +1278,41 @@ namespace DataBase
 				return project;
         } // End of GetCurrentProject
 
-		// TESTED 2016.05.07
+		/// <summary>
+		/// TESTED 2016.05.07
+		/// Gets the mode.
+		/// </summary>
+		/// <returns>The mode.</returns>
         public string GetMode()
         {
             return GetModeForUser(User);
         } // End of GetMode
-
-		// TESTED 2016.05.06
-		/* Can Update only:
-		 * DisplayName, AvatarLink, Email, PasswordHash, PhoneNumber, WorkStatus, PersonalNotes, ActiveProject, ActiveTask
-		 * @return bool - true if succes, false if failure
-		 */
+			
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// Updates the this user.
+		/// </summary>
+		/// <returns><c>true</c>, if this user was updated, <c>false</c> otherwise.</returns>
 		public bool UpdateThisUser()
 		{
 			return UpdateUser (User);
 		} // End of UpdateThisUser ()
-
-		// TESTED 2016.05.06
-		/*
-		 * @return bool - succes
-		 * Also! the user data is changed
-		 */
+			
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// Refreshs the this user.
+		/// </summary>
+		/// <returns><c>true</c>, if this user was refreshed, <c>false</c> otherwise.</returns>
 		public bool RefreshThisUser()
 		{
 			return RefreshUser (User);
 		} // End of RefresThishUser()
 
-		// TESTED 2016.05.06
-		/*
-		 * Drops a task.
-		 * 
-		 */
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// Drops the task.
+		/// </summary>
+		/// <returns><c>true</c>, if task was droped, <c>false</c> otherwise.</returns>
 		public bool DropTask()
 		{
 			if (User.ActiveTask == DBDefaults.DefaultId)
@@ -1276,11 +1322,12 @@ namespace DataBase
 				return UpdateUser (User);
 			}
 		} // End of DropTask
-
-		// TESTED 2016.05.06
-		/*
-		 * Leave a project
-		 */
+			
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// Leaves the project.
+		/// </summary>
+		/// <returns><c>true</c>, if project was left, <c>false</c> otherwise.</returns>
 		public bool LeaveProject()
 		{
 			if (User.ActiveProject == DBDefaults.DefaultId) return false;
@@ -1293,11 +1340,12 @@ namespace DataBase
 			User.ActiveProject = DBDefaults.DefaultId;
 			return this.UpdateUser(User);
 		} // End of LeaveProject
-
-        // NOT TESTED
-        /* Returns the active task
-         * This should work
-         */
+			
+       /// <summary>
+	   /// NOT TESTED
+       /// Gets the active task.
+       /// </summary>
+       /// <returns>The active task.</returns>
         public TaskData GetActiveTask()
         {
             // Does the user actually have an activeTask?
@@ -1311,5 +1359,49 @@ namespace DataBase
             TaskData task = GetTasksForProject(myProject).Find(t => t.ID == User.ActiveTask);
             return task;
         } // End of GetActiveTask
+
+		/// <summary>
+		/// TESTED 2016.05.10
+		/// Gets the requested tasks.
+		/// </summary>
+		/// <returns>The requested tasks.</returns>
+		public List<TaskData> GetRequestedTasks() {
+
+			List<TaskData> list = new List<TaskData> ();
+
+			// Sanity check
+			// TODO throws new Exception("The user has no active project!");
+			if (User.ActiveProject == DBDefaults.DefaultId) return list;
+
+			try
+			{
+				OpenConnection();
+				string query = "SELECT task_id FROM taskrequests WHERE user_id = @user_id;";
+				query = query.Replace ("@user_id", User.ID.ToString ());
+
+				MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+				DataSet ds = new DataSet();
+				dataAdapter.Fill(ds, "taskrequests");
+				CloseConnection();
+
+				//TODO throw new Exception("There are no task requests.");
+				if (ds.Tables["taskrequests"].Rows.Count == 0) return list;
+
+				foreach (DataRow row in ds.Tables["taskrequests"].Rows)
+				{
+					int task_id = int.Parse(row.ItemArray.GetValue(0).ToString ());
+					TaskData task = GetTasksForProject(GetCurrentProject()).Find (t => t.ID == task_id);
+					list.Add(task);
+				}
+
+				return list;
+			}
+			catch (Exception e)
+			{
+				string errorMessage = "Exception in DataBaseHandler -> GetRequestedTasks \n\n" + e.ToString ();
+				DisplayMessage (errorMessage);
+				return list;
+			}
+		} // End of GetRequestedTasks
     } // End of EmbeddedUser stuff
 }

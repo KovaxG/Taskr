@@ -40,13 +40,15 @@ namespace DataBase
 			Console.Write ("UserName: ");
 			string username = "Gyuri";//Console.ReadLine ();
 			Console.Write ("Password: ");
-			string password = "password";//
-			if (db.Login (username, password)) {
+			string password = "b\u0094\u0094°\u008a.À­z´Ü0ò\u009e`\u0015";//
+			if(db.Login (username, password)) {
 				Console.WriteLine ("\n\nSuccessful login.");
 				printUserDetails (db.User);
 				Console.WriteLine ("Current Project = " + db.GetCurrentProject ().Title);
 			}
-			else Console.WriteLine ("Login not succesfull.");
+			else {
+				Console.WriteLine ("Login not succesfull. ");
+			}
 			// End of Login----------------------------------------------------------------------
 
 			viewAvailibleProjects ();
@@ -98,7 +100,7 @@ namespace DataBase
 			Console.WriteLine ("DisplayName: " + user.DisplayName);
 			Console.WriteLine ("AvatarURL: " + user.AvatarURL);
 			Console.WriteLine ("Email: " + user.Email);
-			Console.WriteLine ("Password: " + user.Password);
+			//Console.WriteLine ("Password: " + user.Password);
 			Console.WriteLine ("PhoneNumber: " + user.PhoneNumber);
 			Console.WriteLine ("JoinDate: " + user.JoinDate.ToString ());
 			Console.WriteLine ("AddedById: " + user.AddedById);
@@ -110,6 +112,12 @@ namespace DataBase
 			Console.WriteLine ("ReasonForLeaving: " + user.ReasonForLeaving);
 			Console.WriteLine ("RejoinDesirability: " + user.RejoinDesirability);
 			Console.WriteLine ("Observations: " + user.Notes);
+			Console.WriteLine ("\n========================================");
+			Console.WriteLine ("Requested Tasks: ");
+			var tasks = db.GetRequestedTasks ();
+			foreach (TaskData task in tasks) {
+				Console.WriteLine (task.ID);
+			}
 			Console.WriteLine ("\n========================================");
 		}
 	}
