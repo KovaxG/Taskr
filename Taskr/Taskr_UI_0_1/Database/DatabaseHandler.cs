@@ -1135,7 +1135,22 @@ namespace DataBase
             // Kick the user finally
             user.ActiveTask = DBDefaults.DefaultId;
             return true;
-        }
+        } // End of KickUserFromProject
+
+		/// <summary>
+		/// Gets the user working on the task. Returns null if task is free.
+		/// </summary>
+		/// <returns>The user working on the task.</returns>
+		/// <param name="Task">Task.</param>
+		public UserData GetUserWorkingOnTask(TaskData task) {
+
+			// Sanity check
+			// TODO throws new Exception("Got null as input parameter!");
+			if (task == null) return null;
+
+			// Warning! May return null!
+			return GetAllUsers ().Find (u => u.ActiveTask == task.ID);
+		} // GetUserWorkingOnTask
 
     } // End of Partial Class
 
