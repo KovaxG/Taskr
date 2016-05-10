@@ -1181,6 +1181,7 @@ namespace DataBase
 				// Has at least 1 user requesting it.
 				foreach (UserData user in GetAllUsers()) {
 					var allRequestedTasks = GetRequestedTasksForUser (user);
+					if (allRequestedTasks.Count == 0) continue;
 					if (allRequestedTasks.Find(t => t.ID == task.ID) != null) return "Requested";
 				}
 				return "Idle";
