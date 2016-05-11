@@ -51,162 +51,177 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(351, 399);
+            this.buttonCancel.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.buttonCancel.ForeColor = System.Drawing.Color.White;
+            this.buttonCancel.Location = new System.Drawing.Point(409, 350);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 55);
+            this.buttonCancel.Size = new System.Drawing.Size(87, 63);
             this.buttonCancel.TabIndex = 47;
             this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonReset
             // 
-            this.buttonReset.Location = new System.Drawing.Point(244, 399);
+            this.buttonReset.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.buttonReset.ForeColor = System.Drawing.Color.White;
+            this.buttonReset.Location = new System.Drawing.Point(285, 350);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(75, 55);
+            this.buttonReset.Size = new System.Drawing.Size(87, 63);
             this.buttonReset.TabIndex = 46;
             this.buttonReset.Text = "Reset";
-            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.UseVisualStyleBackColor = false;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Location = new System.Drawing.Point(136, 399);
+            this.buttonAccept.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.buttonAccept.ForeColor = System.Drawing.Color.White;
+            this.buttonAccept.Location = new System.Drawing.Point(155, 350);
             this.buttonAccept.Name = "buttonAccept";
-            this.buttonAccept.Size = new System.Drawing.Size(75, 55);
+            this.buttonAccept.Size = new System.Drawing.Size(87, 63);
             this.buttonAccept.TabIndex = 45;
             this.buttonAccept.Text = "Accept";
-            this.buttonAccept.UseVisualStyleBackColor = true;
+            this.buttonAccept.UseVisualStyleBackColor = false;
             this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
             // 
             // dateTimePickerLeaveDate
             // 
-            this.dateTimePickerLeaveDate.Location = new System.Drawing.Point(133, 68);
+            this.dateTimePickerLeaveDate.Location = new System.Drawing.Point(155, 78);
             this.dateTimePickerLeaveDate.Name = "dateTimePickerLeaveDate";
-            this.dateTimePickerLeaveDate.Size = new System.Drawing.Size(293, 20);
+            this.dateTimePickerLeaveDate.Size = new System.Drawing.Size(341, 23);
             this.dateTimePickerLeaveDate.TabIndex = 44;
             // 
             // textBoxLastName
             // 
-            this.textBoxLastName.Location = new System.Drawing.Point(133, 42);
+            this.textBoxLastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxLastName.Location = new System.Drawing.Point(155, 48);
             this.textBoxLastName.Name = "textBoxLastName";
             this.textBoxLastName.ReadOnly = true;
-            this.textBoxLastName.Size = new System.Drawing.Size(293, 20);
+            this.textBoxLastName.Size = new System.Drawing.Size(341, 23);
             this.textBoxLastName.TabIndex = 40;
             // 
             // textBoxFirstName
             // 
-            this.textBoxFirstName.Location = new System.Drawing.Point(133, 16);
+            this.textBoxFirstName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxFirstName.Location = new System.Drawing.Point(155, 18);
             this.textBoxFirstName.Name = "textBoxFirstName";
             this.textBoxFirstName.ReadOnly = true;
-            this.textBoxFirstName.Size = new System.Drawing.Size(293, 20);
+            this.textBoxFirstName.Size = new System.Drawing.Size(341, 23);
             this.textBoxFirstName.TabIndex = 39;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 74);
+            this.label3.Location = new System.Drawing.Point(15, 85);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.Size = new System.Drawing.Size(68, 15);
             this.label3.TabIndex = 35;
             this.label3.Text = "Leave Date";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 48);
+            this.label2.Location = new System.Drawing.Point(15, 55);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.Size = new System.Drawing.Size(65, 15);
             this.label2.TabIndex = 34;
             this.label2.Text = "Last Name";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 22);
+            this.label1.Location = new System.Drawing.Point(15, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 33;
             this.label1.Text = "First Name";
             // 
             // labelObservations
             // 
             this.labelObservations.AutoSize = true;
-            this.labelObservations.Location = new System.Drawing.Point(133, 307);
+            this.labelObservations.Location = new System.Drawing.Point(155, 309);
             this.labelObservations.Name = "labelObservations";
-            this.labelObservations.Size = new System.Drawing.Size(0, 13);
+            this.labelObservations.Size = new System.Drawing.Size(0, 15);
             this.labelObservations.TabIndex = 112;
             // 
             // labelRejoinDesirability
             // 
             this.labelRejoinDesirability.AutoSize = true;
-            this.labelRejoinDesirability.Location = new System.Drawing.Point(133, 167);
+            this.labelRejoinDesirability.Location = new System.Drawing.Point(155, 193);
             this.labelRejoinDesirability.Name = "labelRejoinDesirability";
-            this.labelRejoinDesirability.Size = new System.Drawing.Size(0, 13);
+            this.labelRejoinDesirability.Size = new System.Drawing.Size(0, 15);
             this.labelRejoinDesirability.TabIndex = 111;
             // 
             // labelReasonForLeaving
             // 
             this.labelReasonForLeaving.AutoSize = true;
-            this.labelReasonForLeaving.Location = new System.Drawing.Point(133, 128);
+            this.labelReasonForLeaving.Location = new System.Drawing.Point(155, 148);
             this.labelReasonForLeaving.Name = "labelReasonForLeaving";
-            this.labelReasonForLeaving.Size = new System.Drawing.Size(0, 13);
+            this.labelReasonForLeaving.Size = new System.Drawing.Size(0, 15);
             this.labelReasonForLeaving.TabIndex = 110;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(13, 194);
+            this.label17.Location = new System.Drawing.Point(15, 224);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(69, 13);
+            this.label17.Size = new System.Drawing.Size(79, 15);
             this.label17.TabIndex = 109;
             this.label17.Text = "Observations";
             // 
             // textBoxObservations
             // 
-            this.textBoxObservations.Location = new System.Drawing.Point(133, 191);
+            this.textBoxObservations.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxObservations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxObservations.Location = new System.Drawing.Point(155, 220);
             this.textBoxObservations.Multiline = true;
             this.textBoxObservations.Name = "textBoxObservations";
-            this.textBoxObservations.Size = new System.Drawing.Size(293, 110);
+            this.textBoxObservations.Size = new System.Drawing.Size(341, 86);
             this.textBoxObservations.TabIndex = 108;
             // 
             // textBoxRejoinDesirability
             // 
-            this.textBoxRejoinDesirability.Location = new System.Drawing.Point(133, 144);
+            this.textBoxRejoinDesirability.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxRejoinDesirability.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxRejoinDesirability.Location = new System.Drawing.Point(155, 166);
             this.textBoxRejoinDesirability.Name = "textBoxRejoinDesirability";
-            this.textBoxRejoinDesirability.Size = new System.Drawing.Size(293, 20);
+            this.textBoxRejoinDesirability.Size = new System.Drawing.Size(341, 23);
             this.textBoxRejoinDesirability.TabIndex = 107;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(13, 151);
+            this.label16.Location = new System.Drawing.Point(15, 174);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(90, 13);
+            this.label16.Size = new System.Drawing.Size(105, 15);
             this.label16.TabIndex = 106;
             this.label16.Text = "Rejoin Desirability";
             // 
             // textBoxReasonForLeaving
             // 
-            this.textBoxReasonForLeaving.Location = new System.Drawing.Point(133, 105);
+            this.textBoxReasonForLeaving.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxReasonForLeaving.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxReasonForLeaving.Location = new System.Drawing.Point(155, 121);
             this.textBoxReasonForLeaving.Name = "textBoxReasonForLeaving";
-            this.textBoxReasonForLeaving.Size = new System.Drawing.Size(293, 20);
+            this.textBoxReasonForLeaving.Size = new System.Drawing.Size(341, 23);
             this.textBoxReasonForLeaving.TabIndex = 105;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(13, 112);
+            this.label15.Location = new System.Drawing.Point(15, 129);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(103, 13);
+            this.label15.Size = new System.Drawing.Size(111, 15);
             this.label15.TabIndex = 104;
             this.label15.Text = "Reason For Leaving";
             // 
             // RemoveEmployee
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(570, 536);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(539, 443);
             this.Controls.Add(this.labelObservations);
             this.Controls.Add(this.labelRejoinDesirability);
             this.Controls.Add(this.labelReasonForLeaving);
@@ -225,6 +240,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "RemoveEmployee";

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.IO;
 
 namespace Login
 {
@@ -16,11 +16,19 @@ namespace Login
         // Database handler: methods with queries
         private DatabaseHandler database_handler = new DatabaseHandler();
         private VerifyText verify_text = new VerifyText();
+        Color ButtonTextColor;
+        Color ButtonBackColor;
+        Color FormTextColor;
+        Color FormBackColor;
+        Color TextboxTextColor;
+        Color TextboxBackColor;
+        string theme_file;
 
         // Constructor 
         public LoginSecretary()
         {
             InitializeComponent();
+            setTheme();
         }
 
         // Login button
@@ -57,6 +65,7 @@ namespace Login
 
                     this.Hide();
                     home_form.ShowDialog();
+                    setTheme();
                     this.Show();
                     
                     // Clear the text box for the password when returning
@@ -69,6 +78,102 @@ namespace Login
                     MessageBox.Show("Incorrect Login Credentials");
                 }
             }
+        }
+
+        private void buttonLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonLogin.PerformClick();
+            }
+        }
+
+        private void textBoxUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonLogin.PerformClick();
+            }
+        }
+
+        private void textBoxPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonLogin.PerformClick();
+            }
+        }
+
+        private void setColors()
+        {
+            List<string> lines = new List<string>();
+
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", theme_file);
+            StreamReader Colors = new StreamReader(path);
+            while (!Colors.EndOfStream)
+            {
+                lines.Add(Colors.ReadLine());
+            }
+            ButtonTextColor = Color.FromArgb(Convert.ToInt32(lines[0]));
+            ButtonBackColor = Color.FromArgb(Convert.ToInt32(lines[1]));
+            FormTextColor = Color.FromArgb(Convert.ToInt32(lines[2]));
+            FormBackColor = Color.FromArgb(Convert.ToInt32(lines[3]));
+            TextboxTextColor = Color.FromArgb(Convert.ToInt32(lines[8]));
+            TextboxBackColor = Color.FromArgb(Convert.ToInt32(lines[9]));
+            Colors.Close();
+        }
+
+        private void setTheme()
+        {
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", "Selected theme.txt");
+            StreamReader r = new StreamReader(path);
+            string text_file = r.ReadLine();
+            r.Close();
+
+            if (text_file == "Gray")
+            {
+                theme_file = "Gray.txt";
+            }
+
+            if (text_file == "Purple")
+            {
+                theme_file = "Purple.txt";
+            }
+            if (text_file == "Taskr")
+            {
+                theme_file = "Taskr.txt";
+            }
+            if (text_file == "Colors")
+            {
+                theme_file = "Colors.txt";
+            }
+
+            setColors();
+            foreach (Control c in this.Controls)
+            {
+                setColorControls(c);
+            }
+        }
+
+        private void setColorControls(Control c)
+        {
+
+            if (c is Button)
+            {
+                c.ForeColor = ButtonTextColor;
+                c.BackColor = ButtonBackColor;
+            }
+            if (c is TextBox)
+            {
+                c.ForeColor = TextboxTextColor;
+                c.BackColor = TextboxBackColor;
+            }
+            this.ForeColor = FormTextColor;
+            this.BackColor = FormBackColor;
+        }
+        private void LoginSecretary_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

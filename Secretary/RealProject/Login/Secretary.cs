@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
+using System.IO;
 
 namespace Login
 {
@@ -20,6 +21,18 @@ namespace Login
         VerifyText verify_text = new VerifyText();
         // The id of the user
         int secretary_id;
+        // Colors 
+        Color ButtonTextColor;
+        Color ButtonBackColor;
+        Color FormTextColor;
+        Color FormBackColor;
+        Color PanelTextColor;
+        Color PanelBackColor;
+        Color TabpageTextColor;
+        Color TabpageBackColor;
+        Color TextboxTextColor;
+        Color TextboxBackColor;
+        string theme_file;
         // Tables filled with data from database
         DataTable user_table = new DataTable();
         DataTable formeruser_table = new DataTable();
@@ -40,6 +53,9 @@ namespace Login
             setFormerUserData();
             setSecretaryData();
             setFormerSecretaryData();
+            setTheme();
+
+
         }
         
         // Edit profile
@@ -50,6 +66,7 @@ namespace Login
             this.Show();
             setDisplayName();
             setAvatarImage();
+
         }
 
         // Logout
@@ -67,6 +84,7 @@ namespace Login
             setFormerSecretaryData();
             setSecretaryData();
             setFormerSecretaryData();
+            setTheme();
         }
 
         // Create new user
@@ -77,6 +95,14 @@ namespace Login
             this.Show();
             setUserData();
             setSecretaryData();
+        }
+
+        private void buttonSettings_Click(object sender, EventArgs e)
+        {
+            Settings form = new Settings();
+            form.ShowDialog();
+            this.Show();
+            setTheme();
         }
 
         // Change status
@@ -388,5 +414,127 @@ namespace Login
             comboBoxStatus.Items.Add("Not Available");
             comboBoxStatus.Text = db.getStatusSecretary(secretary_id);
         }
+
+        private void setColors()
+        {
+            List<string> lines = new List<string>();
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", theme_file);
+            StreamReader Colors = new StreamReader(path);
+            while (!Colors.EndOfStream)
+            {
+                lines.Add(Colors.ReadLine());
+            }
+            ButtonTextColor = Color.FromArgb(Convert.ToInt32(lines[0]));
+            ButtonBackColor = Color.FromArgb(Convert.ToInt32(lines[1]));
+            FormTextColor = Color.FromArgb(Convert.ToInt32(lines[2]));
+            FormBackColor = Color.FromArgb(Convert.ToInt32(lines[3]));
+            PanelTextColor = Color.FromArgb(Convert.ToInt32(lines[4]));
+            PanelBackColor = Color.FromArgb(Convert.ToInt32(lines[5]));
+            TabpageTextColor = Color.FromArgb(Convert.ToInt32(lines[6]));
+            TabpageBackColor = Color.FromArgb(Convert.ToInt32(lines[7]));
+            TextboxTextColor = Color.FromArgb(Convert.ToInt32(lines[8]));
+            TextboxBackColor = Color.FromArgb(Convert.ToInt32(lines[9]));
+            Colors.Close();
+        }
+
+        private void setTheme()
+        {
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", "Selected theme.txt");
+            StreamReader r = new StreamReader(path);
+            string text_file = r.ReadLine();
+            r.Close();
+
+            if (text_file == "Gray")
+            {
+                theme_file = "Gray.txt";
+            }
+
+            if (text_file == "Purple")
+            {
+                theme_file = "Purple.txt";
+            }
+            if (text_file == "Taskr")
+            {
+                theme_file = "Taskr.txt";
+            }
+            if (text_file == "Colors")
+            {
+                theme_file = "Colors.txt";
+            }
+            setColors();
+            setColorControls();
+        }
+
+        private void setColorControls()
+        {
+            this.ForeColor = FormTextColor;
+            this.BackColor = FormBackColor;
+
+            panelSide.ForeColor = PanelTextColor;
+            panelSide.BackColor = PanelBackColor;
+            PanelUsers.ForeColor = PanelTextColor;
+            PanelUsers.BackColor = PanelBackColor;
+
+            tabPageFormerSecretary.ForeColor = TabpageTextColor;
+            tabPageFormerSecretary.BackColor = TabpageBackColor;
+            tabPageSecretary.ForeColor = TabpageTextColor;
+            tabPageSecretary.BackColor = TabpageBackColor;
+            TabPageFormerUser.ForeColor = TabpageTextColor;
+            TabPageFormerUser.BackColor = TabpageBackColor;
+            TabPageUsers.ForeColor = TabpageTextColor;
+            TabPageUsers.BackColor = TabpageBackColor;
+
+            textBoxSearchFormerSecretaryFirstName.ForeColor = TextboxTextColor;
+            textBoxSearchFormerSecretaryFirstName.BackColor = TextboxBackColor;
+            textBoxSearchSecretaryFirstName.ForeColor = TextboxTextColor;
+            textBoxSearchSecretaryFirstName.BackColor = TextboxBackColor;
+            textBoxSearchFormerUserFirstName.ForeColor = TextboxTextColor;
+            textBoxSearchFormerUserFirstName.BackColor = TextboxBackColor;
+            textBoxSearchUserFirstName.ForeColor = TextboxTextColor;
+            textBoxSearchUserFirstName.BackColor = TextboxBackColor;
+            textBoxSearchFormerSecretaryLastName.ForeColor = TextboxTextColor;
+            textBoxSearchFormerSecretaryLastName.BackColor = TextboxBackColor;
+            textBoxSearchSecretaryLastName.ForeColor = TextboxTextColor;
+            textBoxSearchSecretaryLastName.BackColor = TextboxBackColor;
+            textBoxSearchFormerUserLastName.ForeColor = TextboxTextColor;
+            textBoxSearchFormerUserLastName.BackColor = TextboxBackColor;
+            textBoxSearchUserLastName.ForeColor = TextboxTextColor;
+            textBoxSearchUserLastName.BackColor = TextboxBackColor;
+
+            buttonCreateNewUser.ForeColor = ButtonTextColor;
+            buttonCreateNewUser.BackColor = ButtonBackColor;
+            buttonEditProfile.ForeColor = ButtonTextColor;
+            buttonEditProfile.BackColor = ButtonBackColor;
+            buttonLogout.ForeColor = ButtonTextColor;
+            buttonLogout.BackColor = ButtonBackColor;
+            buttonRefresh.ForeColor = ButtonTextColor;
+            buttonRefresh.BackColor = ButtonBackColor;
+            buttonSettings.ForeColor = ButtonTextColor;
+            buttonSettings.BackColor = ButtonBackColor;
+
+            labelUsername.ForeColor = FormTextColor;
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Secretary_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }

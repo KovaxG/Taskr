@@ -73,327 +73,391 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 182);
+            this.label1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(11, 173);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 13);
+            this.label1.Size = new System.Drawing.Size(17, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Id";
             // 
             // textBoxId
             // 
-            this.textBoxId.Location = new System.Drawing.Point(143, 175);
+            this.textBoxId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxId.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxId.Location = new System.Drawing.Point(161, 165);
             this.textBoxId.Name = "textBoxId";
             this.textBoxId.ReadOnly = true;
-            this.textBoxId.Size = new System.Drawing.Size(293, 20);
+            this.textBoxId.Size = new System.Drawing.Size(341, 23);
             this.textBoxId.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 208);
+            this.label2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(11, 203);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.Size = new System.Drawing.Size(67, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "First Name";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 247);
+            this.label3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(11, 248);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.Size = new System.Drawing.Size(65, 15);
             this.label3.TabIndex = 3;
             this.label3.Text = "Last Name";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 290);
+            this.label4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(11, 298);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.Size = new System.Drawing.Size(81, 15);
             this.label4.TabIndex = 4;
             this.label4.Text = "Display Name";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 344);
+            this.label6.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(11, 372);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.Size = new System.Drawing.Size(36, 15);
             this.label6.TabIndex = 6;
             this.label6.Text = "Email";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 384);
+            this.label7.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(11, 418);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 13);
+            this.label7.Size = new System.Drawing.Size(59, 15);
             this.label7.TabIndex = 7;
             this.label7.Text = "Password";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(16, 463);
+            this.label8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(13, 524);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(78, 13);
+            this.label8.Size = new System.Drawing.Size(91, 15);
             this.label8.TabIndex = 8;
             this.label8.Text = "Phone Number";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(16, 502);
+            this.label9.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(13, 569);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(52, 13);
+            this.label9.Size = new System.Drawing.Size(57, 15);
             this.label9.TabIndex = 9;
             this.label9.Text = "Join Date";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(15, 529);
+            this.label10.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(11, 600);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(53, 13);
+            this.label10.Size = new System.Drawing.Size(59, 15);
             this.label10.TabIndex = 10;
             this.label10.Text = "Added By";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 555);
+            this.label11.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(11, 630);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(73, 13);
+            this.label11.Size = new System.Drawing.Size(83, 15);
             this.label11.TabIndex = 11;
             this.label11.Text = "Active Project";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(15, 581);
+            this.label12.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(11, 660);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(66, 13);
+            this.label12.Size = new System.Drawing.Size(73, 15);
             this.label12.TabIndex = 12;
             this.label12.Text = "Work Status";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(15, 604);
+            this.label13.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(11, 687);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(79, 13);
+            this.label13.Size = new System.Drawing.Size(90, 15);
             this.label13.TabIndex = 13;
             this.label13.Text = "Personal Notes";
             // 
             // textBoxFirstName
             // 
-            this.textBoxFirstName.Location = new System.Drawing.Point(143, 201);
+            this.textBoxFirstName.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxFirstName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxFirstName.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFirstName.Location = new System.Drawing.Point(161, 195);
             this.textBoxFirstName.Name = "textBoxFirstName";
-            this.textBoxFirstName.Size = new System.Drawing.Size(293, 20);
+            this.textBoxFirstName.Size = new System.Drawing.Size(341, 23);
             this.textBoxFirstName.TabIndex = 14;
             // 
             // textBoxLastName
             // 
-            this.textBoxLastName.Location = new System.Drawing.Point(143, 240);
+            this.textBoxLastName.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxLastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxLastName.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxLastName.Location = new System.Drawing.Point(161, 240);
             this.textBoxLastName.Name = "textBoxLastName";
-            this.textBoxLastName.Size = new System.Drawing.Size(293, 20);
+            this.textBoxLastName.Size = new System.Drawing.Size(341, 23);
             this.textBoxLastName.TabIndex = 15;
             // 
             // textBoxDisplayName
             // 
-            this.textBoxDisplayName.Location = new System.Drawing.Point(143, 283);
+            this.textBoxDisplayName.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxDisplayName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxDisplayName.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxDisplayName.Location = new System.Drawing.Point(161, 290);
             this.textBoxDisplayName.Name = "textBoxDisplayName";
-            this.textBoxDisplayName.Size = new System.Drawing.Size(293, 20);
+            this.textBoxDisplayName.Size = new System.Drawing.Size(341, 23);
             this.textBoxDisplayName.TabIndex = 16;
             // 
             // textBoxPhoneNumber
             // 
-            this.textBoxPhoneNumber.Location = new System.Drawing.Point(143, 456);
+            this.textBoxPhoneNumber.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxPhoneNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPhoneNumber.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPhoneNumber.Location = new System.Drawing.Point(161, 516);
             this.textBoxPhoneNumber.Name = "textBoxPhoneNumber";
-            this.textBoxPhoneNumber.Size = new System.Drawing.Size(293, 20);
+            this.textBoxPhoneNumber.Size = new System.Drawing.Size(341, 23);
             this.textBoxPhoneNumber.TabIndex = 20;
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(143, 377);
+            this.textBoxPassword.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPassword.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPassword.Location = new System.Drawing.Point(161, 410);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(293, 20);
+            this.textBoxPassword.Size = new System.Drawing.Size(341, 23);
             this.textBoxPassword.TabIndex = 19;
             this.textBoxPassword.UseSystemPasswordChar = true;
             // 
             // textBoxEmail
             // 
-            this.textBoxEmail.Location = new System.Drawing.Point(143, 337);
+            this.textBoxEmail.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxEmail.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxEmail.Location = new System.Drawing.Point(161, 364);
             this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.Size = new System.Drawing.Size(293, 20);
+            this.textBoxEmail.Size = new System.Drawing.Size(341, 23);
             this.textBoxEmail.TabIndex = 18;
             // 
             // textBoxActiveProject
             // 
-            this.textBoxActiveProject.Location = new System.Drawing.Point(143, 548);
+            this.textBoxActiveProject.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxActiveProject.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxActiveProject.Location = new System.Drawing.Point(161, 622);
             this.textBoxActiveProject.Name = "textBoxActiveProject";
             this.textBoxActiveProject.ReadOnly = true;
-            this.textBoxActiveProject.Size = new System.Drawing.Size(293, 20);
+            this.textBoxActiveProject.Size = new System.Drawing.Size(341, 23);
             this.textBoxActiveProject.TabIndex = 23;
             // 
             // textBoxAddedBy
             // 
-            this.textBoxAddedBy.Location = new System.Drawing.Point(143, 522);
+            this.textBoxAddedBy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxAddedBy.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxAddedBy.Location = new System.Drawing.Point(161, 592);
             this.textBoxAddedBy.Name = "textBoxAddedBy";
             this.textBoxAddedBy.ReadOnly = true;
-            this.textBoxAddedBy.Size = new System.Drawing.Size(293, 20);
+            this.textBoxAddedBy.Size = new System.Drawing.Size(341, 23);
             this.textBoxAddedBy.TabIndex = 22;
             // 
             // textBoxPersonalNotes
             // 
-            this.textBoxPersonalNotes.Location = new System.Drawing.Point(143, 601);
+            this.textBoxPersonalNotes.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxPersonalNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPersonalNotes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPersonalNotes.Location = new System.Drawing.Point(160, 687);
             this.textBoxPersonalNotes.Multiline = true;
             this.textBoxPersonalNotes.Name = "textBoxPersonalNotes";
-            this.textBoxPersonalNotes.Size = new System.Drawing.Size(293, 106);
+            this.textBoxPersonalNotes.Size = new System.Drawing.Size(341, 86);
             this.textBoxPersonalNotes.TabIndex = 25;
             // 
             // dateTimePicker
             // 
-            this.dateTimePicker.Location = new System.Drawing.Point(143, 495);
+            this.dateTimePicker.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker.Location = new System.Drawing.Point(161, 561);
             this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(293, 20);
+            this.dateTimePicker.Size = new System.Drawing.Size(341, 23);
             this.dateTimePicker.TabIndex = 26;
             this.dateTimePicker.Value = new System.DateTime(2016, 4, 9, 0, 0, 0, 0);
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Location = new System.Drawing.Point(110, 725);
+            this.buttonAccept.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.buttonAccept.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAccept.ForeColor = System.Drawing.Color.White;
+            this.buttonAccept.Location = new System.Drawing.Point(160, 801);
             this.buttonAccept.Name = "buttonAccept";
-            this.buttonAccept.Size = new System.Drawing.Size(75, 55);
+            this.buttonAccept.Size = new System.Drawing.Size(87, 63);
             this.buttonAccept.TabIndex = 27;
             this.buttonAccept.Text = "Accept";
-            this.buttonAccept.UseVisualStyleBackColor = true;
+            this.buttonAccept.UseVisualStyleBackColor = false;
             this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
             // 
             // buttonReset
             // 
-            this.buttonReset.Location = new System.Drawing.Point(208, 725);
+            this.buttonReset.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.buttonReset.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReset.ForeColor = System.Drawing.Color.White;
+            this.buttonReset.Location = new System.Drawing.Point(291, 801);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(75, 55);
+            this.buttonReset.Size = new System.Drawing.Size(87, 63);
             this.buttonReset.TabIndex = 28;
             this.buttonReset.Text = "Reset";
-            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.UseVisualStyleBackColor = false;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(309, 725);
+            this.buttonCancel.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.buttonCancel.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCancel.ForeColor = System.Drawing.Color.White;
+            this.buttonCancel.Location = new System.Drawing.Point(415, 801);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 55);
+            this.buttonCancel.Size = new System.Drawing.Size(87, 63);
             this.buttonCancel.TabIndex = 29;
             this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // labelFirstname
             // 
             this.labelFirstname.AutoSize = true;
-            this.labelFirstname.Location = new System.Drawing.Point(140, 224);
+            this.labelFirstname.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFirstname.Location = new System.Drawing.Point(157, 222);
             this.labelFirstname.Name = "labelFirstname";
-            this.labelFirstname.Size = new System.Drawing.Size(0, 13);
+            this.labelFirstname.Size = new System.Drawing.Size(0, 15);
             this.labelFirstname.TabIndex = 30;
             // 
             // labelLastname
             // 
             this.labelLastname.AutoSize = true;
-            this.labelLastname.Location = new System.Drawing.Point(143, 263);
+            this.labelLastname.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLastname.Location = new System.Drawing.Point(161, 267);
             this.labelLastname.Name = "labelLastname";
-            this.labelLastname.Size = new System.Drawing.Size(0, 13);
+            this.labelLastname.Size = new System.Drawing.Size(0, 15);
             this.labelLastname.TabIndex = 31;
             // 
             // labelDisplayname
             // 
             this.labelDisplayname.AutoSize = true;
-            this.labelDisplayname.Location = new System.Drawing.Point(140, 305);
+            this.labelDisplayname.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDisplayname.Location = new System.Drawing.Point(161, 320);
             this.labelDisplayname.Name = "labelDisplayname";
-            this.labelDisplayname.Size = new System.Drawing.Size(0, 13);
+            this.labelDisplayname.Size = new System.Drawing.Size(0, 15);
             this.labelDisplayname.TabIndex = 32;
             // 
             // labelAvatar
             // 
             this.labelAvatar.AutoSize = true;
-            this.labelAvatar.Location = new System.Drawing.Point(140, 356);
+            this.labelAvatar.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAvatar.Location = new System.Drawing.Point(157, 386);
             this.labelAvatar.Name = "labelAvatar";
-            this.labelAvatar.Size = new System.Drawing.Size(0, 13);
+            this.labelAvatar.Size = new System.Drawing.Size(0, 15);
             this.labelAvatar.TabIndex = 33;
             // 
             // labelEmail
             // 
             this.labelEmail.AutoSize = true;
-            this.labelEmail.Location = new System.Drawing.Point(140, 360);
+            this.labelEmail.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEmail.Location = new System.Drawing.Point(157, 390);
             this.labelEmail.Name = "labelEmail";
-            this.labelEmail.Size = new System.Drawing.Size(0, 13);
+            this.labelEmail.Size = new System.Drawing.Size(0, 15);
             this.labelEmail.TabIndex = 34;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(15, 410);
+            this.label19.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(11, 448);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(90, 13);
+            this.label19.Size = new System.Drawing.Size(106, 15);
             this.label19.TabIndex = 35;
             this.label19.Text = "Confirm password";
             // 
             // labelConfirmPassword
             // 
             this.labelConfirmPassword.AutoSize = true;
-            this.labelConfirmPassword.Location = new System.Drawing.Point(140, 426);
+            this.labelConfirmPassword.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConfirmPassword.Location = new System.Drawing.Point(161, 470);
             this.labelConfirmPassword.Name = "labelConfirmPassword";
-            this.labelConfirmPassword.Size = new System.Drawing.Size(0, 13);
+            this.labelConfirmPassword.Size = new System.Drawing.Size(0, 15);
             this.labelConfirmPassword.TabIndex = 36;
             // 
             // textBoxConfirmPassword
             // 
-            this.textBoxConfirmPassword.Location = new System.Drawing.Point(143, 403);
+            this.textBoxConfirmPassword.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.textBoxConfirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxConfirmPassword.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxConfirmPassword.Location = new System.Drawing.Point(161, 440);
             this.textBoxConfirmPassword.Name = "textBoxConfirmPassword";
-            this.textBoxConfirmPassword.Size = new System.Drawing.Size(293, 20);
+            this.textBoxConfirmPassword.Size = new System.Drawing.Size(341, 23);
             this.textBoxConfirmPassword.TabIndex = 37;
             this.textBoxConfirmPassword.UseSystemPasswordChar = true;
             // 
             // labelPhonenumber
             // 
             this.labelPhonenumber.AutoSize = true;
-            this.labelPhonenumber.Location = new System.Drawing.Point(140, 479);
+            this.labelPhonenumber.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPhonenumber.Location = new System.Drawing.Point(157, 543);
             this.labelPhonenumber.Name = "labelPhonenumber";
-            this.labelPhonenumber.Size = new System.Drawing.Size(0, 13);
+            this.labelPhonenumber.Size = new System.Drawing.Size(0, 15);
             this.labelPhonenumber.TabIndex = 38;
             // 
             // labelNotes
             // 
             this.labelNotes.AutoSize = true;
-            this.labelNotes.Location = new System.Drawing.Point(143, 710);
+            this.labelNotes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNotes.Location = new System.Drawing.Point(161, 772);
             this.labelNotes.Name = "labelNotes";
-            this.labelNotes.Size = new System.Drawing.Size(0, 13);
+            this.labelNotes.Size = new System.Drawing.Size(0, 15);
             this.labelNotes.TabIndex = 39;
             // 
             // comboBoxStatus
             // 
+            this.comboBoxStatus.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxStatus.FormattingEnabled = true;
-            this.comboBoxStatus.Location = new System.Drawing.Point(143, 574);
+            this.comboBoxStatus.Location = new System.Drawing.Point(161, 652);
             this.comboBoxStatus.Name = "comboBoxStatus";
-            this.comboBoxStatus.Size = new System.Drawing.Size(293, 21);
+            this.comboBoxStatus.Size = new System.Drawing.Size(341, 23);
             this.comboBoxStatus.TabIndex = 40;
             // 
             // pictureAvatar
             // 
-            this.pictureAvatar.Location = new System.Drawing.Point(9, 7);
+            this.pictureAvatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureAvatar.Location = new System.Drawing.Point(12, 12);
             this.pictureAvatar.Name = "pictureAvatar";
-            this.pictureAvatar.Size = new System.Drawing.Size(128, 128);
-            this.pictureAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureAvatar.Size = new System.Drawing.Size(149, 147);
+            this.pictureAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureAvatar.TabIndex = 41;
             this.pictureAvatar.TabStop = false;
             // 
             // EditEmployee
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(505, 806);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(522, 882);
             this.Controls.Add(this.pictureAvatar);
             this.Controls.Add(this.comboBoxStatus);
             this.Controls.Add(this.labelNotes);
@@ -432,6 +496,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxId);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "EditEmployee";
