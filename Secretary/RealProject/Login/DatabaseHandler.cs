@@ -33,7 +33,7 @@ namespace Login
         private void Initialize()
         {
             server = "localhost";
-            database = "test";
+            database = "database";
             uid = "root";
             password = "root";
             string connectionString;
@@ -296,7 +296,7 @@ namespace Login
             OpenConnection();
             int id = 0;
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("SELECT Id FROM secretary WHERE Email='" + username + "';", connection);
+            MySqlCommand command = new MySqlCommand("SELECT Id FROM secretary WHERE Email='" + username + "' OR DisplayName='" + username + "';", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
