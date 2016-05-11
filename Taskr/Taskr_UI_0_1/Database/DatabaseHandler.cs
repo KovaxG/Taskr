@@ -1225,6 +1225,20 @@ namespace DataBase
 			return GetAllUsers ().Find (u => u.ID == task.CompletedBy);
 		} // End of GetUserWhoCompletedTask
 
+		/// <summary>
+		/// TESTED 2016.05.11
+		/// Removes the active task.
+		/// </summary>
+		/// <returns><c>true</c>, if active task was removed, <c>false</c> otherwise.</returns>
+		/// <param name="user">User.</param>
+		public bool RemoveActiveTaskForUser (UserData user) {
+
+			if (user == null || user.IsDefault ()) return false;
+
+			user.ActiveTask = DBDefaults.DefaultId;
+			return true;
+		} // RemoveActiveTaskForUser
+
     } // End of Partial Class
 
     public partial class DatabaseHandler // Connection and other stuff related to basic operations
