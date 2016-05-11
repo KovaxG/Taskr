@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataBase;
 
-namespace TeamMember
+namespace Taskr_UI_0_1
 {
     public partial class ExtendTask : Form
     {
-        public ExtendTask()
+        DatabaseHandler d;
+        public ExtendTask(DatabaseHandler d)
         {
+            this.d = d;
             InitializeComponent();
         }
 
@@ -21,6 +24,18 @@ namespace TeamMember
         {
             this.Close();
             this.Dispose();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (d.RequestExtension(richTextBoxReasonExtension.Text))
+            {
+                MessageBox.Show("Request succesfully sent.");
+            }
+            else
+            {
+                MessageBox.Show("Request was not sent. Please try again.");
+            }
         }
     }
 }

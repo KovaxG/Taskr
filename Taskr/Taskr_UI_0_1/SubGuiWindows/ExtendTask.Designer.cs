@@ -1,4 +1,4 @@
-﻿namespace TeamMember
+﻿namespace Taskr_UI_0_1
 {
     partial class ExtendTask
     {
@@ -28,79 +28,80 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.richTextBoxReasonExtension = new System.Windows.Forms.RichTextBox();
+            this.labelReasonForExtension = new System.Windows.Forms.Label();
+            this.buttonBack = new System.Windows.Forms.Button();
+            this.buttonSubmit = new System.Windows.Forms.Button();
+            this.labelForExtension = new System.Windows.Forms.Label();
+            this.dateTimePickerExtension = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
-            // richTextBox1
+            // richTextBoxReasonExtension
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(18, 103);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(378, 194);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.richTextBoxReasonExtension.Location = new System.Drawing.Point(18, 103);
+            this.richTextBoxReasonExtension.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.richTextBoxReasonExtension.Name = "richTextBoxReasonExtension";
+            this.richTextBoxReasonExtension.Size = new System.Drawing.Size(460, 194);
+            this.richTextBoxReasonExtension.TabIndex = 0;
+            this.richTextBoxReasonExtension.Text = "";
             // 
-            // label1
+            // labelReasonForExtension
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(123, 51);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(158, 22);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Reason for extension";
+            this.labelReasonForExtension.AutoSize = true;
+            this.labelReasonForExtension.Location = new System.Drawing.Point(131, 53);
+            this.labelReasonForExtension.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelReasonForExtension.Name = "labelReasonForExtension";
+            this.labelReasonForExtension.Size = new System.Drawing.Size(208, 24);
+            this.labelReasonForExtension.TabIndex = 1;
+            this.labelReasonForExtension.Text = "Reason for extension";
             // 
-            // button1
+            // buttonBack
             // 
-            this.button1.Location = new System.Drawing.Point(67, 508);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 42);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Back";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonBack.Location = new System.Drawing.Point(67, 508);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(93, 42);
+            this.buttonBack.TabIndex = 2;
+            this.buttonBack.Text = "Back";
+            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // buttonSubmit
             // 
-            this.button2.Location = new System.Drawing.Point(259, 508);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(90, 42);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Submit";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonSubmit.Location = new System.Drawing.Point(328, 508);
+            this.buttonSubmit.Name = "buttonSubmit";
+            this.buttonSubmit.Size = new System.Drawing.Size(90, 42);
+            this.buttonSubmit.TabIndex = 3;
+            this.buttonSubmit.Text = "Submit";
+            this.buttonSubmit.UseVisualStyleBackColor = true;
+            this.buttonSubmit.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label2
+            // labelForExtension
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(47, 354);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 22);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Extend Until";
+            this.labelForExtension.AutoSize = true;
+            this.labelForExtension.Location = new System.Drawing.Point(47, 354);
+            this.labelForExtension.Name = "labelForExtension";
+            this.labelForExtension.Size = new System.Drawing.Size(123, 24);
+            this.labelForExtension.TabIndex = 4;
+            this.labelForExtension.Text = "Extend Until";
             // 
-            // dateTimePicker1
+            // dateTimePickerExtension
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(185, 348);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 31);
-            this.dateTimePicker1.TabIndex = 5;
+            this.dateTimePickerExtension.Location = new System.Drawing.Point(185, 348);
+            this.dateTimePickerExtension.Name = "dateTimePickerExtension";
+            this.dateTimePickerExtension.Size = new System.Drawing.Size(285, 29);
+            this.dateTimePickerExtension.TabIndex = 5;
             // 
             // ExtendTask
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(416, 565);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.richTextBox1);
+            this.ClientSize = new System.Drawing.Size(482, 565);
+            this.Controls.Add(this.dateTimePickerExtension);
+            this.Controls.Add(this.labelForExtension);
+            this.Controls.Add(this.buttonSubmit);
+            this.Controls.Add(this.buttonBack);
+            this.Controls.Add(this.labelReasonForExtension);
+            this.Controls.Add(this.richTextBoxReasonExtension);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ExtendTask";
@@ -112,11 +113,11 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.RichTextBox richTextBoxReasonExtension;
+        private System.Windows.Forms.Label labelReasonForExtension;
+        private System.Windows.Forms.Button buttonBack;
+        private System.Windows.Forms.Button buttonSubmit;
+        private System.Windows.Forms.Label labelForExtension;
+        private System.Windows.Forms.DateTimePicker dateTimePickerExtension;
     }
 }

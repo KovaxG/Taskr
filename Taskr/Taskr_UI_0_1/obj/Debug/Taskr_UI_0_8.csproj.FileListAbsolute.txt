@@ -56,3 +56,6 @@ C:\C#\Projects\Githubbed Project\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.SubGu
 C:\C#\Projects\Githubbed Project\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.SubGuiWindows.AsignTaskWindows.resources
 C:\C#\Projects\Githubbed Project\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.SubGuiWindows.AbolishProject.resources
 C:\C#\Projects\Githubbed Project\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.GUISubElements.PanelItemTasksFromSelector.resources
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.exe.config
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.exe
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.pdb

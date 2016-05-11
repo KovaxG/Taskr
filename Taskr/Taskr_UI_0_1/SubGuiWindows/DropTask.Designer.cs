@@ -1,4 +1,4 @@
-﻿namespace TeamMember
+﻿namespace Taskr_UI_0_1
 {
     partial class DropTask
     {
@@ -28,74 +28,75 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.labelWarningDropTask = new System.Windows.Forms.Label();
+            this.labelReasonDropTask = new System.Windows.Forms.Label();
+            this.richTextBoxReasonDropTask = new System.Windows.Forms.RichTextBox();
+            this.buttonBackDropTask = new System.Windows.Forms.Button();
+            this.buttonSubmitDropTask = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // labelWarningDropTask
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.Info;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 38);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(357, 46);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Warning! By dropping a task you may incure a \r\npenalty at the discetion of the te" +
+            this.labelWarningDropTask.AutoSize = true;
+            this.labelWarningDropTask.BackColor = System.Drawing.SystemColors.Info;
+            this.labelWarningDropTask.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelWarningDropTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWarningDropTask.Location = new System.Drawing.Point(12, 38);
+            this.labelWarningDropTask.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelWarningDropTask.Name = "labelWarningDropTask";
+            this.labelWarningDropTask.Size = new System.Drawing.Size(446, 50);
+            this.labelWarningDropTask.TabIndex = 0;
+            this.labelWarningDropTask.Text = "Warning! By dropping a task you may incure a \r\npenalty at the discetion of the te" +
     "am leader!";
             // 
-            // label2
+            // labelReasonDropTask
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(158, 117);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 22);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Reason";
+            this.labelReasonDropTask.AutoSize = true;
+            this.labelReasonDropTask.Location = new System.Drawing.Point(197, 121);
+            this.labelReasonDropTask.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelReasonDropTask.Name = "labelReasonDropTask";
+            this.labelReasonDropTask.Size = new System.Drawing.Size(81, 24);
+            this.labelReasonDropTask.TabIndex = 1;
+            this.labelReasonDropTask.Text = "Reason";
             // 
-            // richTextBox1
+            // richTextBoxReasonDropTask
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 160);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(351, 169);
-            this.richTextBox1.TabIndex = 2;
-            this.richTextBox1.Text = "";
+            this.richTextBoxReasonDropTask.Location = new System.Drawing.Point(12, 160);
+            this.richTextBoxReasonDropTask.Name = "richTextBoxReasonDropTask";
+            this.richTextBoxReasonDropTask.Size = new System.Drawing.Size(446, 169);
+            this.richTextBoxReasonDropTask.TabIndex = 2;
+            this.richTextBoxReasonDropTask.Text = "";
             // 
-            // button1
+            // buttonBackDropTask
             // 
-            this.button1.Location = new System.Drawing.Point(43, 365);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 46);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Back";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonBackDropTask.Location = new System.Drawing.Point(43, 365);
+            this.buttonBackDropTask.Name = "buttonBackDropTask";
+            this.buttonBackDropTask.Size = new System.Drawing.Size(97, 46);
+            this.buttonBackDropTask.TabIndex = 3;
+            this.buttonBackDropTask.Text = "Back";
+            this.buttonBackDropTask.UseVisualStyleBackColor = true;
+            this.buttonBackDropTask.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // buttonSubmitDropTask
             // 
-            this.button2.Location = new System.Drawing.Point(210, 365);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(102, 46);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Submit";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonSubmitDropTask.Location = new System.Drawing.Point(319, 365);
+            this.buttonSubmitDropTask.Name = "buttonSubmitDropTask";
+            this.buttonSubmitDropTask.Size = new System.Drawing.Size(102, 46);
+            this.buttonSubmitDropTask.TabIndex = 4;
+            this.buttonSubmitDropTask.Text = "Submit";
+            this.buttonSubmitDropTask.UseVisualStyleBackColor = true;
+            this.buttonSubmitDropTask.Click += new System.EventHandler(this.buttonSubmitDropTask_Click);
             // 
             // DropTask
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 441);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(463, 441);
+            this.Controls.Add(this.buttonSubmitDropTask);
+            this.Controls.Add(this.buttonBackDropTask);
+            this.Controls.Add(this.richTextBoxReasonDropTask);
+            this.Controls.Add(this.labelReasonDropTask);
+            this.Controls.Add(this.labelWarningDropTask);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DropTask";
@@ -107,10 +108,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label labelWarningDropTask;
+        private System.Windows.Forms.Label labelReasonDropTask;
+        private System.Windows.Forms.RichTextBox richTextBoxReasonDropTask;
+        private System.Windows.Forms.Button buttonBackDropTask;
+        private System.Windows.Forms.Button buttonSubmitDropTask;
     }
 }
