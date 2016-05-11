@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using DataBase;
+using MessageBox = System.Windows.MessageBox;
 using System.Windows.Markup;
+
 
 namespace Taskr_UI_0_1.GUISubElements
 {
@@ -43,13 +40,13 @@ namespace Taskr_UI_0_1.GUISubElements
 
             if (d.AcceptUserProjectRequest(userData))
             {
-                MessageBox.Show(userData.DisplayName + " is now part of " + projectData.Title, "Join request accepted");
+                //MessageBox.Show(userData.DisplayName + " is now part of " + projectData.Title, "Join request accepted");
                 teamLeader.InitializeTeamMemberList();
                 teamLeader.InitializeJoinRequests();
             }
             else
             {
-                MessageBox.Show("Could not accept join request", "Request rejected");
+                //MessageBox.Show("Could not accept join request", "Request rejected");
             }
         }
     }

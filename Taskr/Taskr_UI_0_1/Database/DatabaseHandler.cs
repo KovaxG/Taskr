@@ -1502,20 +1502,20 @@ namespace DataBase
             {
                 { // Check if there is already a request
                     OpenConnection();
-                    string query = "SELECT * FROM tasksrequests WHERE user_id = @user_id AND task_id = @task_id;";
+                    string query = "SELECT * FROM taskrequests WHERE user_id = @user_id AND task_id = @task_id;";
                     query = query.Replace("@user_id", User.ID.ToString());
                     query = query.Replace("@task_id", task.ID.ToString());
 
                     MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                     DataSet ds = new DataSet();
-                    dataAdapter.Fill(ds, "tasksrequests");
+                    dataAdapter.Fill(ds, "taskrequests");
                     CloseConnection();
 
-                    if (ds.Tables["tasksrequests"].Rows.Count == 0) return false;
+                    if (ds.Tables["taskrequests"].Rows.Count == 0) return false;
                 }
                 { // Drop Join Request
                     OpenConnection();
-                    string query = "DELETE FROM tasksrequests WHERE user_id = @user_id AND task_id = @task_id;";
+                    string query = "DELETE FROM taskrequests WHERE user_id = @user_id AND task_id = @task_id;";
                     query = query.Replace("@user_id", User.ID.ToString());
                     query = query.Replace("@task_id", task.ID.ToString());
 

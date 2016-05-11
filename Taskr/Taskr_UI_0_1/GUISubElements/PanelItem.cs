@@ -70,7 +70,7 @@ namespace Taskr_UI_0_1
                 }
                 catch
                 {
-                    MessageBox.Show("Picture could not pe loaded!");
+                    //MessageBox.Show("Picture could not pe loaded!");
                     this.picture.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
                 }
             }).Start();
@@ -99,7 +99,7 @@ namespace Taskr_UI_0_1
 
             this.textBoxScore.Size = new System.Drawing.Size((int)((width / 4 - 3)), (int)(height / 5));
             this.textBoxScore.Location = new System.Drawing.Point((int)(width * 2 / 4 + 9), (int)(height * 4 / 5 - 3));
-            this.textBoxScore.Text ="1000 points";
+            this.textBoxScore.Text = "1000";
 
             this.buttonJoinTask.Size = new System.Drawing.Size((int)((width / 4 - 15)), (int)(height / 5 + 3));
             this.buttonJoinTask.Location = new System.Drawing.Point((int)(width * 3 / 4 + 12), (int)(height * 4 / 5 - 3));
@@ -159,7 +159,7 @@ namespace Taskr_UI_0_1
                 }
                 catch
                 {
-                    MessageBox.Show("Picture could not pe loaded!");
+                    //MessageBox.Show("Picture could not pe loaded!");
                     this.picture.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
                 }
             }).Start();
@@ -255,7 +255,11 @@ namespace Taskr_UI_0_1
                 }
                 else
                 {
-                    if (!d.CancelTaskRequest(td))
+                    if (d.CancelTaskRequest(td))
+                    {
+                        MessageBox.Show("CancelTaskRequest returned true!");
+                    }
+                    else
                     {
                         MessageBox.Show("CancelTaskRequest returned false!");
                     }

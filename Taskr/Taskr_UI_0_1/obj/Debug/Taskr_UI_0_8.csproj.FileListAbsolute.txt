@@ -77,3 +77,11 @@ C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.Uplo
 C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.FreeLancer.resources
 C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.TaskView.dje.resources
 C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_8.csproj.GenerateResource.Cache
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\bin\Debug\resources\X.png
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.exe
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.pdb
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\bin\Debug\dje\Taskr_UI_0_1.resources.dll
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Data.Entity.EF5.dll
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Data.Entity.EF6.dll
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Fabric.Plugin.dll
+C:\Users\Alex\Desktop\GitWhatever\Taskr\Taskr_UI_0_1\obj\Debug\dje\Taskr_UI_0_1.resources.dll
