@@ -216,34 +216,39 @@ namespace Taskr_UI_0_1
             {
                 //If no change in deadline
 
+                MessageBox.Show(td.ToQueryString());
+
                 if (!d.TaskRequest(td))
                 {
                     MessageBox.Show("Failed to request task!");
                 }
-                if (DateTime.Parse(this.dateTimePickerDeadline.Text) == td.DeadLine)
+                else
                 {
-                    if (d.User.ActiveTask == 0)
+                    if (DateTime.Parse(this.dateTimePickerDeadline.Text) == td.DeadLine)
                     {
-                        if (d.GrantTask(td, d.User))
+                        if (d.User.ActiveTask == 0)
                         {
-                            MessageBox.Show("Successfully applied for task!!!");
-                            sp.DynamicInvoke();
+                            if (d.GrantTask(td, d.User))
+                            {
+                                MessageBox.Show("Successfully applied for task!!!");
+                                sp.DynamicInvoke();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Some error has occurred in the DatabaseHandler!");
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("Some error has occurred in the DatabaseHandler!");
+                            MessageBox.Show("Successfully applied for task!!!");
+                            aw.DynamicInvoke();
                         }
                     }
+                    //Else negotiate
                     else
                     {
-                        MessageBox.Show("Successfully applied for task!!!");
-                        aw.DynamicInvoke();
+                        MessageBox.Show("Deadlines do not match. Negotiation.");
                     }
-                }
-                //Else negotiate
-                else
-                {
-                    MessageBox.Show("Deadlines do not match. Negotiation.");
                 }
             }
 

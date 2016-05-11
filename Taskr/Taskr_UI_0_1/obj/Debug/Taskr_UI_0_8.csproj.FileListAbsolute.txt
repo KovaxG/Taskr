@@ -116,3 +116,32 @@ C:\C#\Projects\Githubbed Project v2\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.Fr
 C:\C#\Projects\Githubbed Project v2\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.TaskView.dje.resources
 C:\C#\Projects\Githubbed Project v2\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_8.csproj.GenerateResource.Cache
 C:\C#\Projects\Githubbed Project v2\Taskr\Taskr_UI_0_1\obj\Debug\dje\Taskr_UI_0_1.resources.dll
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.exe.config
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.exe
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.pdb
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\bin\Debug\resources\X.png
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.exe
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.pdb
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\bin\Debug\dje\Taskr_UI_0_1.resources.dll
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Data.Entity.EF5.dll
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Data.Entity.EF6.dll
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Fabric.Plugin.dll
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_8.csprojResolveAssemblyReference.cache
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_8.csproj.Taskr_UI_0_1.exe.config
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.GUISubElements.PanelItemTasksFromSelector.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.SubGuiWindows.AbolishProject.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.SubGuiWindows.AsignTaskWindows.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.SubGuiWindows.EditTaskDetails.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.EditUserData.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.LoginApp.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.Properties.Resources.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.TaskView.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.TeamLeader.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.DropTask.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.ExtendTask.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.TeamMember.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.UploadFiles.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.FreeLancer.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.TaskView.dje.resources
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_8.csproj.GenerateResource.Cache
+C:\Users\Alex\Desktop\GitTest\Taskr\Taskr_UI_0_1\obj\Debug\dje\Taskr_UI_0_1.resources.dll
