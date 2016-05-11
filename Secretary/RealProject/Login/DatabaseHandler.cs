@@ -116,7 +116,7 @@ namespace Login
             OpenConnection();
             int id;
             MySqlCommand command = new MySqlCommand();
-            command.CommandText = "Select Id from secretary where (Email=@username or DisplayName = @username) and LeaveDate=@DefaultDate";
+            command.CommandText = "SELECT Id FROM secretary WHERE (Email=@username or DisplayName = @username) and LeaveDate=@DefaultDate";
             command.Parameters.AddWithValue("@username", username);
             command.Parameters.AddWithValue("@DefaultDate", DEFAULT_DATE);
             command.Connection = connection;
@@ -152,7 +152,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select DisplayName FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT DisplayName FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -168,7 +168,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select PhoneNumber FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT PhoneNumber FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -184,7 +184,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select PasswordHash FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT PasswordHash FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -200,7 +200,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select Email FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT Email FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -216,7 +216,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select Status FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT Status FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             if (reader.Read())
             {
@@ -232,7 +232,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select FirstName FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT FirstName FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             if (reader.Read())
             {
@@ -248,7 +248,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select LastName FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT LastName FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             if (reader.Read())
             {
@@ -264,7 +264,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select AvatarLink FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT AvatarLink FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             if (reader.Read())
             {
@@ -280,7 +280,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select PersonalNotes FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT PersonalNotes FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             if (reader.Read())
             {
@@ -296,7 +296,7 @@ namespace Login
             OpenConnection();
             int id = 0;
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select Id FROM secretary WHERE Email='" + username + "';", connection);
+            MySqlCommand command = new MySqlCommand("SELECT Id FROM secretary WHERE Email='" + username + "';", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -314,7 +314,7 @@ namespace Login
             string line = "";
             DateTime date = new DateTime();
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select JoinDate FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT JoinDate FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -332,7 +332,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select ReasonForLeaving FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT ReasonForLeaving FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -348,7 +348,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select RejoinDesirability FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT RejoinDesirability FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -364,7 +364,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select Observations FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT Observations FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -380,7 +380,7 @@ namespace Login
             string line = "";
             DateTime date = new DateTime();
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select LeaveDate FROM secretary WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT LeaveDate FROM secretary WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -443,7 +443,8 @@ namespace Login
         public void updatePasswordSecretary(int user, string password)
         {
             OpenConnection();
-            MySqlCommand command = new MySqlCommand("UPDATE secretary SET PasswordHash='" + password + "'WHERE Id=" + user + ";", connection);
+            string hashed_password = Hash.hash(password, user, 16);
+            MySqlCommand command = new MySqlCommand("UPDATE secretary SET PasswordHash='" + hashed_password + "'WHERE Id=" + user + ";", connection);
             command.ExecuteNonQuery();
             CloseConnection();
         }
@@ -568,7 +569,7 @@ namespace Login
             OpenConnection();
             int id = 0;
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select Id FROM users WHERE Email='" + username + "';", connection);
+            MySqlCommand command = new MySqlCommand("SELECT Id FROM users WHERE Email='" + username + "';", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -585,7 +586,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select FirstName FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT FirstName FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -601,7 +602,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select LastName FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT LastName FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -617,7 +618,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select DisplayName FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT DisplayName FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -633,7 +634,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select AvatarLink FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT AvatarLink FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -649,7 +650,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select Email FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT Email FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -665,7 +666,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select PasswordHash FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT PasswordHash FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -681,7 +682,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select PhoneNumber FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT PhoneNumber FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -698,7 +699,7 @@ namespace Login
             string line = "";
             DateTime date = new DateTime();
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select JoinDate FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT JoinDate FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -717,7 +718,7 @@ namespace Login
             string line = "";
             DateTime date = new DateTime();
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select LeaveDate FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT LeaveDate FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -735,7 +736,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select AddedBy FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT AddedBy FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -751,7 +752,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select ActiveProject FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT ActiveProject FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -767,7 +768,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select WorkStatus FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT WorkStatus FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -783,7 +784,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select PersonalNotes FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT PersonalNotes FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
 
             while (reader.Read())
@@ -800,7 +801,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select ReasonForLeaving FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT ReasonForLeaving FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -816,7 +817,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select RejoinDesirability FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT RejoinDesirability FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -832,7 +833,7 @@ namespace Login
             OpenConnection();
             string line = "";
             MySqlDataReader reader;
-            MySqlCommand command = new MySqlCommand("Select Observations FROM users WHERE Id=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT Observations FROM users WHERE Id=" + user + ";", connection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -893,7 +894,8 @@ namespace Login
         public void updatePasswordUser(int user, string password)
         {
             OpenConnection();
-            MySqlCommand command = new MySqlCommand("UPDATE users SET PasswordHash='" + password + "'WHERE Id=" + user + ";", connection);
+            string hashed_password = Hash.hash(password, user, 16);
+            MySqlCommand command = new MySqlCommand("UPDATE users SET PasswordHash='" + hashed_password + "'WHERE Id=" + user + ";", connection);
             command.ExecuteNonQuery();
             CloseConnection();
         }
@@ -1042,7 +1044,7 @@ namespace Login
         public bool checkIfProjectLeader (int user)
         {
             OpenConnection();
-            MySqlCommand command = new MySqlCommand("SELECT * from  projects WHERE ProjectLead=" + user + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM  projects WHERE ProjectLead=" + user + ";", connection);
             command.ExecuteNonQuery();
             MySqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
@@ -1130,7 +1132,7 @@ namespace Login
         {
             OpenConnection();
             MySqlCommand command = new MySqlCommand();
-            command.CommandText = "Select * from secretary where Email=@email AND Id<>@id";
+            command.CommandText = "SELECT * FROM secretary WHERE Email=@email AND Id<>@id";
             command.Parameters.AddWithValue("@email", email);
             command.Parameters.AddWithValue("@id", id);
             command.Connection = connection;
@@ -1151,7 +1153,7 @@ namespace Login
         {
             OpenConnection();
             MySqlCommand command = new MySqlCommand();
-            command.CommandText = "Select * from secretary where DisplayName=@displayname AND Id<>@id";
+            command.CommandText = "SELECT * FROM secretary WHERE DisplayName=@displayname AND Id<>@id";
             command.Parameters.AddWithValue("@displayname", displayname);
             command.Parameters.AddWithValue("@id", id);
             command.Connection = connection;
@@ -1172,7 +1174,7 @@ namespace Login
         {
             OpenConnection();
             MySqlCommand command = new MySqlCommand();
-            command.CommandText = "Select * from users where Email=@email AND Id<>@id";
+            command.CommandText = "SELECT * FROM users WHERE Email=@email AND Id<>@id";
             command.Parameters.AddWithValue("@email", email);
             command.Parameters.AddWithValue("@id", id);
             command.Connection = connection;
@@ -1193,7 +1195,7 @@ namespace Login
         {
             OpenConnection();
             MySqlCommand command = new MySqlCommand();
-            command.CommandText = "Select * from users where DisplayName=@displayname AND Id<>@id";
+            command.CommandText = "SELECT * FROM users WHERE DisplayName=@displayname AND Id<>@id";
             command.Parameters.AddWithValue("@displayname", displayname);
             command.Parameters.AddWithValue("@id", id);
             command.Connection = connection;

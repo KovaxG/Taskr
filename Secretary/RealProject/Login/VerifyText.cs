@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using System.Net.Mail;
+using System.Net;
 
 namespace Login
 {
@@ -53,9 +53,21 @@ namespace Login
 
         public bool IsValidPhoneNumber (String input)
         {
-            return Regex.IsMatch(input, @"(?<!\d)\d{10}(?!\d)"); 
+            return Regex.IsMatch(input, @"^[0-9]{10}$"); 
         }
 
+        public bool IsValidUrlImage(string url)
+        {
+            try
+            {
+                new System.Net.WebClient().DownloadData(url);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
     }
 }

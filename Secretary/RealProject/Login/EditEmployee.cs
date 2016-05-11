@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Login
 {
@@ -16,11 +17,21 @@ namespace Login
         VerifyText verify_text = new VerifyText();
         DatabaseHandler db = new DatabaseHandler();
 
+        //Colors
+        Color ButtonTextColor;
+        Color ButtonBackColor;
+        Color FormTextColor;
+        Color FormBackColor;
+        Color TextboxTextColor;
+        Color TextboxBackColor;
+        string theme_file;
+
         // Constructor
         public EditEmployee(int id)
         {
             employee_id = id;
             InitializeComponent();
+            setTheme();
             textBoxId.Text = employee_id.ToString();
             textBoxFirstName.Text = db.getFirstNameUser(employee_id);
             textBoxLastName.Text = db.getLastNameUser(employee_id);
@@ -77,7 +88,7 @@ namespace Login
             if (verify_text.IsInjection(firstname) || !verify_text.HasOnlyLetters(firstname))
             {
                 labelFirstname.Show();
-                labelFirstname.Text = "Please use only letters (a-z A-Z) in the Firstname";
+                labelFirstname.Text = "Please use only letters (a-z A-Z) in the Firstname.";
                 labelFirstname.ForeColor = System.Drawing.Color.Red;
                 ok = false;
             }
@@ -90,7 +101,7 @@ namespace Login
             if (verify_text.IsInjection(lastname) || !verify_text.HasOnlyLetters(lastname))
             {
                 labelLastname.Show();
-                labelLastname.Text = "Please use only letters (a-z A-Z) in the Lastname";
+                labelLastname.Text = "Please use only letters (a-z A-Z) in the Lastname.";
                 labelLastname.ForeColor = System.Drawing.Color.Red;
                 ok = false;
             }
@@ -103,7 +114,7 @@ namespace Login
             if (verify_text.IsInjection(displayname) || !verify_text.HasOnlyLettersNumbersUnderscore(displayname))
             {
                     labelDisplayname.Show();
-                    labelDisplayname.Text = "Please use only letters (a-z A-Z), numbers (0-9) or" + "\n" + " underscore (-) in the DisplayName";
+                    labelDisplayname.Text = "Please use only letters (a-z A-Z), numbers (0-9) or" + "\n" + " underscore (-) in the DisplayName.";
                     labelDisplayname.ForeColor = System.Drawing.Color.Red;
                     ok = false;
             }
@@ -112,7 +123,7 @@ namespace Login
                 if (!db.checkUniqueDisplayNameUser(displayname,employee_id))
                 {
                     labelDisplayname.Show();
-                    labelDisplayname.Text = "This Displayname is already taken, please type another";
+                    labelDisplayname.Text = "This Displayname is already taken, please type another.";
                     labelDisplayname.ForeColor = System.Drawing.Color.Red;
                     ok = false;
                 }
@@ -157,7 +168,7 @@ namespace Login
                 else
                 {
                     labelConfirmPassword.Show();
-                    labelConfirmPassword.Text = "The password must have 8-15 charcters containing at least" + "\n" + " one lowercase, one uppercase and one digit";
+                    labelConfirmPassword.Text = "The password must have 8-15 charcters containing at least" + "\n" + " one lowercase, one uppercase and one digit.";
                     labelConfirmPassword.ForeColor = System.Drawing.Color.Red;
                     ok_pass = false;
                     ok = false;
@@ -166,7 +177,7 @@ namespace Login
             if (!password.Equals(confirmpassword))
             {
                 labelConfirmPassword.Show();
-                labelConfirmPassword.Text = "The 2 passwords don't match";
+                labelConfirmPassword.Text = "The 2 passwords don't match.";
                 labelConfirmPassword.ForeColor = System.Drawing.Color.Red;
                 ok_pass = false;
                 ok = false;
@@ -176,7 +187,7 @@ namespace Login
             if (verify_text.IsInjection(phonenumber) || !verify_text.IsValidPhoneNumber(phonenumber))
             {
                 labelPhonenumber.Show();
-                labelPhonenumber.Text = "The phonenumber must have exactly 10 digits";
+                labelPhonenumber.Text = "The phonenumber must have exactly 10 digits.";
                 labelPhonenumber.ForeColor = System.Drawing.Color.Red;
                 ok = false;
             }
@@ -189,7 +200,7 @@ namespace Login
             if (verify_text.IsInjection(personalnotes))
             {
                 labelNotes.Show();
-                labelNotes.Text = "Please don't use SQL injection characters like ' or \\";
+                labelNotes.Text = "Please don't use SQL injection characters like ' or \\.";
                 labelNotes.ForeColor = System.Drawing.Color.Red;
                 ok = false;
             }
@@ -209,8 +220,7 @@ namespace Login
                 db.updateStatusUser(employee_id, s);
                 if (ok_pass == true)
                 {
-                    string hashed_password = Hash.hash(password, employee_id, 16);
-                    db.updatePasswordUser(employee_id, hashed_password);
+                    db.updatePasswordUser(employee_id, password);
                 }
                 db.updateEmailUser(employee_id, email);
                 db.updatePhoneNumberUser(employee_id, phonenumber);
@@ -241,6 +251,77 @@ namespace Login
             comboBoxStatus.Items.Add("Sick");
             comboBoxStatus.Items.Add("Not Available");
             comboBoxStatus.Text = db.getStatusUser(employee_id);
+        }
+
+        // Set colors
+        private void setColors()
+        {
+            List<string> lines = new List<string>();
+
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", theme_file);
+            StreamReader Colors = new StreamReader(path);
+            while (!Colors.EndOfStream)
+            {
+                lines.Add(Colors.ReadLine());
+            }
+            ButtonTextColor = Color.FromArgb(Convert.ToInt32(lines[0]));
+            ButtonBackColor = Color.FromArgb(Convert.ToInt32(lines[1]));
+            FormTextColor = Color.FromArgb(Convert.ToInt32(lines[2]));
+            FormBackColor = Color.FromArgb(Convert.ToInt32(lines[3]));
+            TextboxTextColor = Color.FromArgb(Convert.ToInt32(lines[8]));
+            TextboxBackColor = Color.FromArgb(Convert.ToInt32(lines[9]));
+            Colors.Close();
+        }
+
+        // Select theme
+        private void setTheme()
+        {
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", "Selected theme.txt");
+            StreamReader r = new StreamReader(path);
+            string text_file = r.ReadLine();
+            r.Close();
+
+            if (text_file == "Gray")
+            {
+                theme_file = "Gray.txt";
+            }
+
+            if (text_file == "Purple")
+            {
+                theme_file = "Purple.txt";
+            }
+            if (text_file == "Taskr")
+            {
+                theme_file = "Taskr.txt";
+            }
+            if (text_file == "Colors")
+            {
+                theme_file = "Colors.txt";
+            }
+
+            setColors();
+            foreach (Control c in this.Controls)
+            {
+                setColorControls(c);
+            }
+        }
+
+        // Set colors in the form
+        private void setColorControls(Control c)
+        {
+
+            if (c is Button)
+            {
+                c.ForeColor = ButtonTextColor;
+                c.BackColor = ButtonBackColor;
+            }
+            if (c is TextBox)
+            {
+                c.ForeColor = TextboxTextColor;
+                c.BackColor = TextboxBackColor;
+            }
+            this.ForeColor = FormTextColor;
+            this.BackColor = FormBackColor;
         }
     }
 }
