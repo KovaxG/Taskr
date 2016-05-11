@@ -260,8 +260,7 @@ namespace Login
                     {
                         db.createSecretary(firstname, lastname, email, displayname, phonenumber, password, date);
                         int id = db.getIdSecretary(email);
-                        string hashed_password = Hash.hash(password, id, 16);
-                        db.updatePasswordSecretary(id, hashed_password);
+                        db.updatePasswordSecretary(id, password);
                         MessageBox.Show("New Secretary created!");
                         textBoxFirstName.Clear();
                         textBoxLastName.Clear();
