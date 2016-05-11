@@ -1434,7 +1434,53 @@ namespace DataBase
 		/// <returns>The requested tasks.</returns>
 		public List<TaskData> GetRequestedTasks () {
 			return GetRequestedTasksForUser (User);
-		}// End of GetRequestedTasksForUser
+        }// End of GetRequestedTasksForUser
+
+        // TESTED 2016.05.07
+		/*
+		 * @param project - the project that is being requested
+		 * @return bool - true if succes, false if failure
+		 */
+		public bool CancelProjectJoinRequest(ProjectData project)
+		{
+			if (project == null) return false;
+
+			try
+			{
+				{ // Check if there is already a request
+					OpenConnection();
+					string query = "SELECT * FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
+					query = query.Replace ("@user_id", User.ID.ToString ());
+					query = query.Replace ("@project_id", project.ID.ToString ());
+
+					MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+					DataSet ds = new DataSet();
+					dataAdapter.Fill(ds, "projectrequests");
+					CloseConnection();
+
+					if (ds.Tables["projectrequests"].Rows.Count == 0) return false;
+				}
+				{ // Drop Join Request
+					OpenConnection();
+					string query = "DELETE FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
+					query = query.Replace ("@user_id", User.ID.ToString ());
+					query = query.Replace ("@project_id", project.ID.ToString ());
+
+					MySqlCommand command = new MySqlCommand(query, connection);
+
+					command.ExecuteNonQuery();
+					command.Dispose();
+					CloseConnection();
+					return true;
+				}
+			}
+			catch (Exception e)
+			{
+				string errorMessage = "Exception in DataBaseHandler -> CancelProjectJoinRequest \n\n" + e.ToString();
+				DisplayMessage(errorMessage);
+				return false;
+			}
+		} // End of ProjectJoinRequests
 
         // 
         /*
