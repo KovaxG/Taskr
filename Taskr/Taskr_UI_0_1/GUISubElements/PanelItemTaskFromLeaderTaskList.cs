@@ -29,32 +29,7 @@ namespace Taskr_UI_0_1.GUISubElements
             this.Controls.Add(this.buttonAssignMember);
             this.Controls.Add(this.labelStatus);
 
-            string taskStatus = d.TaskStatus(taskData);
-            this.labelStatus.Text = taskStatus;
-            switch (taskStatus)
-            {
-                case ("Completed"):
-                    this.BackColor = Color.BurlyWood;
-                    this.buttonAssignMember.Enabled = false;
-                    break;
-                case ("Overdue"):
-                    this.BackColor = Color.DarkRed;
-                    break;
-                case ("Idle"):
-                    this.BackColor = Color.Gainsboro;
-                    break;
-                case ("Tackled"):
-                    this.buttonAssignMember.Enabled = false;
-                    this.BackColor = Color.LawnGreen;
-                    this.labelStatus.Text += " by \n" + d.GetUserWorkingOnTask(taskData).DisplayName;
-                    break;
-                case ("Requested"):
-                    this.BackColor = Color.Chocolate;
-                    break;
-                default://Unhandled value
-                    this.BackColor = Color.Aqua;
-                    break;
-            }
+  
             //
             //edit button
             //
@@ -90,6 +65,36 @@ namespace Taskr_UI_0_1.GUISubElements
             this.labelStatus.Size = new System.Drawing.Size(50, 20);
             this.labelStatus.TabIndex = 4;
 
+
+            string taskStatus = d.TaskStatus(taskData);
+
+            this.labelStatus.Text = taskStatus;
+            switch (taskStatus)
+            {
+                case ("Completed"):
+                    this.BackColor = Color.BurlyWood;
+                    this.buttonAssignMember.Enabled = false;
+                    this.buttonEditTask.Text = "View Details";
+                    //this.labelStatus.Text += " by\n"+ d.getuser(taskData).DisplayName;
+                    break;
+                case ("Overdue"):
+                    this.BackColor = Color.DarkRed;
+                    break;
+                case ("Idle"):
+                    this.BackColor = Color.Gainsboro;
+                    break;
+                case ("Tackled"):
+                    this.buttonAssignMember.Enabled = false;
+                    this.BackColor = Color.LawnGreen;
+                    this.labelStatus.Text += " by \n" + d.GetUserWorkingOnTask(taskData).DisplayName;
+                    break;
+                case ("Requested"):
+                    this.BackColor = Color.Chocolate;
+                    break;
+                default://Unhandled value
+                    this.BackColor = Color.Aqua;
+                    break;
+            }
         }
 
         private void buttonEditTask_Click(object sender, EventArgs e)

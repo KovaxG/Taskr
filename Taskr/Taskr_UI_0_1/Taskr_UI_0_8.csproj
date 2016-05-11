@@ -78,7 +78,6 @@
     <Compile Include="GUISubElements\PanelItemJoinRequestee.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GUISubElements\PanelItemNoAvailableItems.cs" />
     <Compile Include="GUISubElements\PanelItemTaskFromLeader.cs">
       <SubType>Component</SubType>
     </Compile>

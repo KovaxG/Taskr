@@ -44,6 +44,9 @@
             this.labelTaskShortDescription = new System.Windows.Forms.Label();
             this.labelTaskTitle = new System.Windows.Forms.Label();
             this.textBoxTaskTitle = new System.Windows.Forms.TextBox();
+            this.labelCompletionStatus = new System.Windows.Forms.Label();
+            this.textBoxCompletionStatus = new System.Windows.Forms.TextBox();
+            this.checkBoxIsCompleted = new System.Windows.Forms.CheckBox();
             this.panelCreateTask.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTaskImage)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +55,9 @@
             // 
             this.panelCreateTask.AutoScroll = true;
             this.panelCreateTask.BackColor = System.Drawing.Color.Gainsboro;
+            this.panelCreateTask.Controls.Add(this.checkBoxIsCompleted);
+            this.panelCreateTask.Controls.Add(this.textBoxCompletionStatus);
+            this.panelCreateTask.Controls.Add(this.labelCompletionStatus);
             this.panelCreateTask.Controls.Add(this.buttonCancel);
             this.panelCreateTask.Controls.Add(this.dateTimePickerDeadLine);
             this.panelCreateTask.Controls.Add(this.pictureBoxTaskImage);
@@ -76,7 +82,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(482, 583);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(227, 51);
-            this.buttonCancel.TabIndex = 31;
+            this.buttonCancel.TabIndex = 39;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -88,7 +94,7 @@
             this.dateTimePickerDeadLine.CustomFormat = " yyyy-MMM-dd   HH:mm";
             this.dateTimePickerDeadLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePickerDeadLine.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerDeadLine.Location = new System.Drawing.Point(202, 451);
+            this.dateTimePickerDeadLine.Location = new System.Drawing.Point(202, 411);
             this.dateTimePickerDeadLine.Name = "dateTimePickerDeadLine";
             this.dateTimePickerDeadLine.Size = new System.Drawing.Size(270, 22);
             this.dateTimePickerDeadLine.TabIndex = 30;
@@ -128,7 +134,7 @@
             this.buttonUpdateTask.Location = new System.Drawing.Point(193, 583);
             this.buttonUpdateTask.Name = "buttonUpdateTask";
             this.buttonUpdateTask.Size = new System.Drawing.Size(238, 51);
-            this.buttonUpdateTask.TabIndex = 0;
+            this.buttonUpdateTask.TabIndex = 38;
             this.buttonUpdateTask.Text = "Update Task";
             this.buttonUpdateTask.UseVisualStyleBackColor = true;
             this.buttonUpdateTask.Click += new System.EventHandler(this.buttonUpdateTask_Click);
@@ -136,9 +142,10 @@
             // labelDeadLine
             // 
             this.labelDeadLine.AutoSize = true;
-            this.labelDeadLine.Location = new System.Drawing.Point(21, 455);
+            this.labelDeadLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            this.labelDeadLine.Location = new System.Drawing.Point(26, 416);
             this.labelDeadLine.Name = "labelDeadLine";
-            this.labelDeadLine.Size = new System.Drawing.Size(64, 17);
+            this.labelDeadLine.Size = new System.Drawing.Size(85, 24);
             this.labelDeadLine.TabIndex = 21;
             this.labelDeadLine.Text = "Deadline";
             // 
@@ -165,7 +172,7 @@
             // 
             this.labelTaskImage.AutoSize = true;
             this.labelTaskImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.labelTaskImage.Location = new System.Drawing.Point(21, 352);
+            this.labelTaskImage.Location = new System.Drawing.Point(21, 349);
             this.labelTaskImage.Name = "labelTaskImage";
             this.labelTaskImage.Size = new System.Drawing.Size(160, 48);
             this.labelTaskImage.TabIndex = 16;
@@ -177,9 +184,9 @@
             this.labelTaskDetailedDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             this.labelTaskDetailedDescription.Location = new System.Drawing.Point(21, 193);
             this.labelTaskDetailedDescription.Name = "labelTaskDetailedDescription";
-            this.labelTaskDetailedDescription.Size = new System.Drawing.Size(175, 24);
+            this.labelTaskDetailedDescription.Size = new System.Drawing.Size(175, 48);
             this.labelTaskDetailedDescription.TabIndex = 15;
-            this.labelTaskDetailedDescription.Text = "Detailed description";
+            this.labelTaskDetailedDescription.Text = "Detailed description\r\n(Optional)";
             // 
             // labelTaskShortDescription
             // 
@@ -208,6 +215,37 @@
             this.textBoxTaskTitle.Size = new System.Drawing.Size(312, 22);
             this.textBoxTaskTitle.TabIndex = 12;
             this.textBoxTaskTitle.TextChanged += new System.EventHandler(this.TextBoxTaskTitle_TextChanged);
+            // 
+            // labelCompletionStatus
+            // 
+            this.labelCompletionStatus.AutoSize = true;
+            this.labelCompletionStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            this.labelCompletionStatus.Location = new System.Drawing.Point(25, 455);
+            this.labelCompletionStatus.Name = "labelCompletionStatus";
+            this.labelCompletionStatus.Size = new System.Drawing.Size(165, 48);
+            this.labelCompletionStatus.TabIndex = 32;
+            this.labelCompletionStatus.Text = "Completion status\r\n(i.e. a link to result)";
+            // 
+            // textBoxCompletionStatus
+            // 
+            this.textBoxCompletionStatus.Location = new System.Drawing.Point(202, 469);
+            this.textBoxCompletionStatus.Name = "textBoxCompletionStatus";
+            this.textBoxCompletionStatus.Size = new System.Drawing.Size(270, 22);
+            this.textBoxCompletionStatus.TabIndex = 34;
+            this.textBoxCompletionStatus.LostFocus += new System.EventHandler(textBoxCompletedStatus_LostFocus);
+            // 
+            // checkBoxIsCompleted
+            // 
+            this.checkBoxIsCompleted.AutoSize = true;
+            this.checkBoxIsCompleted.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            this.checkBoxIsCompleted.Location = new System.Drawing.Point(27, 521);
+            this.checkBoxIsCompleted.Name = "checkBoxIsCompleted";
+            this.checkBoxIsCompleted.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxIsCompleted.Size = new System.Drawing.Size(414, 28);
+            this.checkBoxIsCompleted.TabIndex = 35;
+            this.checkBoxIsCompleted.Text = "Completed (cannot be undone after updating)\r\n";
+            this.checkBoxIsCompleted.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.checkBoxIsCompleted.UseVisualStyleBackColor = true;
             // 
             // EditTaskDetails
             // 
@@ -242,5 +280,8 @@
         private System.Windows.Forms.Label labelTaskTitle;
         private System.Windows.Forms.TextBox textBoxTaskTitle;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.TextBox textBoxCompletionStatus;
+        private System.Windows.Forms.Label labelCompletionStatus;
+        private System.Windows.Forms.CheckBox checkBoxIsCompleted;
     }
 }

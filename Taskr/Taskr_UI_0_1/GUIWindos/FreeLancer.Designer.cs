@@ -362,15 +362,16 @@
             this.LabelProjectTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             this.LabelProjectTitle.Location = new System.Drawing.Point(21, 18);
             this.LabelProjectTitle.Name = "LabelProjectTitle";
-            this.LabelProjectTitle.Size = new System.Drawing.Size(45, 24);
+            this.LabelProjectTitle.Size = new System.Drawing.Size(175, 48);
             this.LabelProjectTitle.TabIndex = 13;
-            this.LabelProjectTitle.Text = "Title";
+            this.LabelProjectTitle.Text = "Title\r\n(max 50 characters)";
             // 
             // TextBoxProjectTitle
             // 
             this.TextBoxProjectTitle.Location = new System.Drawing.Point(202, 16);
+            this.TextBoxProjectTitle.MaxLength = 50;
             this.TextBoxProjectTitle.Name = "TextBoxProjectTitle";
-            this.TextBoxProjectTitle.Size = new System.Drawing.Size(312, 28);
+            this.TextBoxProjectTitle.Size = new System.Drawing.Size(332, 28);
             this.TextBoxProjectTitle.TabIndex = 12;
             // 
             // ButtonCreateProject

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Taskr_UI_0_1.GUISubElements
         private System.Windows.Forms.Button buttonMoreInfo;
         protected System.Windows.Forms.Label labelStatus;
 
-        protected int zero = 0;
+        protected int zero = 15;
         protected const int textWidth = 580;
 
         protected DatabaseHandler d;
@@ -70,7 +71,7 @@ namespace Taskr_UI_0_1.GUISubElements
             this.pictureTask.Size = new System.Drawing.Size(128, 128);
             this.pictureTask.TabIndex = 0;
             this.pictureTask.TabStop = false;
-            try
+            /*try
             {
                 new Thread(() => pictureTask.Load(this.userData.AvatarURL)).Start(); 
                 zero = 150;
@@ -81,31 +82,44 @@ namespace Taskr_UI_0_1.GUISubElements
                 this.pictureTask.Enabled = false;
                 this.pictureTask.Visible = false;
                 zero = 15;
-            }
-
+            }*/
+            new Thread(() =>
+            {
+                try
+                {
+                    pictureTask.Load(this.userData.AvatarURL);
+                    zero = 150;
+                }
+                catch
+                {
+                    this.pictureTask.Enabled = false;
+                    this.pictureTask.Visible = false;
+                    zero = 15;
+                }
+                finally
+                {
+                    FinalizeZeroValue();
+                }
+            }).Start();
             // 
             // textBoxTitle
             // 
             this.textBoxTitle.Enabled = true;
             this.textBoxTitle.ReadOnly = true;
             this.textBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTitle.Location = new System.Drawing.Point(zero, 14);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Text = this.userData.DisplayName;
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(textWidth - zero, 34);
             this.textBoxTitle.TabIndex = 4;
             // 
             // textBoxDescription
             // 
             this.textBoxDescription.Enabled = true;
             this.textBoxDescription.ReadOnly = true;
-            this.textBoxDescription.Location = new System.Drawing.Point(zero, 55);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Text = this.userData.Notes;
             this.textBoxDescription.ReadOnly = true;
-            this.textBoxDescription.Size = new System.Drawing.Size(textWidth - zero, 87);
             this.textBoxDescription.TabIndex = 5;
 
             //
@@ -131,12 +145,36 @@ namespace Taskr_UI_0_1.GUISubElements
             this.labelStatus.TabIndex = 4;
             this.labelStatus.Text = userData.WorkStatus;
 
+            FinalizeZeroValue();
+
 
             this.ResumeLayout();
             this.PerformLayout();
         }
 
+        private delegate void FinalizeZeroValueReturnCall();
+
+        private  void FinalizeZeroValue()
+        {
+            if (textBoxTitle.InvokeRequired || textBoxDescription.InvokeRequired || textBoxTitle.InvokeRequired)
+            {
+                FinalizeZeroValueReturnCall finalizeZeroValue=new FinalizeZeroValueReturnCall(FinalizeZeroValue);
+                this.Invoke(finalizeZeroValue, new object[] { });
+            }
+            else
+            {
+                this.textBoxTitle.Location = new System.Drawing.Point(zero, 14);
+
+                this.textBoxDescription.Size = new System.Drawing.Size(textWidth - zero, 87);
+                this.textBoxDescription.Location = new System.Drawing.Point(zero, 55);
+
+                this.textBoxTitle.Size = new System.Drawing.Size(textWidth - zero, 34);
+
+
+            }
         
+        }
+
 
         private void buttonMoreInfo_Click(object sender, EventArgs e)
         {

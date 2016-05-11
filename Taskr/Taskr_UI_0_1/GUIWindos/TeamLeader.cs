@@ -138,8 +138,8 @@ namespace Taskr_UI_0_1
             else
             {
                 this.flowLayoutPanelJoinRequests.Controls.Add(panelNoJoinRequests);
-                flowLayoutPanelJoinRequests.Visible = true;
-                flowLayoutPanelJoinRequests.Enabled = true;
+                panelNoJoinRequests.Visible = true;
+                panelNoJoinRequests.Enabled = true;
             }
         }
         private void InitializeProjectDetails()

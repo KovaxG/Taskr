@@ -70,25 +70,13 @@ namespace Taskr_UI_0_1
             this.pictureTask.Size = new System.Drawing.Size(128, 128);
             this.pictureTask.TabIndex = 0;
             this.pictureTask.TabStop = false;
-            /*try
-            {
-                new Thread(()=> this.pictureTask.Load(taskData.ImageURL)).Start();
-                zero = 150;
-            }
-            catch
-            {
-                //this.pictureTask.Image = this.pictureTask.ErrorImage;
-                this.pictureTask.Enabled = false;
-                this.pictureTask.Visible = false;
-                zero = 15;
-            }*/
+
             new Thread(() =>
             {
                 try
                 {
                     this.pictureTask.Load(taskData.ImageURL);
                     zero = 150;
-
                 }
                 catch
                 {
@@ -112,7 +100,6 @@ namespace Taskr_UI_0_1
             
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Text = taskData.Title;
-            this.textBoxTitle.ReadOnly = true;
             this.textBoxTitle.TabIndex = 4;
             // 
             // textBoxDescription
@@ -127,6 +114,8 @@ namespace Taskr_UI_0_1
 
             SetFinalSize();
 
+            this.ResumeLayout();
+            this.PerformLayout();
         }
         delegate void SetFinalSizeCallback();
         private void SetFinalSize()
@@ -144,10 +133,7 @@ namespace Taskr_UI_0_1
 
                 this.textBoxDescription.Location = new System.Drawing.Point(zero, 55);
                 this.textBoxDescription.Size = new System.Drawing.Size(textWidth - zero, 87);
-
-
-                this.ResumeLayout();
-                this.PerformLayout();
+                
             }
 
         }

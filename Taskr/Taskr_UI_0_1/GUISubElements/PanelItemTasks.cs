@@ -68,7 +68,7 @@ namespace Taskr_UI_0_1
             // 
             // textBoxTitle
             // 
-            this.textBoxTitle.Enabled = false;
+            this.textBoxTitle.ReadOnly = true;
             this.textBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTitle.Location = new System.Drawing.Point(149, 14);
             this.textBoxTitle.Name = "textBoxTitle";
@@ -79,7 +79,7 @@ namespace Taskr_UI_0_1
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Enabled = false;
+            this.textBoxDescription.ReadOnly = true;
             this.textBoxDescription.Location = new System.Drawing.Point(150, 55);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";

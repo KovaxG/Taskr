@@ -34,6 +34,31 @@ namespace Taskr_UI_0_1.SubGuiWindows
             this.textBoxTaskLongDescription.Text = taskData.DetailedDescription;
             this.textBoxTaskImageURL.Text = taskData.ImageURL;
             this.dateTimePickerDeadLine.Value = taskData.DeadLine;
+            this.textBoxCompletionStatus.Text = taskData.Status;
+            if (taskData.CompletedBy != DBDefaults.DefaultId)
+            {
+                checkBoxIsCompleted.CheckState = CheckState.Checked;
+                checkBoxIsCompleted.BackColor = Color.IndianRed;
+                checkBoxIsCompleted.Text = "Completed (editing disabled)";
+
+                textBoxTaskTitle.ReadOnly = true;
+                textBoxTaskShortDescription.ReadOnly = true;
+                textBoxTaskLongDescription.ReadOnly = true;
+                textBoxTaskImageURL.ReadOnly = true;
+                dateTimePickerDeadLine.Enabled = false;
+                textBoxCompletionStatus.ReadOnly = true;
+                checkBoxIsCompleted.Enabled = false;
+                buttonUpdateTask.Enabled = false;
+            }
+            else
+            {
+                this.checkBoxIsCompleted.CheckState = CheckState.Unchecked;
+            }
+                
+            if (d.GetUserWorkingOnTask(taskData) == null)
+            {
+                this.checkBoxIsCompleted.Enabled = false;
+            }
             try
             {
                 this.pictureBoxTaskImage.Load(textBoxTaskImageURL.Text);
@@ -92,7 +117,17 @@ namespace Taskr_UI_0_1.SubGuiWindows
                 textBoxTaskImageURL.BackColor = Color.White;
             }
         }
-
+        private void textBoxCompletedStatus_LostFocus(object sender, EventArgs e)
+        {
+            if (!textBoxCompletionStatus.Text.Equals(taskData.Status))
+            {
+                textBoxCompletionStatus.BackColor = Color.Yellow;
+            }
+            else
+            {
+                textBoxCompletionStatus.BackColor = Color.White;
+            }
+        }
         private void dateTimePickerDeadLine_ValueChanged(object sender, EventArgs e)
         {
             if (!dateTimePickerDeadLine.Value.Equals(taskData.DeadLine))
@@ -117,9 +152,12 @@ namespace Taskr_UI_0_1.SubGuiWindows
             }
         }
 
+
         private void buttonUpdateTask_Click(object sender, EventArgs e)
         {
             {
+                UserData worker=d.GetUserWorkingOnTask(taskData);
+
                 if (this.textBoxTaskTitle.Text.Equals(""))
                 {
                     MessageBox.Show("Title field is compulsory!", "Empty Field");
@@ -129,6 +167,12 @@ namespace Taskr_UI_0_1.SubGuiWindows
                 {
                     MessageBox.Show("The short description needs to be at least 20 characters long!",
                         "Description too short");
+                    return;
+                }
+                if (worker != null && this.dateTimePickerDeadLine.Value.CompareTo(taskData.DeadLine) < 0)
+                {
+                    MessageBox.Show("You cannot shorten the deadline of a task, if someone is already working on it",
+                        "Cannot shorten deadline");
                     return;
                 }
                 if (this.dateTimePickerDeadLine.Value.Subtract(DateTime.Now).TotalMinutes < 10)
@@ -151,11 +195,15 @@ namespace Taskr_UI_0_1.SubGuiWindows
                 taskData.ImageURL = this.textBoxTaskImageURL.Text;
                 taskData.DeadLine = this.dateTimePickerDeadLine.Value;
                 taskData.ParentProject = d.GetCurrentProject().ID;
+                if (worker != null)
+                {
+                    taskData.CompletedBy = worker.ID;
+                }
 
                 TaskData backupTaskData = new TaskData(taskData);
                 if (d.UpdateTask(taskData))
                 {
-                    MessageBox.Show("New Task Successfully Modified.", "Success!");
+                    MessageBox.Show(taskData.Title+" successfully Modified.", "Success!");
                     this.Close();
                     teamLeader.InitializeTaskList();
                     this.Dispose();
