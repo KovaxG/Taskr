@@ -198,6 +198,7 @@ namespace Taskr_UI_0_1.SubGuiWindows
                 if (worker != null)
                 {
                     taskData.CompletedBy = worker.ID;
+                    d.RemoveActiveTaskForUser(worker);
                 }
 
                 TaskData backupTaskData = new TaskData(taskData);
