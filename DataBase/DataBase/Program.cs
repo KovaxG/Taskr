@@ -82,12 +82,9 @@ namespace DataBase
 
 
 			ProjectData project = db.GetActiveProjectsList ().Find (p => p.ID == 3);
-			//TaskData task = db.GetTasksForProject (project).First();
-		
-			List<UserData> list = db.GetUsersForProject (project);
-			foreach (UserData user in list)
-				Console.WriteLine (user.DisplayName);
+			TaskData task = db.GetTasksForProject (project).Find (t => t.CompletedBy == DBDefaults.DefaultId);
 
+			Console.WriteLine (db.GetUserWhoCompletedTask (task).DisplayName);
 			//db.ProjectJoinRequest (projectList.Find(p => p.ID == 1));
 			//db.CancelProjectJoinRequest (projectList.Find(p => p.ID == 8));
 

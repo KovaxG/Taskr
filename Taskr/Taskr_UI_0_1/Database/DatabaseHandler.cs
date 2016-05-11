@@ -1192,7 +1192,12 @@ namespace DataBase
 			}
 		} // End of GetRequestedTasks
 
-        // Comment
+        /// <summary>
+		/// TESTED 2016.05.11
+        /// Gets the active task for user.
+        /// </summary>
+        /// <returns>The active task for user.</returns>
+        /// <param name="user">User.</param>
         public TaskData GetActiveTaskForUser(UserData user)
         {
             if (user == null) return null;
@@ -1202,7 +1207,26 @@ namespace DataBase
             ProjectData myProject = GetActiveProjectsList().Find(p => p.ID == user.ActiveProject);
             TaskData task = GetTasksForProject(myProject).Find(t => t.ID == user.ActiveTask);
             return task;
-        }
+		} // End of GetActiveTaskForUser
+
+		/// <summary>
+		/// NOT TESTED
+		/// Gets the user who completed a task.
+		/// </summary>
+		/// <returns>The user who completed task.</returns>
+		/// <param name="task">Task.</param>
+		public UserData GetUserWhoCompletedTask (TaskData task) {
+
+			// throw new Exception("Null parameter!");
+			if (task == null) return null;
+			if (task.IsDefault ()) return null;
+
+			// throw new Exception("Task was not completed!");
+			if (task.CompletedBy == DBDefaults.DefaultId) return null;
+
+			// May return null if user is no longer in database!
+			return GetAllUsers ().Find (u => u.ID == task.CompletedBy);
+		} // End of GetUserWhoCompletedTask
 
     } // End of Partial Class
 
@@ -1425,7 +1449,7 @@ namespace DataBase
 		} // End of LeaveProject
 			
        /// <summary>
-	   /// NOT TESTED
+	   /// TESTED 2016.05.11
        /// Gets the active task.
        /// </summary>
        /// <returns>The active task.</returns>
@@ -1443,11 +1467,12 @@ namespace DataBase
 			return GetRequestedTasksForUser (User);
         }// End of GetRequestedTasksForUser
 
-        // TESTED 2016.05.07
-		/*
-		 * @param project - the project that is being requested
-		 * @return bool - true if succes, false if failure
-		 */
+		/// <summary>
+		/// TESTED 2016.05.07
+		/// Cancel a project joinrequest.
+		/// </summary>
+		/// <returns><c>true</c> if succes; otherwise, <c>false</c>.</returns>
+		/// <param name="project">Project.</param>
 		public bool CancelProjectJoinRequest(ProjectData project)
 		{
 			if (project == null) return false;
@@ -1489,11 +1514,12 @@ namespace DataBase
 			}
 		} // End of ProjectJoinRequests
 
-        // 
-        /*
-		 * @param task - the task that is being requested
-		 * @return bool - true if succes, false if failure
-		 */
+        /// <summary>
+		/// TESTED 2016.05.11
+        /// Cancel a task request.
+        /// </summary>
+        /// <returns><c>true</c> if succes; otherwise, <c>false</c>.</returns>
+        /// <param name="task">Task.</param>
         public bool CancelTaskRequest(TaskData task)
         {
             if (task == null) return false;
