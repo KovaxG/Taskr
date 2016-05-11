@@ -29,6 +29,7 @@ namespace DataBase
 		/// <summary>
 		/// TESTED 2016.05.06 
 		/// This is used to log on with user credentials. (UserName, Password)
+		/// - Uses hash on password!
 		/// </summary>
 		/// <param name="userName">login username</param>
 		/// <param name="password">login password</param>
@@ -73,7 +74,7 @@ namespace DataBase
             		OpenConnection();
             		string query = "SELECT * FROM users WHERE DisplayName = '@user_name' AND PasswordHash = '@password';";
 					query = query.Replace ("@user_name", userName);
-					query = query.Replace ("@password", Hash(password, userID.ToString()));
+					query = query.Replace ("@password", Hash(password, userID));
 						
             		MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
             		DataSet ds = new DataSet();
@@ -100,10 +101,12 @@ namespace DataBase
 				return new UserData();
 			}
         } // End of VerifyLogin
-
-		// TESTED 2016.05.07 
-		/*	@return List<UserData> - returns all users
-		 */
+			
+		/// <summary>
+		/// TESTED 2016.05.07 
+		/// Gets all users.
+		/// </summary>
+		/// <returns>The all users.</returns>
 		public List<UserData> GetAllUsers()
 		{
 			List<UserData> returnList = new List<UserData>();
@@ -137,11 +140,12 @@ namespace DataBase
 				return returnList;
 			}
 		} // End of GetAllUsers
-
-
-		// TESTED 2016.05.06 
-        /*	@return List<ProjectData> - returns all the availiable projects, emptylist if no projects
-		 */
+			
+        /// <summary>
+		/// TESTED 2016.05.06 
+        /// Gets the active projects list.
+        /// </summary>
+        /// <returns>The active projects list.</returns>
         public List<ProjectData> GetActiveProjectsList()
         {
 			List<ProjectData> returnList = new List<ProjectData>();
@@ -176,9 +180,12 @@ namespace DataBase
             }
         } // End of GetActiveProjectsList
 
-		// TESTED 2016.05.06
-		/*	@return List<TaskData> - returns all the availiable projects
-		 */
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// Gets the tasks for project.
+		/// </summary>
+		/// <returns>The tasks for project.</returns>
+		/// <param name="project">Project.</param>
 		public List<TaskData> GetTasksForProject(ProjectData project)
 		{	
 			List<TaskData> returnList = new List<TaskData>();
@@ -215,10 +222,11 @@ namespace DataBase
 			}
 		} // End of GetTasksForProject
 
-		// TESTED 2016.05.06
-        /*
-         * @return List<ProjectData> - returns all the availiable projects
-         */ 
+        /// <summary>
+		/// TESTED 2016.05.06
+        /// Gets the project suggestions list.
+        /// </summary>
+        /// <returns>The project suggestions list.</returns>
         public List<ProjectSuggestionData> GetProjectSuggestionsList()
         {
 			List<ProjectSuggestionData> returnList = new List<ProjectSuggestionData>();
@@ -251,9 +259,12 @@ namespace DataBase
             }
 		}// End of GetProjectSuggestionsList
 
-		// TESTED 2016.05.08
-		/* Returns a list of users that are in a given project.
-		 */
+		/// <summary>
+		/// TESTED 2016.05.08
+		/// Gets the users for project.
+		/// </summary>
+		/// <returns>The users for project.</returns>
+		/// <param name="project">Project.</param>
 		public List<UserData> GetUsersForProject (ProjectData project) {
 			Console.WriteLine ("Pushing function");
 
@@ -267,12 +278,12 @@ namespace DataBase
 			return list;
 		} // End of GetUsersForProject
 
-
-       	// TESTED 2016.05.06
-        /*
-		 * @param newProject - inserts into the database all the properties from newProject
-		 * @return bool - true if succes, false if failure
-		 */
+        /// <summary>
+		/// TESTED 2016.05.06
+        /// Inserts the new project.
+        /// </summary>
+        /// <returns><c>true</c>, if new project was inserted, <c>false</c> otherwise.</returns>
+        /// <param name="newProject">New project.</param>
         public bool InsertNewProject(ProjectData newProject)
         {
 			if (newProject == null) return false;
@@ -319,11 +330,12 @@ namespace DataBase
             }
         } // End of InsertNewProject
 
-		// TESTED 2016.05.07
-        /*
-		 * @param newTask - inserts into the database all the properties from newTask
-		 * @return bool - true if succes, false if failure
-		 */
+        /// <summary>
+		/// TESTED 2016.05.07
+        /// Inserts the new task.
+        /// </summary>
+        /// <returns><c>true</c>, if new task was inserted, <c>false</c> otherwise.</returns>
+        /// <param name="newTask">New task.</param>
         public bool InsertNewTask(TaskData newTask)
         {
 			if (newTask == null) return false;
@@ -365,48 +377,13 @@ namespace DataBase
 				return false;
             }
         } // End of InsertNewTask
-
-        // TESTED 2016.05.06
-        /*
-		 * @param project - the project that is being requested
-		 * @return bool - true if requested, false if not
-		 */
-        public bool HasAlreadyRequestedJoin(ProjectData project)
-        {
-            if (project == null) return false;
-
-            try
-            {
-                 // Check if there is already a request
-                    OpenConnection();
-                    string query = "SELECT * FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
-                    query = query.Replace("@user_id", User.ID.ToString());
-                    query = query.Replace("@project_id", project.ID.ToString());
-
-                    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
-                    DataSet ds = new DataSet();
-                    dataAdapter.Fill(ds, "projectrequests");
-                    CloseConnection();
-
-                if (ds.Tables["projectrequests"].Rows.Count != 0)
-                    return true;
-                else
-                    return false;
-
-            }
-            catch (Exception e)
-            {
-				string errorMessage = "Exception in DataBaseHandler -> HasAlreadyRequestedJoin \n\n" + e.ToString();
-                DisplayMessage(errorMessage);
-                return false;
-            }
-		} // End of HasAlreadyRequestedJoin
-
-        // TESTED 2016.05.06
-        /*
-		 * @param project - the project that is being requested
-		 * @return bool - true if succes, false if failure
-		 */
+		
+        /// <summary>
+		/// TESTED 2016.05.06
+        /// Projects the join request.
+        /// </summary>
+        /// <returns><c>true</c>, if join request was projected, <c>false</c> otherwise.</returns>
+        /// <param name="project">Project.</param>
         public bool ProjectJoinRequest(ProjectData project)
         {
 			if (project == null) return false;
@@ -448,12 +425,12 @@ namespace DataBase
             }
         } // End of ProjectJoinRequests
 
-
-		// TESTED 2016.05.06
-		/*
-		 * @param project - the task that is being requested
-		 * @return bool - true if succes, false if failure
-		 */
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// Tasks the request.
+		/// </summary>
+		/// <returns><c>true</c>, if request was tasked, <c>false</c> otherwise.</returns>
+		/// <param name="task">Task.</param>
 		public bool TaskRequest(TaskData task)
 		{
 			if (task == null) return false;
@@ -495,12 +472,12 @@ namespace DataBase
 			}
 		} // End of ProjectJoinRequests
 
-		//TESTED 2016.05.06
-        /* Can Update only:
-		 * Title, ShortDescription, DetailedDescription, Notes, AvailableFunds
-		 * @param project - update project from table
-		 * @return bool - true if succes, false if failure
-		 */
+        /// <summary>
+		/// TESTED 2016.05.06
+        /// Updates the project.
+        /// </summary>
+        /// <returns><c>true</c>, if project was updated, <c>false</c> otherwise.</returns>
+        /// <param name="project">Project.</param>
         public bool UpdateProject(ProjectData project)
         {
 			if (project == null) return false;
@@ -544,13 +521,13 @@ namespace DataBase
 				return false;
             }
         } // End of UpdateProject
-
-		//TESTED 2016.05.07
-		/* Can Update only:
-		 * 
-		 * @param task - update task from table
-		 * @return bool - true if succes, false if failure
-		 */
+		
+		/// <summary>
+		/// TESTED 2016.05.07
+		/// Updates the task.
+		/// </summary>
+		/// <returns><c>true</c>, if task was updated, <c>false</c> otherwise.</returns>
+		/// <param name="task">Task.</param>
 		public bool UpdateTask(TaskData task)
 		{
 			if (task == null) return false;
@@ -593,13 +570,13 @@ namespace DataBase
 				return false;
 			}
 		} // End of UpdateTask
-			
-		//TESTED 2016.05.06
-        /* Can Update only:
-		 * DisplayName, AvatarLink, Email, PasswordHash, PhoneNumber, WorkStatus, PersonalNotes, ActiveProject, ActiveTask
-		 * @param user - update user from table
-		 * @return bool - true if succes, false if failure
-		 */
+
+        /// <summary>
+		/// TESTED 2016.05.06
+        /// Updates the user.
+        /// </summary>
+        /// <returns><c>true</c>, if user was updated, <c>false</c> otherwise.</returns>
+        /// <param name="user">User.</param>
         private bool UpdateUser(UserData user)
         {
 			if (user == null) return false;
@@ -636,11 +613,12 @@ namespace DataBase
             }
 		} // End of UpdateUser 
 
-        //TESTED 2016.05.09
-        /* Can Update only:
-		 * @param password - the new password of the user
-		 * @return bool - true if succes, false if failure
-		 */
+        /// <summary>
+		/// TESTED 2016.05.09
+        /// Updates the this user password.
+        /// </summary>
+        /// <returns><c>true</c>, if this user password was updated, <c>false</c> otherwise.</returns>
+        /// <param name="newPassword">New password.</param>
         public bool UpdateThisUserPassword(string newPassword)
         {
             if (newPassword == null) return false;
@@ -652,7 +630,7 @@ namespace DataBase
                 string query = "UPDATE users SET Password = @Password WHERE Id = @user_id;";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
-                command.Parameters.AddWithValue("@Password", Hash(password, ""));
+				command.Parameters.AddWithValue("@Password", Hash(password, User.ID));
                 command.Parameters.AddWithValue("@user_id", User.ID);
 
                 command.ExecuteNonQuery();
@@ -668,11 +646,12 @@ namespace DataBase
             }
         } // End of UpdateUser 
 
-        // TESTED 2016.05.06
-        /*
-		 * @param project - get all the users requesting for project
-		 * @return List<UserData> - all the users
-		 */
+        /// <summary>
+		/// TESTED 2016.05.06
+        /// Gets all users requesting for project.
+        /// </summary>
+        /// <returns>The all users requesting for project.</returns>
+        /// <param name="project">Project.</param>
         public List<UserData> GetAllUsersRequestingForProject(ProjectData project)
         {
 			List<UserData> userList = new List<UserData>();
@@ -709,12 +688,12 @@ namespace DataBase
             }
         } // End of GetAllUserRequestingForProject
 
-		// TESTED 2016.05.06
-        /*
-		 * @param user - the user that will be refreshed
-		 * @return bool - succes
-		 * Also! the user data is changed
-		 */
+        /// <summary>
+		/// TESTED 2016.05.06
+        /// Refreshs the user.
+        /// </summary>
+        /// <returns><c>true</c>, if user was refreshed, <c>false</c> otherwise.</returns>
+        /// <param name="user">User.</param>
         public bool RefreshUser(UserData user)
         {
 			if (user == null) return false;
@@ -746,13 +725,13 @@ namespace DataBase
 				return false;
             }
         } // End of RefreshUser
-			
-		// TESTED 2016.05.06
-        /*
-		 * @param project - the project that will be refreshed
-		 * @return bool - succes
-		 * Also! the project data is changed
-		 */
+
+        /// <summary>
+		/// TESTED 2016.05.06
+        /// Refreshs the project.
+        /// </summary>
+        /// <returns><c>true</c>, if project was refreshed, <c>false</c> otherwise.</returns>
+        /// <param name="project">Project.</param>
         public bool RefreshProject(ProjectData project)
         {
 			if (project == null) return false;
@@ -784,11 +763,13 @@ namespace DataBase
 				return false;
             }
         } // End of RefreshProject
-			
-		// TESTED 2016.05.07
-        /*
-         * "Delete" a project. 
-		 */
+
+        /// <summary>
+		/// TESTED 2016.05.07
+        /// Abolishs the project.
+        /// </summary>
+        /// <returns><c>true</c>, if project was abolished, <c>false</c> otherwise.</returns>
+        /// <param name="reason">Reason.</param>
         public bool AbolishProject(string reason)
         {
 			if (reason == null) return false;
@@ -828,11 +809,12 @@ namespace DataBase
 
         } // End of AbolishProject
 
-		// TESTED 2016.05.07
-        /*
-		 * @param projectSuggestion - the one that will be adopted? adoptend? ...
-		 * @return ProjecData - after creating the project and database and whatevs
-		 */
+        /// <summary>
+		/// TESTED 2016.05.07
+        /// Adopts the project suggestion.
+        /// </summary>
+        /// <returns>The project suggestion.</returns>
+        /// <param name="projectSuggestion">Project suggestion.</param>
         public ProjectData AdoptProjectSuggestion(ProjectSuggestionData projectSuggestion)
         {
 			if (projectSuggestion == null) return new ProjectData ();
@@ -869,11 +851,13 @@ namespace DataBase
 				return new ProjectData();
             }
         } // End of AdoptProjectSuggestions 
-
-		// TESTED 2016.05.07
-        /*
-		 * @param task - that task that will be deleted
-		 */
+		
+        /// <summary>
+		/// TESTED 2016.05.07
+        /// Removes the task.
+        /// </summary>
+        /// <returns><c>true</c>, if task was removed, <c>false</c> otherwise.</returns>
+        /// <param name="task">Task.</param>
         public bool RemoveTask(TaskData task)
         {
 			if (task == null) return false;
@@ -899,10 +883,12 @@ namespace DataBase
             }
         } // End of RemoveTask
 
-		// TESTED 2016.05.07
-        /*
-		 * @param pj - that projectSuggestion that will be deleted
-		 */
+        /// <summary>
+		/// TESTED 2016.05.07
+        /// Removes the project suggestion.
+        /// </summary>
+        /// <returns><c>true</c>, if project suggestion was removed, <c>false</c> otherwise.</returns>
+        /// <param name="pj">Pj.</param>
         public bool RemoveProjectSuggestion(ProjectSuggestionData pj)
         {
 			if (pj == null) return false;
@@ -928,11 +914,12 @@ namespace DataBase
             }
 		} // End of RemoveProjectSuggestion
 
-		// TESTED 2016.05.07
-        /* The teamleader can accept the request, so the user requesting can be part of the project.
-		 * @param user - the user that is requesting
-		 * @return bool
-		 */
+        /// <summary>
+		/// TESTED 2016.05.07
+        /// Accepts the user project request.
+        /// </summary>
+        /// <returns><c>true</c>, if user project request was accepted, <c>false</c> otherwise.</returns>
+        /// <param name="user">User.</param>
         public bool AcceptUserProjectRequest(UserData user)
         {
 			if (user == null) return false;
@@ -984,12 +971,13 @@ namespace DataBase
             }
         } // End of AcceptUserProjectRequest 
 
-		// TESTED 2016.05.11
-        /*
-		 * @param task - the task that is to be assigned
-		 * @param uesr - the user, the task that is to be assigned, is assigned to
-		 * @return bool - succes
-		 */
+        /// <summary>
+		/// TESTED 2016.05.11
+        /// Grants the task.
+        /// </summary>
+        /// <returns><c>true</c>, if task was granted, <c>false</c> otherwise.</returns>
+        /// <param name="task">Task.</param>
+        /// <param name="user">User.</param>
         public bool GrantTask(TaskData task, UserData user)
         {
 			if (task == null) return false;
@@ -1050,13 +1038,16 @@ namespace DataBase
             }
         } // End of GrantTask 
 
-		// TESTED 2016.05.07
-        /* @ return "error -> <message>", 
-         *          "freelancer", 
-         *          "teammember", 
-         *          "teamleader";
-         * 
-         */ 
+		/// <summary>
+		/// TESTED 2016.05.07
+		/// Gets the mode for user.
+		///  "error - <message>", 
+		///  "freelancer", 
+		///  "teammember", 
+		///  "teamleader";
+		/// </summary>
+		/// <returns>The mode for user.</returns>
+		/// <param name="user">User.</param>
         public string GetModeForUser(UserData user)
         {
 			
@@ -1074,8 +1065,13 @@ namespace DataBase
 				}
             }
         }// End of GetMode
-
-        // NOT TESTED
+			
+		/// <summary>
+		/// TESTED 2016.05.11
+		/// Kicks the user from project.
+		/// </summary>
+		/// <returns><c>true</c>, if user from project was kicked, <c>false</c> otherwise.</returns>
+		/// <param name="user">User.</param>
         public bool KickUserFromProject(UserData user)
         {
             if (user == null) return false;
@@ -1095,6 +1091,7 @@ namespace DataBase
         } // End of KickUserFromProject
 
 		/// <summary>
+		/// TESTED 2016.05.11
 		/// Gets the user working on the task. Returns null if task is free.
 		/// </summary>
 		/// <returns>The user working on the task.</returns>
@@ -1110,7 +1107,7 @@ namespace DataBase
 		} // GetUserWorkingOnTask
 
         /// <summary>
-		/// NOT TESTED
+		/// TESTED 2016.05.11
 		/// The status of the task:
 		/// 1 - Completed (CompletedBy != 0) 
 		/// 2 - Overdue (Deadline-current time LT 0 && CompletedBy==0)
@@ -1210,7 +1207,7 @@ namespace DataBase
 		} // End of GetActiveTaskForUser
 
 		/// <summary>
-		/// NOT TESTED
+		/// TESTED 2016.05.11
 		/// Gets the user who completed a task.
 		/// </summary>
 		/// <returns>The user who completed task.</returns>
@@ -1335,16 +1332,77 @@ namespace DataBase
         } // End of CloseConnection
 			
 		/// <summary>
-		/// NOT IMPLEMENTED
+		/// TESTED 2016.05.11
 		/// Determines whether this instance hash  password salt. (Auto-Generated :)))
+		/// Implemented from Ramona's code (copy-paste) and replaced some stuff
+		/// Also added some Gyuri magic (deleted curly brackets and stuff)
+		/// Don't try to understand this stuff, it is easier to make a new hash 
+		/// function than to try to fix this, if it breaks.
 		/// </summary>
 		/// <returns><c>true</c> if this instance hash password salt; otherwise, <c>false</c>.</returns>
 		/// <param name="password">Password.</param>
 		/// <param name="salt">Salt.</param>
-		public string Hash (string password, string salt) 
+		public string Hash (string password, int salt) 
 		{
-			return password;
-		}
+			int length = 16; // length of the hash
+
+			if (password == null || salt == 0 || length == 0) return null;
+            
+            String h = password;
+            
+            char[] sa;
+            char[] ha = new char[length];
+
+            if (password.Length < length)
+            {
+                //if the string is longer, it repeats the string until it fills the length specified
+                while (h.Length <= length - password.Length) h = h + password;
+                h = h + password.Substring(0, length % password.Length);
+
+                //create two character arrays: one to return and one to keep the original characters
+                sa = h.ToCharArray();
+            }
+            else
+            {
+                sa = h.Substring(0, length).ToCharArray();
+                int ls = h.Length;//in order not to call the method on every iteration for a potentially very long string
+                for (int i = length, j = 0; i < ls; i++, j++)
+                {
+                    if (j == length) j = i % (password[i] / 9) % length;//predicted character to be ASCII and legible
+                                                                        //avoids hash collision on repeated strings and palindroms
+                    sa[j] = (char)(sa[j] + password[i]);
+                }
+            }
+
+            //create sum and products as property variables
+            int sum = 0, prod = 7;
+			//uses original string
+            for (int i = 0; i < password.Length; i++) {
+				sum = sum + password[i];
+				prod = prod * password[i];
+                if (sum > 256) sum = sum % 256;
+                if (prod > 256) prod = prod % 256;
+                if (prod == 0) prod = 1;
+            }
+            for (int k = 1; k <= 1; k++)
+            {
+                //calculate the hash for the characters
+                for (int i = 0, j = length / 2; i < length; i++, j++)
+                {
+                    if (j == length) j = 0;
+                    ha[i] = (char)( (Math.Abs(((sa[i] * sa[j] * k + salt) * (sum * (j + 1) + prod * (i + 1))))) % 256);
+                    if (ha[i] == 0) ha[i] = (char)231;
+                }
+                //copy array for next iteration
+                for (int t = 0; t < length; t++) sa[t] = ha[t];
+
+                //rotate the array
+                char c = ha[0];
+                for (int i = 0; i < length - 1; i++) ha[i] = ha[i + 1];
+                ha[length - 1] = c;
+            }
+            return new String(ha);
+		} // End of Hash function
     } // End of Partial Class
 
 	// This contains all methods and fields related to the nested user.
@@ -1561,7 +1619,42 @@ namespace DataBase
             }
         } // End of CancelTaskRequest
 
+		/// <summary>
+		/// TESTED 2016.05.06
+		/// Determines whether the User has requested a join to a project.
+		/// </summary>
+		/// <returns><c>true</c> if this instance has already requested join the specified project; otherwise, <c>false</c>.</returns>
+		/// <param name="project">Project.</param>
+		public bool HasAlreadyRequestedJoin(ProjectData project)
+		{
+			if (project == null) return false;
 
+			try
+			{
+				// Check if there is already a request
+				OpenConnection();
+				string query = "SELECT * FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
+				query = query.Replace("@user_id", User.ID.ToString());
+				query = query.Replace("@project_id", project.ID.ToString());
+
+				MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+				DataSet ds = new DataSet();
+				dataAdapter.Fill(ds, "projectrequests");
+				CloseConnection();
+
+				if (ds.Tables["projectrequests"].Rows.Count != 0)
+					return true;
+				else
+					return false;
+
+			}
+			catch (Exception e)
+			{
+				string errorMessage = "Exception in DataBaseHandler -> HasAlreadyRequestedJoin \n\n" + e.ToString();
+				DisplayMessage(errorMessage);
+				return false;
+			}
+		} // End of HasAlreadyRequestedJoin
     } // End of EmbeddedUser stuff
 
 

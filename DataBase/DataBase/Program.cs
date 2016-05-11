@@ -16,12 +16,6 @@ namespace DataBase
 
 		public static void Main (string[] args)
 		{
-			DateTime date1 = new DateTime (1994, 03, 28);
-			DateTime date2 = new DateTime (2016, 05, 10);
-
-			if (date1.Subtract (date2).TotalHours < 0)
-				Console.WriteLine ("YESSSSSSSS" + date1.Subtract (date2).TotalHours);
-
 			MainClass main = new MainClass ();
 			main.run ();
 
@@ -46,7 +40,7 @@ namespace DataBase
 			Console.Write ("UserName: ");
 			string username = "Gyuri";//Console.ReadLine ();
 			Console.Write ("Password: ");
-			string password = "b\u0094\u0094°\u008a.À­z´Ü0ò\u009e`\u0015";//
+			string password = "12345Gyuri";//
 			if(db.Login (username, password)) {
 				Console.WriteLine ("\n\nSuccessful login.");
 				printUserDetails (db.User);
@@ -83,8 +77,11 @@ namespace DataBase
 
 			ProjectData project = db.GetActiveProjectsList ().Find (p => p.ID == 3);
 			TaskData task = db.GetTasksForProject (project).Find (t => t.CompletedBy == DBDefaults.DefaultId);
-
-			Console.WriteLine (db.GetUserWhoCompletedTask (task).DisplayName);
+			if (db.UpdateTask (task)) {
+				Console.WriteLine ("Succes");
+			} else
+				Console.WriteLine ("Failure.");
+			//Console.WriteLine (db.GetUserWhoCompletedTask (task).DisplayName);
 			//db.ProjectJoinRequest (projectList.Find(p => p.ID == 1));
 			//db.CancelProjectJoinRequest (projectList.Find(p => p.ID == 8));
 
