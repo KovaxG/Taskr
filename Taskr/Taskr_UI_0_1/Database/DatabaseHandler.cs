@@ -448,53 +448,6 @@ namespace DataBase
             }
         } // End of ProjectJoinRequests
 
-		// TESTED 2016.05.07
-		/*
-		 * @param project - the project that is being requested
-		 * @return bool - true if succes, false if failure
-		 */
-		public bool CancelProjectJoinRequest(ProjectData project)
-		{
-			if (project == null) return false;
-
-			try
-			{
-				{ // Check if there is already a request
-					OpenConnection();
-					string query = "SELECT * FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
-					query = query.Replace ("@user_id", User.ID.ToString ());
-					query = query.Replace ("@project_id", project.ID.ToString ());
-
-					MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
-					DataSet ds = new DataSet();
-					dataAdapter.Fill(ds, "projectrequests");
-					CloseConnection();
-
-					if (ds.Tables["projectrequests"].Rows.Count == 0) return false;
-				}
-				{ // Drop Join Request
-					OpenConnection();
-					string query = "DELETE FROM projectrequests WHERE user_id = @user_id AND project_id = @project_id;";
-					query = query.Replace ("@user_id", User.ID.ToString ());
-					query = query.Replace ("@project_id", project.ID.ToString ());
-
-					MySqlCommand command = new MySqlCommand(query, connection);
-
-					command.ExecuteNonQuery();
-					command.Dispose();
-					CloseConnection();
-					return true;
-				}
-			}
-			catch (Exception e)
-			{
-				string errorMessage = "Exception in DataBaseHandler -> CancelProjectJoinRequest \n\n" + e.ToString ();
-				DisplayMessage (errorMessage);
-				return false;
-			}
-		} // End of ProjectJoinRequests
-
-
 
 		// TESTED 2016.05.06
 		/*
@@ -1031,7 +984,7 @@ namespace DataBase
             }
         } // End of AcceptUserProjectRequest 
 
-		// TESTED 2016.05.07
+		// TESTED 2016.05.11
         /*
 		 * @param task - the task that is to be assigned
 		 * @param uesr - the user, the task that is to be assigned, is assigned to
@@ -1043,7 +996,7 @@ namespace DataBase
 			if (user == null) return false;
 			if (task.ID == DBDefaults.DefaultId) return false;
 
-			bool hasRequest = false;
+			bool hasRequest = true;
 
             try
             {
@@ -1062,7 +1015,7 @@ namespace DataBase
 					dataAdapter.Fill(ds, "taskrequests");
 					CloseConnection();
 
-					if (ds.Tables["taskrequests"].Rows.Count == 0) hasRequest = true;
+					if (ds.Tables["taskrequests"].Rows.Count == 0) hasRequest = false;
 
 				} // End of check
 
@@ -1180,15 +1133,17 @@ namespace DataBase
 			else {
 				// Has at least 1 user requesting it.
 				foreach (UserData user in GetAllUsers()) {
-					var allRequestedTasks = GetRequestedTasksForUser (user);
-					if (allRequestedTasks.Count == 0) continue;
-					if (allRequestedTasks.Find(t => t.ID == task.ID) != null) return "Requested";
+					List<TaskData> allRequestedTasks = GetRequestedTasksForUser (user);
+				    if (allRequestedTasks.Count >= 1) {
+				        if (allRequestedTasks.Find(t => t.ID == task.ID) != null) return "Requested";
+				    }
 				}
 				return "Idle";
 			}
 		} // End of TaskStatus
 
 		/// <summary>
+		/// TESTED 2016.05.11
 		/// Gets the requested tasks for user.
 		/// </summary>
 		/// <returns>The requested tasks for user.</returns>
@@ -1220,7 +1175,7 @@ namespace DataBase
 				{
 					int task_id = int.Parse(row.ItemArray.GetValue(0).ToString ());
 					TaskData task = GetTasksForProject(GetCurrentProject()).Find (t => t.ID == task_id);
-					list.Add(task);
+				    if (task != null) list.Add(task);
 				}
 
 				return list;
@@ -1479,7 +1434,56 @@ namespace DataBase
 		/// <returns>The requested tasks.</returns>
 		public List<TaskData> GetRequestedTasks () {
 			return GetRequestedTasksForUser (User);
-		}
+		}// End of GetRequestedTasksForUser
+
+        // 
+        /*
+		 * @param task - the task that is being requested
+		 * @return bool - true if succes, false if failure
+		 */
+        public bool CancelTaskRequest(TaskData task)
+        {
+            if (task == null) return false;
+
+            try
+            {
+                { // Check if there is already a request
+                    OpenConnection();
+                    string query = "SELECT * FROM tasksrequests WHERE user_id = @user_id AND task_id = @task_id;";
+                    query = query.Replace("@user_id", User.ID.ToString());
+                    query = query.Replace("@task_id", task.ID.ToString());
+
+                    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
+                    DataSet ds = new DataSet();
+                    dataAdapter.Fill(ds, "tasksrequests");
+                    CloseConnection();
+
+                    if (ds.Tables["tasksrequests"].Rows.Count == 0) return false;
+                }
+                { // Drop Join Request
+                    OpenConnection();
+                    string query = "DELETE FROM tasksrequests WHERE user_id = @user_id AND task_id = @task_id;";
+                    query = query.Replace("@user_id", User.ID.ToString());
+                    query = query.Replace("@task_id", task.ID.ToString());
+
+                    MySqlCommand command = new MySqlCommand(query, connection);
+
+                    command.ExecuteNonQuery();
+                    command.Dispose();
+                    CloseConnection();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                string errorMessage = "Exception in DataBaseHandler -> CancelTaskRequest \n\n" + e.ToString();
+                DisplayMessage(errorMessage);
+                return false;
+            }
+        } // End of CancelTaskRequest
+
 
     } // End of EmbeddedUser stuff
+
+
 }

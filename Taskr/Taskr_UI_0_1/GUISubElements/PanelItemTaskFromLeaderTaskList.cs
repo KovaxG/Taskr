@@ -29,7 +29,7 @@ namespace Taskr_UI_0_1.GUISubElements
             this.Controls.Add(this.buttonAssignMember);
             this.Controls.Add(this.labelStatus);
 
-            switch (taskData.Status/*d.TaskStatus(taskData)*/)
+            switch (/*taskData.Status*/d.TaskStatus(taskData))
             {
                 case ("Completed"):
                     this.BackColor = Color.BurlyWood;
