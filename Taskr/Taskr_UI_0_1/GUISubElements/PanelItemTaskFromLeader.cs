@@ -80,6 +80,7 @@ namespace Taskr_UI_0_1
                 }
                 catch
                 {
+                    EnablePicureTask();
                     this.pictureTask.Enabled = false;
                     this.pictureTask.Visible = false;
                     zero = 15;
@@ -117,7 +118,22 @@ namespace Taskr_UI_0_1
             this.ResumeLayout();
             this.PerformLayout();
         }
-        delegate void SetFinalSizeCallback();
+        private delegate void EnablePictureTaskReturnCall();
+        private void EnablePicureTask()
+        {
+            if (pictureTask.InvokeRequired)
+            {
+                EnablePictureTaskReturnCall enablePictureTask = new EnablePictureTaskReturnCall(EnablePicureTask);
+                this.Invoke(enablePictureTask, new object[] { });
+            }
+            else
+            {
+                this.pictureTask.Enabled = false;
+                this.pictureTask.Visible = false;
+            }
+        }
+
+        private delegate void SetFinalSizeCallback();
         private void SetFinalSize()
         {
             if (this.textBoxTitle.InvokeRequired || this.textBoxDescription.InvokeRequired)

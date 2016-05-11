@@ -25,7 +25,7 @@ namespace Taskr_UI_0_1
             DatabaseHandler d = new DatabaseHandler();
             FreeLancer ua;
             LoginApp la = new LoginApp(d);
-            if (d.Login("Dani", "12345Dani"))
+            if (d.Login("Tavi", "12345Tavi"))
             {
                 ua = new FreeLancer(d);
                 ua.ShowDialog();

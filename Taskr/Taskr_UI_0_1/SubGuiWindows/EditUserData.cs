@@ -33,7 +33,7 @@ namespace Taskr_UI_0_1
             {
                 pictureAvatar.Load(userData.AvatarURL);
             }
-            catch (FileNotFoundException)
+            catch// (FileNotFoundException)
             {
                 pictureAvatar.Image=global::Taskr_UI_0_1.Properties.Resources.X_128;
             }
@@ -65,7 +65,7 @@ namespace Taskr_UI_0_1
             {
                 pictureAvatar.Load(userData.AvatarURL);
             }
-            catch (FileNotFoundException)
+            catch //(FileNotFoundException)
             {
                 pictureAvatar.Image = global::Taskr_UI_0_1.Properties.Resources.X_128;
             }

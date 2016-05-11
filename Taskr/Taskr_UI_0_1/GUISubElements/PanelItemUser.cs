@@ -92,8 +92,7 @@ namespace Taskr_UI_0_1.GUISubElements
                 }
                 catch
                 {
-                    this.pictureTask.Enabled = false;
-                    this.pictureTask.Visible = false;
+                    EnablePicureTask();
                     zero = 15;
                 }
                 finally
@@ -150,6 +149,21 @@ namespace Taskr_UI_0_1.GUISubElements
 
             this.ResumeLayout();
             this.PerformLayout();
+        }
+
+        private delegate void EnablePictureTaskReturnCall();
+        private void EnablePicureTask()
+        {
+            if (pictureTask.InvokeRequired)
+            {
+                EnablePictureTaskReturnCall enablePictureTask = new EnablePictureTaskReturnCall(EnablePicureTask);
+                this.Invoke(enablePictureTask, new object[] { });
+            }
+            else
+            {
+                this.pictureTask.Enabled = false;
+                this.pictureTask.Visible = false;
+            }
         }
 
         private delegate void FinalizeZeroValueReturnCall();
