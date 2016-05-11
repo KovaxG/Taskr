@@ -99,7 +99,7 @@ namespace Taskr_UI_0_1
                 case ("teammember"):
                     this.Close();
                     this.Dispose();
-                    TeamMember.TeamMember td=new TeamMember.TeamMember(d);
+                    TeamMember td=new TeamMember(d);
                     td.ShowDialog();
 
                     break;

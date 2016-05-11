@@ -35,7 +35,7 @@ namespace Taskr_UI_0_1
 
         private void buttonSubmitDropTask_Click(object sender, EventArgs e)
         {
-            if (d.SubmitDropTask(richTextBoxReasonDropTask.Text))
+            if (true)
             {
                 if (d.DropTask())
                 { 

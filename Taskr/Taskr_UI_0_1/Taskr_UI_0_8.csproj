@@ -159,7 +159,9 @@
     <Compile Include="SubGuiWindows\ExtendTask.Designer.cs">
       <DependentUpon>ExtendTask.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUISubElements\PanelItem.cs" />
+    <Compile Include="GUISubElements\PanelItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GUIWindos\TeamMember.cs">
       <SubType>Form</SubType>
     </Compile>
