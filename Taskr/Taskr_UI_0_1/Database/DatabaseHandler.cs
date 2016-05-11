@@ -1002,7 +1002,11 @@ namespace DataBase
             {
 				// Check if task is free
 				UserData tempUser = GetAllUsers ().Find (u => u.ActiveTask == task.ID);
-				if (tempUser != null) return false;
+                if (tempUser != null)
+                {
+                    //MessageBox.Show("Temp User was not null. Task is worked on by: " + tempUser.DisplayName);
+                    return false;
+                }
 
 				{ // Check if the user has requests
 					OpenConnection();
@@ -1105,11 +1109,11 @@ namespace DataBase
 			return GetAllUsers ().Find (u => u.ActiveTask == task.ID);
 		} // GetUserWorkingOnTask
 
-		/// <summary>
+        /// <summary>
 		/// NOT TESTED
 		/// The status of the task:
 		/// 1 - Completed (CompletedBy != 0) 
-		/// 2 - Overdue (Deadline-current time<0 && CompletedBy==0)
+		/// 2 - Overdue (Deadline-current time LT 0 && CompletedBy==0)
 		/// 3 - Tackling (Completed by==0 && (COUNT Users.ActiveTask==Task.ID)==1)
 		/// 4 - Requested (Completed by==0 && (COUNT taskrequests.Task_ID==Task.ID)>0)
 		/// 5 - Idle (Completed by==0 && (COUNT Users.ActiveTask==Task.ID)==0)
@@ -1129,7 +1133,7 @@ namespace DataBase
 			if (task.DeadLine.Subtract(DateTime.Now).TotalHours < 0) return "Overdue";
 
 			// Tackling else Idle or Requested
-			if (GetAllUsers ().Find (u => u.ActiveProject == task.ID) != null) return "Tackling";
+			if (GetAllUsers ().Find (u => u.ActiveTask == task.ID) != null) return "Tackled";
 			else {
 				// Has at least 1 user requesting it.
 				foreach (UserData user in GetAllUsers()) {
@@ -1187,6 +1191,18 @@ namespace DataBase
 				return list;
 			}
 		} // End of GetRequestedTasks
+
+        // Comment
+        public TaskData GetActiveTaskForUser(UserData user)
+        {
+            if (user == null) return null;
+            if (user.ActiveTask == DBDefaults.DefaultId) return null;
+
+            // Get task
+            ProjectData myProject = GetActiveProjectsList().Find(p => p.ID == user.ActiveProject);
+            TaskData task = GetTasksForProject(myProject).Find(t => t.ID == user.ActiveTask);
+            return task;
+        }
 
     } // End of Partial Class
 
@@ -1414,18 +1430,9 @@ namespace DataBase
        /// </summary>
        /// <returns>The active task.</returns>
         public TaskData GetActiveTask()
-        {
-            // Does the user actually have an activeTask?
-            if (User.ActiveTask == DBDefaults.DefaultId) return new TaskData();
-
-            // Does the user have an active project?
-            if (User.ActiveProject == DBDefaults.DefaultId) return new TaskData();
-
-            // Get task
-            ProjectData myProject = GetCurrentProject();
-            TaskData task = GetTasksForProject(myProject).Find(t => t.ID == User.ActiveTask);
-            return task;
-        } // End of GetActiveTask
+       {
+           return GetActiveTaskForUser(User);
+       } // End of GetActiveTask
 
 		/// <summary>
 		/// TESTED 2016.05.10

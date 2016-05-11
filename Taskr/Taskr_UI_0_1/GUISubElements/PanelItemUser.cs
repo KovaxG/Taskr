@@ -16,7 +16,7 @@ namespace Taskr_UI_0_1.GUISubElements
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.PictureBox pictureTask;
         private System.Windows.Forms.Button buttonMoreInfo;
-        private System.Windows.Forms.Label labelStatus;
+        protected System.Windows.Forms.Label labelStatus;
 
         protected int zero = 0;
         protected const int textWidth = 580;
@@ -125,7 +125,7 @@ namespace Taskr_UI_0_1.GUISubElements
             //
             this.labelStatus.AutoSize = true;
             this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStatus.Location = new System.Drawing.Point(textWidth + 25, 110);
+            this.labelStatus.Location = new System.Drawing.Point(textWidth + 15, 100);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(50, 20);
             this.labelStatus.TabIndex = 4;

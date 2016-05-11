@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using DataBase;
 using Taskr_UI_0_1.SubGuiWindows;
 
@@ -33,10 +34,13 @@ namespace Taskr_UI_0_1.GUISubElements
             this.buttonAssignTask.UseVisualStyleBackColor = true;
             this.buttonAssignTask.Click += new System.EventHandler(this.buttonAssignTask_Click);
 
+            
+
             if (userData.ActiveTask != 0)
             {
                 this.buttonAssignTask.Enabled = false;
-                this.BackColor = Color.DarkGreen;
+                this.BackColor = Color.DarkOrange;
+                this.labelStatus.Text += "\nTackling\n \"" +d.GetActiveTaskForUser(userData).Title+"\"";
             }
             else
             {
@@ -46,7 +50,14 @@ namespace Taskr_UI_0_1.GUISubElements
 
         private void buttonAssignTask_Click(object sender, EventArgs e)
         {
-            new AsignTaskWindows(d, teamLeader, projectData, userData).ShowDialog();
+            if (d.GetTasksForProject(projectData).FindAll(t => t.CompletedBy == DBDefaults.DefaultId && d.GetUserWorkingOnTask(t) == null).Any())
+            {
+                new AsignTaskWindows(d, teamLeader, projectData, userData).ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("There are no free tasks to assign","No tasks");
+            }
         }
     }
 }

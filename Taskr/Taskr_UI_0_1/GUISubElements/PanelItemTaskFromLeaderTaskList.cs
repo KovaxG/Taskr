@@ -29,7 +29,9 @@ namespace Taskr_UI_0_1.GUISubElements
             this.Controls.Add(this.buttonAssignMember);
             this.Controls.Add(this.labelStatus);
 
-            switch (/*taskData.Status*/d.TaskStatus(taskData))
+            string taskStatus = d.TaskStatus(taskData);
+            this.labelStatus.Text = taskStatus;
+            switch (taskStatus)
             {
                 case ("Completed"):
                     this.BackColor = Color.BurlyWood;
@@ -41,9 +43,13 @@ namespace Taskr_UI_0_1.GUISubElements
                 case ("Idle"):
                     this.BackColor = Color.Gainsboro;
                     break;
-                case ("Worked on")://"Tackling"
+                case ("Tackled"):
                     this.buttonAssignMember.Enabled = false;
-                    this.BackColor = Color.DarkGreen;
+                    this.BackColor = Color.LawnGreen;
+                    this.labelStatus.Text += " by \n" + d.GetUserWorkingOnTask(taskData).DisplayName;
+                    break;
+                case ("Requested"):
+                    this.BackColor = Color.Chocolate;
                     break;
                 default://Unhandled value
                     this.BackColor = Color.Aqua;
@@ -83,11 +89,6 @@ namespace Taskr_UI_0_1.GUISubElements
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(50, 20);
             this.labelStatus.TabIndex = 4;
-            this.labelStatus.Text = taskData.Status;
-            if (taskData.Status == "Worked on")
-            {
-                this.labelStatus.Text += "\nby "+d.GetUserWorkingOnTask(taskData).DisplayName;
-            }
 
         }
 

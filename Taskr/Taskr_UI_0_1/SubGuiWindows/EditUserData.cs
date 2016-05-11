@@ -52,12 +52,14 @@ namespace Taskr_UI_0_1
         /// <param name="userData">This doesn't allow modification of one's details</param>
         public EditUserData(DatabaseHandler d,UserData userData, TeamLeader teamLeader, ProjectData projectData)
         {
-            this.Text = userData.DisplayName + "Details";
             this.userData = userData;
             this.teamLeader = teamLeader;
             this.projectData = projectData;
 
             InitializeComponent();
+
+            this.Text = userData.DisplayName + "'s Personal Data";
+
             dh = d;
             try
             {
