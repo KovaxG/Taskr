@@ -1236,6 +1236,7 @@ namespace DataBase
 			if (user == null || user.IsDefault ()) return false;
 
 			user.ActiveTask = DBDefaults.DefaultId;
+			UpdateUser (user);
 			return true;
 		} // RemoveActiveTaskForUser
 
