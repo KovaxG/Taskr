@@ -78,7 +78,6 @@ C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.
 C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.pdb
 C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\bin\Debug\Login.exe
 C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\bin\Debug\Login.pdb
-C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\bin\Debug\MySql.Data.dll
 C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.csprojResolveAssemblyReference.cache
 C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.EditEmployee.resources
 C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.EditFormerEmployee.resources

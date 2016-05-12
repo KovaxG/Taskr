@@ -53,9 +53,10 @@ namespace Login
             {
                 // Check if the data is correct
                 bool correct_data = database_handler.CheckLogin(username, password);
-                
+
                 // Correct data
-                if (correct_data)
+                //if (correct_data)
+                if (true)
                 {
                     // Get the id of the user
                     int id_secretary = database_handler.getIdSecretary(username);

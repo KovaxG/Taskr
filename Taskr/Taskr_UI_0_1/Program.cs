@@ -25,20 +25,21 @@ namespace Taskr_UI_0_1
             DatabaseHandler d = new DatabaseHandler();
             FreeLancer ua;
             LoginApp la = new LoginApp(d);
-            if (d.Login("Tavi", "12345Tavi"))
+            /*if (d.Login("Tavi", "12345Tavi"))
             {
                 ua = new FreeLancer(d);
                 ua.ShowDialog();
-            }
-            /*try
+            }*/
+            try
             {
                 if (la.ShowDialog() == DialogResult.OK)
                 {
-                    ua = new FreeLancer(dh);
+                    ua = new FreeLancer(d);
                     ua.ShowDialog();
                 }
             }
-            catch (Exception e) {}*/
+            catch (Exception e) {}
+            
         }
     }
 }

@@ -40,13 +40,13 @@ namespace Taskr_UI_0_1.GUISubElements
 
             if (d.AcceptUserProjectRequest(userData))
             {
-                //MessageBox.Show(userData.DisplayName + " is now part of " + projectData.Title, "Join request accepted");
+                MessageBox.Show(userData.DisplayName + " is now part of " + projectData.Title, "Join request accepted");
                 teamLeader.InitializeTeamMemberList();
                 teamLeader.InitializeJoinRequests();
             }
             else
             {
-                //MessageBox.Show("Could not accept join request", "Request rejected");
+                MessageBox.Show("Could not accept join request", "Request rejected");
             }
         }
     }

@@ -33,7 +33,7 @@ namespace Login
         private void Initialize()
         {
             server = "localhost";
-            database = "database";
+            database = "test";
             uid = "root";
             password = "root";
             string connectionString;

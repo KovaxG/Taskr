@@ -181,11 +181,6 @@ C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.ex
 C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.exe
 C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\bin\Debug\Taskr_UI_0_1.pdb
 C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\bin\Debug\dje\Taskr_UI_0_1.resources.dll
-C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Data.dll
-C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Data.Entity.EF5.dll
-C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Data.Entity.EF6.dll
-C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Fabric.Plugin.dll
-C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\bin\Debug\MySql.Web.dll
 C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_8.csprojResolveAssemblyReference.cache
 C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_8.csproj.Taskr_UI_0_1.exe.config
 C:\C#\Projects\Githubbed Project v5\Taskr\Taskr_UI_0_1\obj\Debug\Taskr_UI_0_1.GUISubElements.PanelItemTasksFromSelector.resources

@@ -56,7 +56,7 @@ namespace Taskr_UI_0_1.GUISubElements
             }
             else
             {
-                //MessageBox.Show("There are no free tasks to assign","No tasks");
+                MessageBox.Show("There are no free tasks to assign","No tasks");
             }
         }
     }

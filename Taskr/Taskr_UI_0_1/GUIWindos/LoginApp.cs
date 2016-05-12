@@ -34,8 +34,8 @@ namespace Taskr_UI_0_1
         {
             if (textUserName.Text.Length > 0)
                 if (textPassword.Text.Length > 0)
-                    if (textPassword.Text.IndexOfAny(new[] {'\'', '\\' , ';','\"'}) != -1 ||
-                        textUserName.Text.IndexOfAny(new[] { '\'', '\\', ';', '\"' }) != -1)
+                    if (textPassword.Text.IndexOfAny(new[] {'\'', '\\' , ';','\"'}) == -1 ||
+                        textUserName.Text.IndexOfAny(new[] { '\'', '\\', ';', '\"' }) == -1)
                         if (d.Login(textUserName.Text, textPassword.Text))
                         {
                             this.DialogResult = DialogResult.OK;
