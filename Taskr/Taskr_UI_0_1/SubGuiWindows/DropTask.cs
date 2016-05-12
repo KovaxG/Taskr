@@ -48,7 +48,7 @@ namespace Taskr_UI_0_1
 
                 rp.DynamicInvoke();
 
-                List<TaskData> ltd = d.GetRequestedTasks();
+                /*List<TaskData> ltd = d.GetRequestedTasks();
                 TaskData td = ltd.FirstOrDefault();
 
                 if (td == null)
@@ -61,7 +61,7 @@ namespace Taskr_UI_0_1
                     sp.DynamicInvoke();
                 }
 
-                aw.DynamicInvoke();
+                aw.DynamicInvoke();*/
 
                 this.Close();
                 this.Dispose();

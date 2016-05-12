@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace Taskr_UI_0_1
         private Delegate sp;
         private Delegate aw;
 
-        public PanelItem(int width, int height, int x, int y, TaskData td, bool ScrollBar ,DatabaseHandler d, Delegate sp, Delegate aw)
+        public PanelItem(int width, int height, int x, int y, TaskData td, bool ScrollBar ,DatabaseHandler d, Delegate sp, Delegate aw, bool ca)
         {
             this.td = td;
             this.d = d;
@@ -58,7 +59,15 @@ namespace Taskr_UI_0_1
 
             this.panel.Size = new System.Drawing.Size(width, height);
             this.panel.Location = new System.Drawing.Point(x, y);
-            this.panel.BackColor = System.Drawing.Color.Azure;
+            if (ca)
+            {
+                this.panel.BackColor = Color.GreenYellow;
+                this.buttonJoinTask.BackColor = Color.AntiqueWhite;
+            }
+            else
+            {
+                this.panel.BackColor = System.Drawing.Color.Azure;
+            }
 
             this.picture.Size = new System.Drawing.Size((int)(width / 4), height);
             this.picture.Location = new System.Drawing.Point(3, 3);
@@ -216,17 +225,15 @@ namespace Taskr_UI_0_1
             {
                 //If no change in deadline
 
-                MessageBox.Show(td.ToQueryString());
-
-                if (!d.TaskRequest(td))
+                if (!d.TaskRequest(td) || d.User.ActiveTask == td.ID)
                 {
-                    MessageBox.Show("Failed to request task!");
+                    MessageBox.Show("Task is already requested or active.");
                 }
                 else
                 {
                     if (DateTime.Parse(this.dateTimePickerDeadline.Text) == td.DeadLine)
                     {
-                        if (d.User.ActiveTask == 0)
+                        /*if (d.User.ActiveTask == 0)
                         {
                             if (d.GrantTask(td, d.User))
                             {
@@ -237,12 +244,22 @@ namespace Taskr_UI_0_1
                             {
                                 MessageBox.Show("Some error has occurred in the DatabaseHandler!");
                             }
+                        }*/
+                        //else
+
+                        if (d.User.ActiveTask == 0)
+                        {
+                            this.panel.BackColor = Color.GreenYellow;
+                            this.buttonJoinTask.BackColor = Color.AntiqueWhite;
+                            MessageBox.Show("Successfully applied for task. Please wait for team leader response.");
                         }
                         else
                         {
-                            MessageBox.Show("Successfully applied for task!!!");
-                            aw.DynamicInvoke();
+                            MessageBox.Show(
+                                "No more than one task can be active in the same time. Task has been added to your task queue");
                         }
+
+                        aw.DynamicInvoke();
                     }
                     //Else negotiate
                     else
@@ -262,11 +279,11 @@ namespace Taskr_UI_0_1
                 {
                     if (d.CancelTaskRequest(td))
                     {
-                        MessageBox.Show("CancelTaskRequest returned true!");
+                        MessageBox.Show("Task successfully removed!");
                     }
                     else
                     {
-                        MessageBox.Show("CancelTaskRequest returned false!");
+                        MessageBox.Show("Task was not removed!");
                     }
                 }
 

@@ -30,32 +30,6 @@ namespace Taskr_UI_0_1
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            /*System.Windows.Forms.DialogResult result = folderBrowserDialogUploadFiles.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                MessageBox.Show("Folder succesfully uploaded!");
-            }
-            else
-            {
-                MessageBox.Show("Something went wrong. Restart and if problem persists contact the developer.");
-            }*/
-
-            TaskData td = d.GetActiveTask();
-            td.Status = this.textBoxLinkUploadFiles.Text;
-
-            if (d.UpdateTask(td))
-            {
-                MessageBox.Show("Submission successfully sent.");
-            }
-            else
-            {
-                MessageBox.Show("Submission was not sent.");
-            }
-            
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -65,45 +39,57 @@ namespace Taskr_UI_0_1
         private void buttonSubmitUploadFiles_Click(object sender, EventArgs e)
         {
             TaskData td = d.GetActiveTask();
-            td.Status = this.textBoxLinkUploadFiles.Text;
 
-            if (d.UpdateTask(td))
+            if (textBoxLinkUploadFiles.Text == "")
             {
-                MessageBox.Show("Submission successfully sent.");
+                MessageBox.Show("Must complete designated section with link to relevant files!");
             }
             else
             {
-                MessageBox.Show("Submission was not sent.");
+                string text = this.textBoxLinkUploadFiles.Text;
+                td.Status = text;
+
+                /*if (d.UpdateTask(td))
+                {
+                    MessageBox.Show("Submission successfully sent.");
+                }
+                else
+                {
+                    MessageBox.Show("Submission was not sent.");
+                }
+
+                if (d.DropTask())
+                {
+                    MessageBox.Show("Task was dropped.");
+                }
+                else
+                {
+                    MessageBox.Show("Task could not be dropped!");
+                }*/
+
+                d.User.ActiveTask = 0;
+                d.DropTask();
+
+                rp.DynamicInvoke();
+
+                List<TaskData> ltd = d.GetRequestedTasks();
+                TaskData tdr = ltd.FirstOrDefault();
+
+                /*if (tdr == null)
+                {
+                    tdr = new TaskData();
+                }
+                if (!tdr.IsDefault())
+                {
+                    d.GrantTask(tdr, d.User);
+                    sp.DynamicInvoke();
+                }*/
+
+                aw.DynamicInvoke();
+
+                this.Close();
+                this.Dispose();
             }
-
-            if (d.DropTask())
-            {
-                MessageBox.Show("Task could not be dropped.");
-            }
-            else
-            {
-                MessageBox.Show("Task was dropped.");
-            }
-
-            rp.DynamicInvoke();
-
-            List<TaskData> ltd = d.GetRequestedTasks();
-            TaskData tdr = ltd.FirstOrDefault();
-
-            if (tdr == null)
-            {
-                tdr = new TaskData();
-            }
-            if (!tdr.IsDefault())
-            {
-                d.GrantTask(tdr, d.User);
-                sp.DynamicInvoke();
-            }
-
-            aw.DynamicInvoke();
-
-            this.Close();
-            this.Dispose();
         }
     }
 }

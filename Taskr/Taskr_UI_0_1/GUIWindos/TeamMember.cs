@@ -75,33 +75,66 @@ namespace Taskr_UI_0_1
 
             //TaskData td = new TaskData();
             List<TaskData> tdl = d.GetTasksForProject(d.GetCurrentProject());
+            List<TaskData> tdr = d.GetRequestedTasks();
 
             if (tdl != null)
             {
                 foreach (TaskData td in tdl)
                 {
-                    PanelItem panelSomething = new PanelItem(flowLayoutPanelActiveTasks.Size.Width, (int)(flowLayoutPanelActiveTasks.Size.Height / 3), 3, 3, td, true, d, sp, aw);
-                    flowLayoutPanelActiveTasks.Controls.Add(panelSomething.GetPanel());
+                    if (tdr.Contains(td))
+                    {
+                        PanelItem panelSomething = new PanelItem(flowLayoutPanelActiveTasks.Size.Width,
+                            (int) (flowLayoutPanelActiveTasks.Size.Height/3), 3, 3, td, true, d, sp, aw, true);
+                        flowLayoutPanelActiveTasks.Controls.Add(panelSomething.GetPanel());
+                    }
+                    else
+                    {
+                        PanelItem panelSomething = new PanelItem(flowLayoutPanelActiveTasks.Size.Width,
+                            (int)(flowLayoutPanelActiveTasks.Size.Height / 3), 3, 3, td, true, d, sp, aw, false);
+                        flowLayoutPanelActiveTasks.Controls.Add(panelSomething.GetPanel());
+                    }
                 }
             }
+
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            UploadFiles uf = new UploadFiles(d, sp, aw, rp);
-            uf.Show();
+            if (d.User.ActiveTask == 0)
+            {
+                MessageBox.Show("You have no task that is currently active!");
+            }
+            else
+            {
+                UploadFiles uf = new UploadFiles(d, sp, aw, rp);
+                uf.Show();
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            ExtendTask et = new ExtendTask(d);
-            et.Show();
+            if (d.User.ActiveTask == 0)
+            {
+                MessageBox.Show("You have no task that is currently active!");
+            }
+            else
+            {
+                ExtendTask et = new ExtendTask(d);
+                et.Show();
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            DropTask dt = new DropTask(d, rp, sp, aw);
-            dt.Show();
+            if (d.User.ActiveTask == 0)
+            {
+                MessageBox.Show("You have no task that is currently active!");
+            }
+            else
+            {
+                DropTask dt = new DropTask(d, rp, sp, aw);
+                dt.Show();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
