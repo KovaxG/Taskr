@@ -34,12 +34,15 @@ namespace Taskr_UI_0_1
         {
             if (textUserName.Text.Length > 0)
                 if (textPassword.Text.Length > 0)
-                    if (d.Login(textUserName.Text, textPassword.Text))
-                    {
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
-                    }
-                    else MessageBox.Show("Invalid Username or Password");
+                    if (textPassword.Text.IndexOfAny(new[] {'\'', '\\' , ';','\"'}) != -1 ||
+                        textUserName.Text.IndexOfAny(new[] { '\'', '\\', ';', '\"' }) != -1)
+                        if (d.Login(textUserName.Text, textPassword.Text))
+                        {
+                            this.DialogResult = DialogResult.OK;
+                            this.Close();
+                        }
+                        else MessageBox.Show("Invalid Username or Password");
+                    else MessageBox.Show("Invalid Characters Detected");
                 else MessageBox.Show("Password Field Empty");
             else MessageBox.Show("Username Field Empty");
                         
