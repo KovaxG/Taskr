@@ -73,3 +73,23 @@ C:\Users\Ramona\Desktop\Secretary\RealProject\Login\obj\Debug\Login.RemoveEmploy
 C:\Users\Ramona\Desktop\Secretary\RealProject\Login\obj\Debug\Login.RemoveSecretary.resources
 C:\Users\Ramona\Desktop\Secretary\RealProject\Login\obj\Debug\Login.Settings.resources
 C:\Users\Ramona\Desktop\Secretary\RealProject\Login\obj\Debug\Login.csproj.GenerateResource.Cache
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\bin\Debug\Login.exe.config
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.exe
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.pdb
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\bin\Debug\Login.exe
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\bin\Debug\Login.pdb
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\bin\Debug\MySql.Data.dll
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.csprojResolveAssemblyReference.cache
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.EditEmployee.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.EditFormerEmployee.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.EditSecretary.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.EditUserDetails.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.EditFormerSecretary.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.Secretary.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.LoginSecretary.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.NewUser.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.Properties.Resources.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.RemoveEmployee.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.RemoveSecretary.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.Settings.resources
+C:\C#\Projects\Githubbed Project v5\Secretary\RealProject\Login\obj\Debug\Login.csproj.GenerateResource.Cache

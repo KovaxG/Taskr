@@ -75,7 +75,7 @@ namespace Taskr_UI_0_1.GUISubElements
                     this.BackColor = Color.BurlyWood;
                     this.buttonAssignMember.Enabled = false;
                     this.buttonEditTask.Text = "View Details";
-                    //this.labelStatus.Text += " by\n"+ d.GetUserWhoCompletedTask(taskData).DisplayName;
+                    this.labelStatus.Text += " by\n"+ d.GetUserWhoCompletedTask(taskData).DisplayName;
                     break;
                 case ("Overdue"):
                     this.BackColor = Color.DarkRed;
@@ -90,6 +90,7 @@ namespace Taskr_UI_0_1.GUISubElements
                     break;
                 case ("Requested"):
                     this.BackColor = Color.Chocolate;
+                    this.labelStatus.Text += " by \n" + d.GetUsersWhoRequestedTask(taskData)[0].DisplayName;
                     break;
                 default://Unhandled value
                     this.BackColor = Color.Aqua;
