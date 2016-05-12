@@ -74,13 +74,27 @@ namespace DataBase
 			}
 			Console.WriteLine ("\n========================================");
 
-
 			ProjectData project = db.GetActiveProjectsList ().Find (p => p.ID == 3);
 			TaskData task = db.GetTasksForProject (project).Find (t => t.CompletedBy == DBDefaults.DefaultId);
-			if (db.UpdateTask (task)) {
-				Console.WriteLine ("Succes");
-			} else
-				Console.WriteLine ("Failure.");
+
+			foreach (var user in db.GetUsersWhoRequestedTask (task)) {
+				Console.WriteLine("User: " + user.DisplayName);
+			}
+
+			for (int i = 1; i < 10; i++) {
+				Console.WriteLine ("Project " + i);
+				project = db.GetActiveProjectsList ().Find (p => p.ID == i);
+				task = db.GetTasksForProject (project).Find (t => t.CompletedBy == DBDefaults.DefaultId);
+				if (task == null)
+					continue;
+				Console.WriteLine ("Task " + task.ID);
+
+				foreach (var user in db.GetUsersWhoRequestedTask (task)) {
+					Console.WriteLine("User: " + user.DisplayName);
+				}
+				Console.WriteLine ("\n\n");
+			}
+
 			//Console.WriteLine (db.GetUserWhoCompletedTask (task).DisplayName);
 			//db.ProjectJoinRequest (projectList.Find(p => p.ID == 1));
 			//db.CancelProjectJoinRequest (projectList.Find(p => p.ID == 8));

@@ -222,6 +222,21 @@ namespace DataBase
 			}
 		} // End of GetTasksForProject
 
+		public List<TaskData> GetTasksForProjects (List<ProjectData> projects) {
+			List<TaskData> list = new List<TaskData> ();
+
+			if (projects == null)
+				return list;
+
+			foreach (var project in projects) { 
+				foreach (TaskData task in GetTasksForProject (project)) {
+					list.Add (task);
+				}
+			}
+
+			return list;
+		}
+
         /// <summary>
 		/// TESTED 2016.05.06
         /// Gets the project suggestions list.
@@ -1175,7 +1190,7 @@ namespace DataBase
 				foreach (DataRow row in ds.Tables["taskrequests"].Rows)
 				{
 					int task_id = int.Parse(row.ItemArray.GetValue(0).ToString ());
-					TaskData task = GetTasksForProject(GetCurrentProject()).Find (t => t.ID == task_id);
+					TaskData task = GetTasksForProjects(GetActiveProjectsList ()).Find (t => t.ID == task_id);
 				    if (task != null) list.Add(task);
 				}
 
@@ -1205,6 +1220,24 @@ namespace DataBase
             TaskData task = GetTasksForProject(myProject).Find(t => t.ID == user.ActiveTask);
             return task;
 		} // End of GetActiveTaskForUser
+
+		/// <summary>
+		/// DOESNT WORK FOR SOME REASON
+		/// Gets the users who requested task.
+		/// </summary>
+		/// <returns>The users who requested task.</returns>
+		/// <param name="task">Task.</param>
+		public List<UserData> GetUsersWhoRequestedTask (TaskData task) {
+
+			List<UserData> list = new List<UserData> ();
+
+			if (task == null || task.IsDefault ()) {
+				return list; 
+			}
+
+			list = GetAllUsers ().FindAll (u => GetRequestedTasksForUser(u).Find(t => t.ID == task.ID) != null);
+			return list;
+		}
 
 		/// <summary>
 		/// TESTED 2016.05.11
