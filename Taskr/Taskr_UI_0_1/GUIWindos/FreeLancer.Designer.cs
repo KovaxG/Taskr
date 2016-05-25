@@ -139,14 +139,12 @@
             this.tabControlProjects.Controls.Add(this.tabActiveProjects);
             this.tabControlProjects.Controls.Add(this.tabPageProjectSuggestions);
             this.tabControlProjects.Controls.Add(this.tabCreateNewProject);
-            this.tabControlProjects.Enabled = false;
             this.tabControlProjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlProjects.Location = new System.Drawing.Point(228, 36);
             this.tabControlProjects.Name = "tabControlProjects";
             this.tabControlProjects.SelectedIndex = 0;
             this.tabControlProjects.Size = new System.Drawing.Size(760, 606);
             this.tabControlProjects.TabIndex = 5;
-            this.tabControlProjects.Visible = false;
             // 
             // tabActiveProjects
             // 
@@ -413,7 +411,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FreeLancer";
-            this.Text = "FreeLancer";
+            this.Text = "taskr";
             ((System.ComponentModel.ISupportInitialize)(this.pictureAvatar)).EndInit();
             this.panelSide.ResumeLayout(false);
             this.panelSide.PerformLayout();

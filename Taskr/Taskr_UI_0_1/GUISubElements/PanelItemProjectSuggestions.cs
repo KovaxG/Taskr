@@ -19,9 +19,18 @@ namespace Taskr_UI_0_1
         private DatabaseHandler d;
 
         private ProjectSuggestionData psd;
-        private FreeLancer us;
-        
 
+        // this is necessary to do interface calls from instantiator object, such as
+        // refreshing the interface in the main GUI
+        private FreeLancer us;
+
+        /// <summary>
+        /// Item that will be used to populate flowLayoutPanels. They should be 
+        /// put into a List or other collection
+        /// </summary>
+        /// <param name="psd">The project that the item will represent</param>
+        /// <param name="d">The databasehandler wich contains the projects and the data of the user</param>
+        /// <param name="us">The window from which it is instantiated. Necessary to call refresh from said window</param>
         public PanelItemProjectSuggestions(ProjectSuggestionData psd,DatabaseHandler d, FreeLancer us)
         {
             this.us = us;
@@ -114,6 +123,9 @@ namespace Taskr_UI_0_1
             this.PerformLayout();
         }
 
+        /// <summary>
+        /// attempts to adopt the project
+        /// </summary>
         private void buttonAdoptProject_Click(object sender, EventArgs e)
         {
             var err = d.AdoptProjectSuggestion(psd);
@@ -122,17 +134,12 @@ namespace Taskr_UI_0_1
                 MessageBox.Show("Project Successfully Adopted");
                 us.reInitializeContents();
             }
-            /*switch (err)
+            else
             {
-                case 0:
-                    MessageBox.Show("Project Successfully Adopted");
-                    us.reInitializeContents();
-                    break;
-                default:
-                    MessageBox.Show("Please try restarting the application. \nIf the error persists, please contact the support team",
+                 MessageBox.Show("Please try restarting the application. \nIf the error persists, please contact the support team",
                         "Unlabeled error " + err);
-                    break;
-            }*/
+                   
+            }
         }
         override public string ToString()
         {

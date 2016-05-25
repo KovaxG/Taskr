@@ -23,8 +23,17 @@ namespace Taskr_UI_0_1
 
         private bool HasAlreadyRequestedJoin;
 
+        // this is necessary to do interface calls from instantiator object, such as
+        // refreshing the interface in the main GUI
         Taskr_UI_0_1.FreeLancer us;
 
+        /// <summary>
+        /// Item that will be used to populate flowLayoutPanels. They should be 
+        /// put into a List or other collection
+        /// </summary>
+        /// <param name="pd">The project that the item will represent</param>
+        /// <param name="d">The databasehandler wich contains the projects and the data of the user</param>
+        /// <param name="us">The window from which it is instantiated. Necessary to call refresh from said window</param>
         public PanelItemActiveProjects( ProjectData pd, DatabaseHandler d,FreeLancer us)
         {
             this.us = us;   
@@ -175,6 +184,10 @@ namespace Taskr_UI_0_1
             }
 
         }
+
+        /// <summary>
+        /// Attempts to join the project
+        /// </summary>
         private void buttonJoinProjects_Click(object sender, EventArgs e)
         {
             int err = (d.ProjectJoinRequest(pd)?0:1);
