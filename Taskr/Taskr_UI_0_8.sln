@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskr_UI_0_8", "Taskr_UI_0_1\Taskr_UI_0_8.csproj", "{1C1C3B89-DCA1-4266-A055-E80A7893327F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskr_1_0", "Taskr_UI_0_1\Taskr_1_0.csproj", "{1C1C3B89-DCA1-4266-A055-E80A7893327F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

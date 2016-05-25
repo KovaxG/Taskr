@@ -20,16 +20,20 @@ namespace Taskr_UI_0_1
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //Application.Run(new LoginApp());
-
+            //initializes the databasehandler and establishes connection to the database
             DatabaseHandler d = new DatabaseHandler();
+
+            //checks for valid connection
+            if (!d.Test())
+            {
+                MessageBox.Show("Could not connect to database!");
+                return;
+            }
+
+            //check username and password
             FreeLancer ua;
             LoginApp la = new LoginApp(d);
-            /*if (d.Login("Tavi", "12345Tavi"))
-            {
-                ua = new FreeLancer(d);
-                ua.ShowDialog();
-            }*/
+
             try
             {
                 if (la.ShowDialog() == DialogResult.OK)
@@ -38,7 +42,10 @@ namespace Taskr_UI_0_1
                     ua.ShowDialog();
                 }
             }
-            catch (Exception e) {}
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error occured during launch");
+            }
             
         }
     }

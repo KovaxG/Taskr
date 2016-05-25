@@ -11,30 +11,33 @@ using DataBase;
 
 namespace Taskr_UI_0_1
 {
+    /// <summary>
+    /// Log in interface and logic
+    /// </summary>
     public partial class LoginApp : Form
     {
+        /// <summary>
+        /// The currently logged in user data will be kept inside d.
+        /// </summary>
         DatabaseHandler d;
 
-        //FreeLancer u;
         public LoginApp(DatabaseHandler d)
         {
             this.d = d;
             InitializeComponent();
             this.textUserName.Focus();
             d = new DatabaseHandler();
-            if (!d.Test())
-            {
-                MessageBox.Show("Could not connect to database!");
-                this.Close();
-                this.Dispose();
-            }
+            
         }
 
+        /// <summary>
+        /// Verifies textfields for emptiness and illegal characters
+        /// </summary>
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             if (textUserName.Text.Length > 0)
                 if (textPassword.Text.Length > 0)
-                    if (textPassword.Text.IndexOfAny(new[] {'\'', '\\' , ';','\"'}) == -1 ||
+                    if (textPassword.Text.IndexOfAny(new[] {'\'', '\\' , ';','\"'}) == -1 &&
                         textUserName.Text.IndexOfAny(new[] { '\'', '\\', ';', '\"' }) == -1)
                         if (d.Login(textUserName.Text, textPassword.Text))
                         {
@@ -49,18 +52,24 @@ namespace Taskr_UI_0_1
 
         }
 
+        /// <summary>
+        /// catches control keys caught outside of input fields
+        /// </summary>
         private void LoginApp_KeyPress(object sender, KeyPressEventArgs e)
         {
             switch (e.KeyChar)
             {
+                //enter
                 case (char)13:
                     buttonLogin_Click(sender, e);
                     break;
-
+                
+                //tab
                 case (char)9:
                    this.textUserName.Focus();
                    this.textUserName.SelectAll();
                     break;
+
                 default:
                     this.textUserName.Focus();
                     this.textPassword.SelectAll();
@@ -68,6 +77,9 @@ namespace Taskr_UI_0_1
             }
         }
 
+        /// <summary>
+        /// Switches to password field when tab or enter is pressed within username field
+        /// </summary>
         private void textUserName_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13 || e.KeyChar == 9)
@@ -76,6 +88,28 @@ namespace Taskr_UI_0_1
                 this.textPassword.SelectAll();
             }
         }
+
+        /// <summary>
+        /// Forces log in event on enter key from password field
+        /// </summary>
+        private void textPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case (char)13:
+                    buttonLogin_Click(sender, e);
+                    break;
+
+                case (char)9:
+                    this.buttonLogin.Focus();
+                    break;
+
+            }
+        }
+
+        /// <summary>
+        /// Terminates application on escape key
+        /// </summary>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
 
@@ -86,6 +120,8 @@ namespace Taskr_UI_0_1
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        //Following three functions select introduced data on reselction of the respective fields
 
         private void textUserName_MouseClick(object sender, MouseEventArgs e)
         {
@@ -102,19 +138,5 @@ namespace Taskr_UI_0_1
             this.textPassword.SelectAll();
         }
 
-        private void textPassword_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            switch (e.KeyChar)
-            {
-                case (char) 13:
-                    buttonLogin_Click(sender, e);
-                    break;
-
-                case (char) 9:
-                    this.buttonLogin.Focus();
-                    break;
-
-            }
-        }
     }
 }
