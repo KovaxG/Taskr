@@ -204,6 +204,9 @@ namespace Taskr_UI_0_1
             }
         }
 
+        /// <summary>
+        /// Attempts to rescind the join request. Could fail if teamleader already accepted it
+        /// </summary>
         private void buttonCancelJoinProject_Click(object sender, EventArgs e)
         {
             if (d.CancelProjectJoinRequest(pd))
