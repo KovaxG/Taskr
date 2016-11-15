@@ -6,7 +6,7 @@ Cum se foloseste git:
 Descarcati, si instalati git de pe acest link:
 https://git-scm.com/downloads
 
-dupa aia puteti sa faceti un fisier nou, cu ce nume vreti si sa itrati in el, click dreapta, git bash:
+dupa aia puteti sa faceti un fisier nou, cu ce nume vreti si sa intrati in el, click dreapta, git bash:
 
 
 git init
@@ -26,4 +26,4 @@ git push http://github.com/KovaxG/Taskr.git master
 
 that's all folks
 
-**Sau puteti sa folositi Git GUI, din acelash program, la push la destination trebuie sa puneti http://github.com/KovaxG/Taskr.git , in rest cred ca este destul de clar (Robert)
+**Sau puteti sa folositi Git GUI, din acelasi program, la push la destination trebuie sa puneti http://github.com/KovaxG/Taskr.git , in rest cred ca este destul de clar (Robert)
